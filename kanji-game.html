@@ -1,0 +1,1176 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>일본어 한자 학습 게임</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Noto Sans KR', -apple-system, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+            color: #333;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .header {
+            text-align: center;
+            color: white;
+            margin-bottom: 30px;
+        }
+
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+
+        .stats {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-bottom: 30px;
+        }
+
+        .stat-card {
+            background: white;
+            padding: 15px 25px;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        .stat-card .label {
+            font-size: 0.9em;
+            color: #666;
+            margin-bottom: 5px;
+        }
+
+        .stat-card .value {
+            font-size: 1.8em;
+            font-weight: bold;
+            color: #667eea;
+        }
+
+        .mode-selection {
+            background: white;
+            border-radius: 16px;
+            padding: 30px;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+            margin-bottom: 20px;
+        }
+
+        .mode-selection h2 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #667eea;
+        }
+
+        .mode-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+        }
+
+        .mode-btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 20px;
+            border-radius: 12px;
+            font-size: 1.1em;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+
+        .mode-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(0,0,0,0.3);
+        }
+
+        .mode-btn .mode-icon {
+            font-size: 2em;
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        .game-area {
+            background: white;
+            border-radius: 16px;
+            padding: 40px;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+            min-height: 500px;
+            display: none;
+        }
+
+        .game-area.active {
+            display: block;
+        }
+
+        .back-btn {
+            background: #6c757d;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            margin-bottom: 20px;
+            font-size: 1em;
+        }
+
+        .back-btn:hover {
+            background: #5a6268;
+        }
+
+        /* Flashcard Mode */
+        .flashcard-container {
+            perspective: 1000px;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .flashcard {
+            width: 100%;
+            height: 400px;
+            position: relative;
+            transition: transform 0.6s;
+            transform-style: preserve-3d;
+            cursor: pointer;
+        }
+
+        .flashcard.flip {
+            transform: rotateY(180deg);
+        }
+
+        .card-face {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            border-radius: 16px;
+            padding: 40px;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+        }
+
+        .card-front {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        .card-back {
+            background: white;
+            border: 3px solid #667eea;
+            transform: rotateY(180deg);
+        }
+
+        .kanji-word {
+            font-size: 5em;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+
+        .reading {
+            font-size: 2em;
+            margin-bottom: 10px;
+        }
+
+        .romaji {
+            font-size: 1.5em;
+            opacity: 0.9;
+        }
+
+        .card-back .meaning {
+            font-size: 2.5em;
+            font-weight: bold;
+            color: #667eea;
+            margin-bottom: 20px;
+        }
+
+        .hanja-info {
+            font-size: 1.3em;
+            color: #666;
+            margin: 10px 0;
+        }
+
+        .example {
+            margin-top: 20px;
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 8px;
+            font-size: 1.1em;
+        }
+
+        .audio-btn {
+            background: #28a745;
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 8px;
+            font-size: 1.2em;
+            cursor: pointer;
+            margin: 20px 10px;
+        }
+
+        .audio-btn:hover {
+            background: #218838;
+        }
+
+        .control-btns {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 30px;
+        }
+
+        .control-btn {
+            padding: 15px 40px;
+            font-size: 1.2em;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .know-btn {
+            background: #28a745;
+            color: white;
+        }
+
+        .know-btn:hover {
+            background: #218838;
+        }
+
+        .dont-know-btn {
+            background: #dc3545;
+            color: white;
+        }
+
+        .dont-know-btn:hover {
+            background: #c82333;
+        }
+
+        /* Multiple Choice Mode */
+        .question-container {
+            text-align: center;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .question-word {
+            font-size: 4em;
+            font-weight: bold;
+            color: #667eea;
+            margin: 30px 0;
+        }
+
+        .question-reading {
+            font-size: 1.8em;
+            color: #666;
+            margin-bottom: 40px;
+        }
+
+        .choices {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-top: 30px;
+        }
+
+        .choice-btn {
+            padding: 25px;
+            font-size: 1.3em;
+            border: 3px solid #667eea;
+            background: white;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .choice-btn:hover {
+            background: #667eea;
+            color: white;
+        }
+
+        .choice-btn.correct {
+            background: #28a745;
+            border-color: #28a745;
+            color: white;
+        }
+
+        .choice-btn.wrong {
+            background: #dc3545;
+            border-color: #dc3545;
+            color: white;
+        }
+
+        .choice-btn:disabled {
+            cursor: not-allowed;
+        }
+
+        /* Listening Mode */
+        .listening-container {
+            text-align: center;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .play-audio-btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 30px 50px;
+            border-radius: 50%;
+            font-size: 3em;
+            cursor: pointer;
+            margin: 40px 0;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+        }
+
+        .play-audio-btn:hover {
+            transform: scale(1.05);
+        }
+
+        /* Typing Mode */
+        .typing-container {
+            text-align: center;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .typing-word {
+            font-size: 5em;
+            font-weight: bold;
+            color: #667eea;
+            margin: 30px 0;
+        }
+
+        .typing-hint {
+            font-size: 1.5em;
+            color: #666;
+            margin-bottom: 30px;
+        }
+
+        .typing-input {
+            width: 100%;
+            padding: 20px;
+            font-size: 2em;
+            border: 3px solid #667eea;
+            border-radius: 12px;
+            text-align: center;
+            outline: none;
+        }
+
+        .typing-input:focus {
+            border-color: #764ba2;
+            box-shadow: 0 0 10px rgba(102, 126, 234, 0.3);
+        }
+
+        .submit-btn {
+            background: #667eea;
+            color: white;
+            border: none;
+            padding: 15px 50px;
+            border-radius: 8px;
+            font-size: 1.3em;
+            cursor: pointer;
+            margin-top: 20px;
+        }
+
+        .submit-btn:hover {
+            background: #764ba2;
+        }
+
+        /* Matching Mode */
+        .matching-container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .matching-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin-top: 30px;
+        }
+
+        .matching-column h3 {
+            text-align: center;
+            color: #667eea;
+            margin-bottom: 20px;
+        }
+
+        .matching-item {
+            padding: 20px;
+            background: white;
+            border: 3px solid #ddd;
+            border-radius: 12px;
+            cursor: pointer;
+            text-align: center;
+            font-size: 1.5em;
+            margin-bottom: 15px;
+            transition: all 0.3s;
+        }
+
+        .matching-item:hover {
+            border-color: #667eea;
+            transform: translateX(5px);
+        }
+
+        .matching-item.selected {
+            background: #667eea;
+            color: white;
+            border-color: #667eea;
+        }
+
+        .matching-item.matched {
+            background: #28a745;
+            color: white;
+            border-color: #28a745;
+            cursor: default;
+        }
+
+        /* Speed Quiz Mode */
+        .speed-container {
+            text-align: center;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .timer {
+            font-size: 2.5em;
+            font-weight: bold;
+            color: #dc3545;
+            margin: 20px 0;
+        }
+
+        .score {
+            font-size: 2em;
+            color: #28a745;
+            margin-bottom: 30px;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 10px;
+            background: #e9ecef;
+            border-radius: 5px;
+            overflow: hidden;
+            margin: 20px 0;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #28a745, #20c997);
+            transition: width 0.3s;
+        }
+
+        .keyboard-hint {
+            margin-top: 20px;
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 8px;
+            font-size: 1.1em;
+            color: #666;
+        }
+
+        .result-screen {
+            text-align: center;
+            padding: 40px;
+        }
+
+        .result-screen h2 {
+            font-size: 3em;
+            color: #667eea;
+            margin-bottom: 30px;
+        }
+
+        .result-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin: 30px 0;
+        }
+
+        .result-stat {
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 12px;
+        }
+
+        .result-stat .label {
+            font-size: 1.1em;
+            color: #666;
+            margin-bottom: 10px;
+        }
+
+        .result-stat .value {
+            font-size: 2.5em;
+            font-weight: bold;
+            color: #667eea;
+        }
+
+        @media (max-width: 768px) {
+            .kanji-word {
+                font-size: 3em;
+            }
+
+            .question-word {
+                font-size: 2.5em;
+            }
+
+            .choices {
+                grid-template-columns: 1fr;
+            }
+
+            .matching-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🎌 일본어 한자 학습 게임</h1>
+            <p>JLPT N5-N1 · 100단어 (확장 가능)</p>
+        </div>
+
+        <div class="stats">
+            <div class="stat-card">
+                <div class="label">학습한 단어</div>
+                <div class="value" id="learned-count">0</div>
+            </div>
+            <div class="stat-card">
+                <div class="label">정답률</div>
+                <div class="value" id="accuracy">0%</div>
+            </div>
+            <div class="stat-card">
+                <div class="label">연속 정답</div>
+                <div class="value" id="streak">0</div>
+            </div>
+        </div>
+
+        <div class="mode-selection" id="mode-selection">
+            <h2>게임 모드 선택</h2>
+            <div class="mode-grid">
+                <button class="mode-btn" onclick="startMode('flashcard')">
+                    <span class="mode-icon">📇</span>
+                    플래시카드
+                </button>
+                <button class="mode-btn" onclick="startMode('multiple-choice')">
+                    <span class="mode-icon">✅</span>
+                    객관식 퀴즈
+                </button>
+                <button class="mode-btn" onclick="startMode('listening')">
+                    <span class="mode-icon">🎧</span>
+                    듣기 연습
+                </button>
+                <button class="mode-btn" onclick="startMode('typing')">
+                    <span class="mode-icon">⌨️</span>
+                    타이핑 연습
+                </button>
+                <button class="mode-btn" onclick="startMode('matching')">
+                    <span class="mode-icon">🔗</span>
+                    매칭 게임
+                </button>
+                <button class="mode-btn" onclick="startMode('speed')">
+                    <span class="mode-icon">⚡</span>
+                    스피드 퀴즈
+                </button>
+            </div>
+        </div>
+
+        <div class="game-area" id="game-area">
+            <!-- Game content will be dynamically loaded here -->
+        </div>
+    </div>
+
+    <script>
+        // Global variables
+        let vocabulary = [];
+        let currentMode = '';
+        let currentWordIndex = 0;
+        let stats = {
+            learned: new Set(),
+            correct: 0,
+            total: 0,
+            streak: 0
+        };
+
+        // Load vocabulary data
+        async function loadVocabulary() {
+            try {
+                const response = await fetch('kanji-vocabulary-1500.json');
+                const data = await response.json();
+                vocabulary = data.words;
+                shuffleArray(vocabulary);
+            } catch (error) {
+                console.error('Failed to load vocabulary:', error);
+                alert('단어 데이터를 불러오는데 실패했습니다.');
+            }
+        }
+
+        // Utility functions
+        function shuffleArray(array) {
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]];
+            }
+        }
+
+        function speak(text, lang = 'ja-JP') {
+            if ('speechSynthesis' in window) {
+                const utterance = new SpeechSynthesisUtterance(text);
+                utterance.lang = lang;
+                utterance.rate = 0.8;
+                speechSynthesis.speak(utterance);
+            }
+        }
+
+        function updateStats() {
+            document.getElementById('learned-count').textContent = stats.learned.size;
+            const accuracy = stats.total > 0 ? Math.round((stats.correct / stats.total) * 100) : 0;
+            document.getElementById('accuracy').textContent = accuracy + '%';
+            document.getElementById('streak').textContent = stats.streak;
+        }
+
+        function showModeSelection() {
+            document.getElementById('mode-selection').style.display = 'block';
+            document.getElementById('game-area').classList.remove('active');
+        }
+
+        function hideModeSelection() {
+            document.getElementById('mode-selection').style.display = 'none';
+            document.getElementById('game-area').classList.add('active');
+        }
+
+        // Start specific game mode
+        function startMode(mode) {
+            currentMode = mode;
+            currentWordIndex = 0;
+            hideModeSelection();
+
+            switch(mode) {
+                case 'flashcard':
+                    startFlashcardMode();
+                    break;
+                case 'multiple-choice':
+                    startMultipleChoiceMode();
+                    break;
+                case 'listening':
+                    startListeningMode();
+                    break;
+                case 'typing':
+                    startTypingMode();
+                    break;
+                case 'matching':
+                    startMatchingMode();
+                    break;
+                case 'speed':
+                    startSpeedMode();
+                    break;
+            }
+        }
+
+        // Flashcard Mode
+        function startFlashcardMode() {
+            showFlashcard();
+        }
+
+        function showFlashcard() {
+            if (currentWordIndex >= vocabulary.length) {
+                currentWordIndex = 0;
+                shuffleArray(vocabulary);
+            }
+
+            const word = vocabulary[currentWordIndex];
+            const kanjiList = word.kanji.map(k => `${k.char} (${k.korean}: ${k.meaning})`).join(', ');
+
+            document.getElementById('game-area').innerHTML = `
+                <button class="back-btn" onclick="showModeSelection()">← 모드 선택</button>
+                <div class="flashcard-container">
+                    <div class="flashcard" id="flashcard" onclick="flipCard()">
+                        <div class="card-face card-front">
+                            <div class="kanji-word">${word.word}</div>
+                            <div class="reading">${word.reading}</div>
+                            <div class="romaji">${word.romaji}</div>
+                        </div>
+                        <div class="card-face card-back">
+                            <div class="meaning">${word.meaning}</div>
+                            <div class="hanja-info">한자: ${kanjiList}</div>
+                            <div class="example">
+                                <div>${word.example.jp}</div>
+                                <div style="color: #667eea; margin-top: 5px;">${word.example.kr}</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div style="text-align: center;">
+                    <button class="audio-btn" onclick="playCurrentWord()">🔊 소리 듣기</button>
+                </div>
+                <div class="control-btns">
+                    <button class="control-btn dont-know-btn" onclick="markAnswer(false)">몰라요 ←</button>
+                    <button class="control-btn know-btn" onclick="markAnswer(true)">알아요 →</button>
+                </div>
+                <div class="keyboard-hint">
+                    <strong>키보드:</strong> Space (카드 뒤집기) | ← (몰라요) | → (알아요) | S (소리)
+                </div>
+            `;
+
+            setTimeout(() => speak(word.word), 300);
+        }
+
+        function flipCard() {
+            document.getElementById('flashcard').classList.toggle('flip');
+        }
+
+        function playCurrentWord() {
+            const word = vocabulary[currentWordIndex];
+            speak(word.word);
+        }
+
+        function markAnswer(isCorrect) {
+            const word = vocabulary[currentWordIndex];
+            stats.learned.add(word.id);
+            stats.total++;
+            if (isCorrect) {
+                stats.correct++;
+                stats.streak++;
+            } else {
+                stats.streak = 0;
+            }
+            updateStats();
+            currentWordIndex++;
+            showFlashcard();
+        }
+
+        // Multiple Choice Mode
+        function startMultipleChoiceMode() {
+            showMultipleChoice();
+        }
+
+        function showMultipleChoice() {
+            if (currentWordIndex >= vocabulary.length) {
+                currentWordIndex = 0;
+                shuffleArray(vocabulary);
+            }
+
+            const word = vocabulary[currentWordIndex];
+            const choices = generateChoices(word);
+
+            document.getElementById('game-area').innerHTML = `
+                <button class="back-btn" onclick="showModeSelection()">← 모드 선택</button>
+                <div class="question-container">
+                    <h2>이 단어의 뜻은?</h2>
+                    <div class="question-word">${word.word}</div>
+                    <div class="question-reading">${word.reading} (${word.romaji})</div>
+                    <button class="audio-btn" onclick="speak('${word.word}')">🔊 듣기</button>
+                    <div class="choices" id="choices">
+                        ${choices.map((choice, idx) => `
+                            <button class="choice-btn" onclick="checkAnswer(${idx}, ${choices[idx].correct})">${choice.meaning}</button>
+                        `).join('')}
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: ${(currentWordIndex / vocabulary.length) * 100}%"></div>
+                    </div>
+                </div>
+            `;
+
+            setTimeout(() => speak(word.word), 300);
+        }
+
+        function generateChoices(correctWord) {
+            const choices = [{ meaning: correctWord.meaning, correct: true }];
+            const wrongChoices = vocabulary
+                .filter(w => w.id !== correctWord.id)
+                .sort(() => Math.random() - 0.5)
+                .slice(0, 3)
+                .map(w => ({ meaning: w.meaning, correct: false }));
+
+            choices.push(...wrongChoices);
+            shuffleArray(choices);
+            return choices;
+        }
+
+        function checkAnswer(choiceIdx, isCorrect) {
+            const buttons = document.querySelectorAll('.choice-btn');
+            buttons.forEach(btn => btn.disabled = true);
+
+            if (isCorrect) {
+                buttons[choiceIdx].classList.add('correct');
+                stats.correct++;
+                stats.streak++;
+                const word = vocabulary[currentWordIndex];
+                stats.learned.add(word.id);
+            } else {
+                buttons[choiceIdx].classList.add('wrong');
+                stats.streak = 0;
+                // Highlight correct answer
+                buttons.forEach((btn, idx) => {
+                    if (generateChoices(vocabulary[currentWordIndex])[idx]?.correct) {
+                        btn.classList.add('correct');
+                    }
+                });
+            }
+
+            stats.total++;
+            updateStats();
+
+            setTimeout(() => {
+                currentWordIndex++;
+                showMultipleChoice();
+            }, 1500);
+        }
+
+        // Listening Mode
+        function startListeningMode() {
+            showListeningQuestion();
+        }
+
+        function showListeningQuestion() {
+            if (currentWordIndex >= vocabulary.length) {
+                currentWordIndex = 0;
+                shuffleArray(vocabulary);
+            }
+
+            const word = vocabulary[currentWordIndex];
+            const choices = generateChoices(word);
+
+            document.getElementById('game-area').innerHTML = `
+                <button class="back-btn" onclick="showModeSelection()">← 모드 선택</button>
+                <div class="listening-container">
+                    <h2>듣고 의미를 고르세요</h2>
+                    <button class="play-audio-btn" onclick="speak('${word.word}')">▶️</button>
+                    <p style="font-size: 1.2em; color: #666;">위 버튼을 클릭하여 소리를 들어보세요</p>
+                    <div class="choices" id="choices">
+                        ${choices.map((choice, idx) => `
+                            <button class="choice-btn" onclick="checkListeningAnswer(${idx}, ${choices[idx].correct}, '${word.word}', '${word.reading}')">${choice.meaning}</button>
+                        `).join('')}
+                    </div>
+                </div>
+            `;
+
+            setTimeout(() => speak(word.word), 500);
+        }
+
+        function checkListeningAnswer(choiceIdx, isCorrect, wordText, reading) {
+            const buttons = document.querySelectorAll('.choice-btn');
+            buttons.forEach(btn => btn.disabled = true);
+
+            if (isCorrect) {
+                buttons[choiceIdx].classList.add('correct');
+                stats.correct++;
+                stats.streak++;
+                const word = vocabulary[currentWordIndex];
+                stats.learned.add(word.id);
+            } else {
+                buttons[choiceIdx].classList.add('wrong');
+                stats.streak = 0;
+            }
+
+            stats.total++;
+            updateStats();
+
+            // Show the word
+            setTimeout(() => {
+                alert(`정답: ${wordText} (${reading})`);
+                currentWordIndex++;
+                showListeningQuestion();
+            }, 1000);
+        }
+
+        // Typing Mode
+        function startTypingMode() {
+            showTypingQuestion();
+        }
+
+        function showTypingQuestion() {
+            if (currentWordIndex >= vocabulary.length) {
+                currentWordIndex = 0;
+                shuffleArray(vocabulary);
+            }
+
+            const word = vocabulary[currentWordIndex];
+
+            document.getElementById('game-area').innerHTML = `
+                <button class="back-btn" onclick="showModeSelection()">← 모드 선택</button>
+                <div class="typing-container">
+                    <h2>일본어 읽기를 입력하세요</h2>
+                    <div class="typing-word">${word.word}</div>
+                    <div class="typing-hint">의미: ${word.meaning}</div>
+                    <button class="audio-btn" onclick="speak('${word.word}')">🔊 듣기</button>
+                    <input type="text" class="typing-input" id="typing-input" placeholder="히라가나로 입력..." autofocus>
+                    <button class="submit-btn" onclick="checkTypingAnswer('${word.reading}')">확인</button>
+                    <div class="keyboard-hint">
+                        <strong>힌트:</strong> ${word.romaji}
+                    </div>
+                </div>
+            `;
+
+            document.getElementById('typing-input').addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') {
+                    checkTypingAnswer(word.reading);
+                }
+            });
+
+            setTimeout(() => speak(word.word), 300);
+        }
+
+        function checkTypingAnswer(correctReading) {
+            const input = document.getElementById('typing-input').value.trim();
+            const isCorrect = input === correctReading;
+
+            if (isCorrect) {
+                alert('정답입니다! ✅');
+                stats.correct++;
+                stats.streak++;
+                const word = vocabulary[currentWordIndex];
+                stats.learned.add(word.id);
+            } else {
+                alert(`틀렸습니다. 정답: ${correctReading}`);
+                stats.streak = 0;
+            }
+
+            stats.total++;
+            updateStats();
+            currentWordIndex++;
+            showTypingQuestion();
+        }
+
+        // Matching Mode
+        let matchingSelected = null;
+        let matchingWords = [];
+        let matchingMeanings = [];
+        let matchedPairs = new Set();
+
+        function startMatchingMode() {
+            matchingSelected = null;
+            matchedPairs = new Set();
+
+            // Get 6 words for matching
+            matchingWords = vocabulary.slice(0, 6);
+            matchingMeanings = [...matchingWords];
+            shuffleArray(matchingMeanings);
+
+            showMatchingGame();
+        }
+
+        function showMatchingGame() {
+            document.getElementById('game-area').innerHTML = `
+                <button class="back-btn" onclick="showModeSelection()">← 모드 선택</button>
+                <div class="matching-container">
+                    <h2>일본어와 한국어 의미를 연결하세요</h2>
+                    <div class="matching-grid">
+                        <div class="matching-column">
+                            <h3>일본어</h3>
+                            ${matchingWords.map((word, idx) => `
+                                <div class="matching-item" id="word-${idx}" onclick="selectWord(${idx}, 'word')">
+                                    ${word.word}<br>
+                                    <small>${word.reading}</small>
+                                </div>
+                            `).join('')}
+                        </div>
+                        <div class="matching-column">
+                            <h3>한국어</h3>
+                            ${matchingMeanings.map((word, idx) => `
+                                <div class="matching-item" id="meaning-${idx}" onclick="selectWord(${idx}, 'meaning')">
+                                    ${word.meaning}
+                                </div>
+                            `).join('')}
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        function selectWord(idx, type) {
+            const element = document.getElementById(`${type}-${idx}`);
+
+            if (element.classList.contains('matched')) {
+                return;
+            }
+
+            if (matchingSelected === null) {
+                matchingSelected = { idx, type };
+                element.classList.add('selected');
+            } else {
+                if (matchingSelected.type === type) {
+                    // Same type clicked, deselect previous
+                    document.getElementById(`${matchingSelected.type}-${matchingSelected.idx}`).classList.remove('selected');
+                    matchingSelected = { idx, type };
+                    element.classList.add('selected');
+                } else {
+                    // Different type, check match
+                    const wordIdx = matchingSelected.type === 'word' ? matchingSelected.idx : idx;
+                    const meaningIdx = matchingSelected.type === 'meaning' ? matchingSelected.idx : idx;
+
+                    if (matchingWords[wordIdx].id === matchingMeanings[meaningIdx].id) {
+                        // Correct match
+                        document.getElementById(`word-${wordIdx}`).classList.add('matched');
+                        document.getElementById(`meaning-${meaningIdx}`).classList.add('matched');
+                        matchedPairs.add(wordIdx);
+                        stats.correct++;
+                        stats.streak++;
+                        stats.learned.add(matchingWords[wordIdx].id);
+
+                        if (matchedPairs.size === matchingWords.length) {
+                            setTimeout(() => {
+                                alert('모두 완료했습니다! 🎉');
+                                startMatchingMode();
+                            }, 500);
+                        }
+                    } else {
+                        // Wrong match
+                        stats.streak = 0;
+                        setTimeout(() => {
+                            document.getElementById(`${matchingSelected.type}-${matchingSelected.idx}`).classList.remove('selected');
+                        }, 300);
+                    }
+
+                    stats.total++;
+                    updateStats();
+                    matchingSelected = null;
+                }
+            }
+        }
+
+        // Speed Quiz Mode
+        let speedTimer = null;
+        let speedTimeLeft = 60;
+        let speedScore = 0;
+        let speedQuestions = 0;
+
+        function startSpeedMode() {
+            speedTimeLeft = 60;
+            speedScore = 0;
+            speedQuestions = 0;
+            currentWordIndex = 0;
+            shuffleArray(vocabulary);
+
+            speedTimer = setInterval(updateSpeedTimer, 1000);
+            showSpeedQuestion();
+        }
+
+        function updateSpeedTimer() {
+            speedTimeLeft--;
+            if (speedTimeLeft <= 0) {
+                endSpeedMode();
+            }
+        }
+
+        function showSpeedQuestion() {
+            if (currentWordIndex >= vocabulary.length) {
+                currentWordIndex = 0;
+                shuffleArray(vocabulary);
+            }
+
+            const word = vocabulary[currentWordIndex];
+            const choices = generateChoices(word);
+
+            document.getElementById('game-area').innerHTML = `
+                <button class="back-btn" onclick="endSpeedMode()">← 그만하기</button>
+                <div class="speed-container">
+                    <h2>⚡ 스피드 퀴즈</h2>
+                    <div class="timer">⏱️ ${speedTimeLeft}초</div>
+                    <div class="score">점수: ${speedScore}</div>
+                    <div class="question-word">${word.word}</div>
+                    <div class="question-reading">${word.reading}</div>
+                    <div class="choices" id="choices">
+                        ${choices.map((choice, idx) => `
+                            <button class="choice-btn" onclick="checkSpeedAnswer(${idx}, ${choices[idx].correct})">${choice.meaning}</button>
+                        `).join('')}
+                    </div>
+                    <div style="margin-top: 20px; font-size: 1.2em; color: #666;">
+                        문제 ${speedQuestions + 1}
+                    </div>
+                </div>
+            `;
+
+            speak(word.word);
+        }
+
+        function checkSpeedAnswer(choiceIdx, isCorrect) {
+            speedQuestions++;
+
+            if (isCorrect) {
+                speedScore += 10;
+                stats.correct++;
+                stats.streak++;
+                const word = vocabulary[currentWordIndex];
+                stats.learned.add(word.id);
+            } else {
+                speedScore = Math.max(0, speedScore - 5);
+                stats.streak = 0;
+            }
+
+            stats.total++;
+            updateStats();
+            currentWordIndex++;
+            showSpeedQuestion();
+        }
+
+        function endSpeedMode() {
+            clearInterval(speedTimer);
+
+            const accuracy = speedQuestions > 0 ? Math.round((stats.correct / speedQuestions) * 100) : 0;
+
+            document.getElementById('game-area').innerHTML = `
+                <div class="result-screen">
+                    <h2>게임 종료!</h2>
+                    <div class="result-stats">
+                        <div class="result-stat">
+                            <div class="label">최종 점수</div>
+                            <div class="value">${speedScore}</div>
+                        </div>
+                        <div class="result-stat">
+                            <div class="label">문제 수</div>
+                            <div class="value">${speedQuestions}</div>
+                        </div>
+                        <div class="result-stat">
+                            <div class="label">정답률</div>
+                            <div class="value">${accuracy}%</div>
+                        </div>
+                    </div>
+                    <button class="control-btn know-btn" onclick="startSpeedMode()" style="margin: 20px 10px;">다시 하기</button>
+                    <button class="control-btn dont-know-btn" onclick="showModeSelection()" style="margin: 20px 10px;">모드 선택</button>
+                </div>
+            `;
+        }
+
+        // Keyboard controls
+        document.addEventListener('keydown', (e) => {
+            if (currentMode === 'flashcard') {
+                if (e.code === 'Space') {
+                    e.preventDefault();
+                    flipCard();
+                } else if (e.code === 'ArrowLeft') {
+                    markAnswer(false);
+                } else if (e.code === 'ArrowRight') {
+                    markAnswer(true);
+                } else if (e.code === 'KeyS') {
+                    playCurrentWord();
+                }
+            }
+        });
+
+        // Initialize
+        loadVocabulary();
+        updateStats();
+    </script>
+</body>
+</html>
