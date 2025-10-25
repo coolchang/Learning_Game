@@ -1,0 +1,1462 @@
+{
+  "totalWords": 1500,
+  "levels": {
+    "N5": 100,
+    "N4": 200,
+    "N3": 400,
+    "N2": 400,
+    "N1": 400
+  },
+  "words": [
+    {
+      "id": "k001",
+      "word": "日本",
+      "reading": "にほん",
+      "romaji": "nihon",
+      "meaning": "일본",
+      "kanji": [
+        {"char": "日", "korean": "일", "meaning": "날 일", "reading": "にち/ひ"},
+        {"char": "本", "korean": "본", "meaning": "근본 본", "reading": "ほん"}
+      ],
+      "partOfSpeech": "명사",
+      "example": {"jp": "日本に行きます。", "kr": "일본에 갑니다."},
+      "level": "N5",
+      "frequency": 5
+    },
+    {
+      "id": "k002",
+      "word": "人",
+      "reading": "ひと",
+      "romaji": "hito",
+      "meaning": "사람",
+      "kanji": [
+        {"char": "人", "korean": "인", "meaning": "사람 인", "reading": "じん/にん/ひと"}
+      ],
+      "partOfSpeech": "명사",
+      "example": {"jp": "あの人は学生です。", "kr": "저 사람은 학생입니다."},
+      "level": "N5",
+      "frequency": 5
+    },
+    {
+      "id": "k003",
+      "word": "学生",
+      "reading": "がくせい",
+      "romaji": "gakusei",
+      "meaning": "학생",
+      "kanji": [
+        {"char": "学", "korean": "학", "meaning": "배울 학", "reading": "がく"},
+        {"char": "生", "korean": "생", "meaning": "날 생", "reading": "せい"}
+      ],
+      "partOfSpeech": "명사",
+      "example": {"jp": "私は学生です。", "kr": "저는 학생입니다."},
+      "level": "N5",
+      "frequency": 5
+    },
+    {
+      "id": "k004",
+      "word": "先生",
+      "reading": "せんせい",
+      "romaji": "sensei",
+      "meaning": "선생님",
+      "kanji": [
+        {"char": "先", "korean": "선", "meaning": "먼저 선", "reading": "せん"},
+        {"char": "生", "korean": "생", "meaning": "날 생", "reading": "せい"}
+      ],
+      "partOfSpeech": "명사",
+      "example": {"jp": "先生に質問します。", "kr": "선생님께 질문합니다."},
+      "level": "N5",
+      "frequency": 5
+    },
+    {
+      "id": "k005",
+      "word": "学校",
+      "reading": "がっこう",
+      "romaji": "gakkou",
+      "meaning": "학교",
+      "kanji": [
+        {"char": "学", "korean": "학", "meaning": "배울 학", "reading": "がく"},
+        {"char": "校", "korean": "교", "meaning": "학교 교", "reading": "こう"}
+      ],
+      "partOfSpeech": "명사",
+      "example": {"jp": "学校に行きます。", "kr": "학교에 갑니다."},
+      "level": "N5",
+      "frequency": 5
+    },
+    {
+      "id": "k006",
+      "word": "友達",
+      "reading": "ともだち",
+      "romaji": "tomodachi",
+      "meaning": "친구",
+      "kanji": [
+        {"char": "友", "korean": "우", "meaning": "벗 우", "reading": "とも"},
+        {"char": "達", "korean": "달", "meaning": "이를 달", "reading": "だち"}
+      ],
+      "partOfSpeech": "명사",
+      "example": {"jp": "友達と遊びます。", "kr": "친구와 놉니다."},
+      "level": "N5",
+      "frequency": 5
+    },
+    {
+      "id": "k007",
+      "word": "時間",
+      "reading": "じかん",
+      "romaji": "jikan",
+      "meaning": "시간",
+      "kanji": [
+        {"char": "時", "korean": "시", "meaning": "때 시", "reading": "じ"},
+        {"char": "間", "korean": "간", "meaning": "사이 간", "reading": "かん"}
+      ],
+      "partOfSpeech": "명사",
+      "example": {"jp": "時間がありません。", "kr": "시간이 없습니다."},
+      "level": "N5",
+      "frequency": 5
+    },
+    {
+      "id": "k008",
+      "word": "今日",
+      "reading": "きょう",
+      "romaji": "kyou",
+      "meaning": "오늘",
+      "kanji": [
+        {"char": "今", "korean": "금", "meaning": "이제 금", "reading": "いま"},
+        {"char": "日", "korean": "일", "meaning": "날 일", "reading": "にち"}
+      ],
+      "partOfSpeech": "명사",
+      "example": {"jp": "今日は暑いです。", "kr": "오늘은 덥습니다."},
+      "level": "N5",
+      "frequency": 5
+    },
+    {
+      "id": "k009",
+      "word": "昨日",
+      "reading": "きのう",
+      "romaji": "kinou",
+      "meaning": "어제",
+      "kanji": [
+        {"char": "昨", "korean": "작", "meaning": "어제 작", "reading": "さく"},
+        {"char": "日", "korean": "일", "meaning": "날 일", "reading": "にち"}
+      ],
+      "partOfSpeech": "명사",
+      "example": {"jp": "昨日は雨でした。", "kr": "어제는 비였습니다."},
+      "level": "N5",
+      "frequency": 5
+    },
+    {
+      "id": "k010",
+      "word": "明日",
+      "reading": "あした",
+      "romaji": "ashita",
+      "meaning": "내일",
+      "kanji": [
+        {"char": "明", "korean": "명", "meaning": "밝을 명", "reading": "めい"},
+        {"char": "日", "korean": "일", "meaning": "날 일", "reading": "にち"}
+      ],
+      "partOfSpeech": "명사",
+      "example": {"jp": "明日会いましょう。", "kr": "내일 만나요."},
+      "level": "N5",
+      "frequency": 5
+    },
+    {
+      "id": "k011",
+      "word": "毎日",
+      "reading": "まいにち",
+      "romaji": "mainichi",
+      "meaning": "매일",
+      "kanji": [
+        {"char": "毎", "korean": "매", "meaning": "매양 매", "reading": "まい"},
+        {"char": "日", "korean": "일", "meaning": "날 일", "reading": "にち"}
+      ],
+      "partOfSpeech": "명사",
+      "example": {"jp": "毎日勉強します。", "kr": "매일 공부합니다."},
+      "level": "N5",
+      "frequency": 5
+    },
+    {
+      "id": "k012",
+      "word": "会社",
+      "reading": "かいしゃ",
+      "romaji": "kaisha",
+      "meaning": "회사",
+      "kanji": [
+        {"char": "会", "korean": "회", "meaning": "모일 회", "reading": "かい"},
+        {"char": "社", "korean": "사", "meaning": "모일 사", "reading": "しゃ"}
+      ],
+      "partOfSpeech": "명사",
+      "example": {"jp": "会社に行きます。", "kr": "회사에 갑니다."},
+      "level": "N5",
+      "frequency": 5
+    },
+    {
+      "id": "k013",
+      "word": "電話",
+      "reading": "でんわ",
+      "romaji": "denwa",
+      "meaning": "전화",
+      "kanji": [
+        {"char": "電", "korean": "전", "meaning": "번개 전", "reading": "でん"},
+        {"char": "話", "korean": "화", "meaning": "말씀 화", "reading": "わ"}
+      ],
+      "partOfSpeech": "명사",
+      "example": {"jp": "電話をかけます。", "kr": "전화를 겁니다."},
+      "level": "N5",
+      "frequency": 5
+    },
+    {
+      "id": "k014",
+      "word": "車",
+      "reading": "くるま",
+      "romaji": "kuruma",
+      "meaning": "차, 자동차",
+      "kanji": [
+        {"char": "車", "korean": "차", "meaning": "수레 차", "reading": "しゃ/くるま"}
+      ],
+      "partOfSpeech": "명사",
+      "example": {"jp": "車で行きます。", "kr": "차로 갑니다."},
+      "level": "N5",
+      "frequency": 5
+    },
+    {
+      "id": "k015",
+      "word": "電車",
+      "reading": "でんしゃ",
+      "romaji": "densha",
+      "meaning": "전철",
+      "kanji": [
+        {"char": "電", "korean": "전", "meaning": "번개 전", "reading": "でん"},
+        {"char": "車", "korean": "차", "meaning": "수레 차", "reading": "しゃ"}
+      ],
+      "partOfSpeech": "명사",
+      "example": {"jp": "電車に乗ります。", "kr": "전철을 탑니다."},
+      "level": "N5",
+      "frequency": 5
+    },
+    {
+      "id": "k016",
+      "word": "家",
+      "reading": "いえ",
+      "romaji": "ie",
+      "meaning": "집",
+      "kanji": [
+        {"char": "家", "korean": "가", "meaning": "집 가", "reading": "か/いえ"}
+      ],
+      "partOfSpeech": "명사",
+      "example": {"jp": "家に帰ります。", "kr": "집에 돌아갑니다."},
+      "level": "N5",
+      "frequency": 5
+    },
+    {
+      "id": "k017",
+      "word": "部屋",
+      "reading": "へや",
+      "romaji": "heya",
+      "meaning": "방",
+      "kanji": [
+        {"char": "部", "korean": "부", "meaning": "떼 부", "reading": "ぶ"},
+        {"char": "屋", "korean": "옥", "meaning": "집 옥", "reading": "や"}
+      ],
+      "partOfSpeech": "명사",
+      "example": {"jp": "部屋を掃除します。", "kr": "방을 청소합니다."},
+      "level": "N5",
+      "frequency": 5
+    },
+    {
+      "id": "k018",
+      "word": "本",
+      "reading": "ほん",
+      "romaji": "hon",
+      "meaning": "책",
+      "kanji": [
+        {"char": "本", "korean": "본", "meaning": "근본 본", "reading": "ほん"}
+      ],
+      "partOfSpeech": "명사",
+      "example": {"jp": "本を読みます。", "kr": "책을 읽습니다."},
+      "level": "N5",
+      "frequency": 5
+    },
+    {
+      "id": "k019",
+      "word": "新聞",
+      "reading": "しんぶん",
+      "romaji": "shinbun",
+      "meaning": "신문",
+      "kanji": [
+        {"char": "新", "korean": "신", "meaning": "새 신", "reading": "しん"},
+        {"char": "聞", "korean": "문", "meaning": "들을 문", "reading": "ぶん"}
+      ],
+      "partOfSpeech": "명사",
+      "example": {"jp": "新聞を読みます。", "kr": "신문을 읽습니다."},
+      "level": "N5",
+      "frequency": 5
+    },
+    {
+      "id": "k020",
+      "word": "手紙",
+      "reading": "てがみ",
+      "romaji": "tegami",
+      "meaning": "편지",
+      "kanji": [
+        {"char": "手", "korean": "수", "meaning": "손 수", "reading": "て"},
+        {"char": "紙", "korean": "지", "meaning": "종이 지", "reading": "かみ"}
+      ],
+      "partOfSpeech": "명사",
+      "example": {"jp": "手紙を書きます。", "kr": "편지를 씁니다."},
+      "level": "N5",
+      "frequency": 5
+    },
+    {
+      "id": "k021",
+      "word": "時計",
+      "reading": "とけい",
+      "romaji": "tokei",
+      "meaning": "시계",
+      "kanji": [
+        {"char": "時", "korean": "시", "meaning": "때 시", "reading": "じ"},
+        {"char": "計", "korean": "계", "meaning": "셀 계", "reading": "けい"}
+      ],
+      "partOfSpeech": "명사",
+      "example": {"jp": "時計を見ます。", "kr": "시계를 봅니다."},
+      "level": "N5",
+      "frequency": 4
+    },
+    {
+      "id": "k022",
+      "word": "天気",
+      "reading": "てんき",
+      "romaji": "tenki",
+      "meaning": "날씨",
+      "kanji": [
+        {"char": "天", "korean": "천", "meaning": "하늘 천", "reading": "てん"},
+        {"char": "気", "korean": "기", "meaning": "기운 기", "reading": "き"}
+      ],
+      "partOfSpeech": "명사",
+      "example": {"jp": "今日は天気がいいです。", "kr": "오늘은 날씨가 좋습니다."},
+      "level": "N5",
+      "frequency": 5
+    },
+    {
+      "id": "k023",
+      "word": "雨",
+      "reading": "あめ",
+      "romaji": "ame",
+      "meaning": "비",
+      "kanji": [
+        {"char": "雨", "korean": "우", "meaning": "비 우", "reading": "う/あめ"}
+      ],
+      "partOfSpeech": "명사",
+      "example": {"jp": "雨が降ります。", "kr": "비가 옵니다."},
+      "level": "N5",
+      "frequency": 5
+    },
+    {
+      "id": "k024",
+      "word": "雪",
+      "reading": "ゆき",
+      "romaji": "yuki",
+      "meaning": "눈",
+      "kanji": [
+        {"char": "雪", "korean": "설", "meaning": "눈 설", "reading": "せつ/ゆき"}
+      ],
+      "partOfSpeech": "명사",
+      "example": {"jp": "雪が降ります。", "kr": "눈이 옵니다."},
+      "level": "N5",
+      "frequency": 4
+    },
+    {
+      "id": "k025",
+      "word": "山",
+      "reading": "やま",
+      "romaji": "yama",
+      "meaning": "산",
+      "kanji": [
+        {"char": "山", "korean": "산", "meaning": "메 산", "reading": "さん/やま"}
+      ],
+      "partOfSpeech": "명사",
+      "example": {"jp": "山に登ります。", "kr": "산에 오릅니다."},
+      "level": "N5",
+      "frequency": 4
+    },
+    {
+      "id": "k026",
+      "word": "川",
+      "reading": "かわ",
+      "romaji": "kawa",
+      "meaning": "강",
+      "kanji": [
+        {"char": "川", "korean": "천", "meaning": "내 천", "reading": "せん/かわ"}
+      ],
+      "partOfSpeech": "명사",
+      "example": {"jp": "川で泳ぎます。", "kr": "강에서 수영합니다."},
+      "level": "N5",
+      "frequency": 4
+    },
+    {
+      "id": "k027",
+      "word": "海",
+      "reading": "うみ",
+      "romaji": "umi",
+      "meaning": "바다",
+      "kanji": [
+        {"char": "海", "korean": "해", "meaning": "바다 해", "reading": "かい/うみ"}
+      ],
+      "partOfSpeech": "명사",
+      "example": {"jp": "海に行きます。", "kr": "바다에 갑니다."},
+      "level": "N5",
+      "frequency": 5
+    },
+    {
+      "id": "k028",
+      "word": "国",
+      "reading": "くに",
+      "romaji": "kuni",
+      "meaning": "나라",
+      "kanji": [
+        {"char": "国", "korean": "국", "meaning": "나라 국", "reading": "こく/くに"}
+      ],
+      "partOfSpeech": "명사",
+      "example": {"jp": "どの国から来ましたか。", "kr": "어느 나라에서 왔습니까?"},
+      "level": "N5",
+      "frequency": 5
+    },
+    {
+      "id": "k029",
+      "word": "外国",
+      "reading": "がいこく",
+      "romaji": "gaikoku",
+      "meaning": "외국",
+      "kanji": [
+        {"char": "外", "korean": "외", "meaning": "밖 외", "reading": "がい"},
+        {"char": "国", "korean": "국", "meaning": "나라 국", "reading": "こく"}
+      ],
+      "partOfSpeech": "명사",
+      "example": {"jp": "外国に行きたいです。", "kr": "외국에 가고 싶습니다."},
+      "level": "N5",
+      "frequency": 4
+    },
+    {
+      "id": "k030",
+      "word": "言葉",
+      "reading": "ことば",
+      "romaji": "kotoba",
+      "meaning": "말, 언어",
+      "kanji": [
+        {"char": "言", "korean": "언", "meaning": "말씀 언", "reading": "げん"},
+        {"char": "葉", "korean": "엽", "meaning": "잎 엽", "reading": "よう"}
+      ],
+      "partOfSpeech": "명사",
+      "example": {"jp": "日本語の言葉を覚えます。", "kr": "일본어 단어를 외웁니다."},
+      "level": "N5",
+      "frequency": 5
+    },
+    {
+      "id": "k031",
+      "word": "名前",
+      "reading": "なまえ",
+      "romaji": "namae",
+      "meaning": "이름",
+      "kanji": [
+        {"char": "名", "korean": "명", "meaning": "이름 명", "reading": "めい"},
+        {"char": "前", "korean": "전", "meaning": "앞 전", "reading": "ぜん"}
+      ],
+      "partOfSpeech": "명사",
+      "example": {"jp": "名前を教えてください。", "kr": "이름을 가르쳐 주세요."},
+      "level": "N5",
+      "frequency": 5
+    },
+    {
+      "id": "k032",
+      "word": "年",
+      "reading": "とし",
+      "romaji": "toshi",
+      "meaning": "년, 해",
+      "kanji": [
+        {"char": "年", "korean": "년", "meaning": "해 년", "reading": "ねん/とし"}
+      ],
+      "partOfSpeech": "명사",
+      "example": {"jp": "今年は2024年です。", "kr": "올해는 2024년입니다."},
+      "level": "N5",
+      "frequency": 5
+    },
+    {
+      "id": "k033",
+      "word": "月",
+      "reading": "つき",
+      "romaji": "tsuki",
+      "meaning": "달, 월",
+      "kanji": [
+        {"char": "月", "korean": "월", "meaning": "달 월", "reading": "げつ/つき"}
+      ],
+      "partOfSpeech": "명사",
+      "example": {"jp": "今月は忙しいです。", "kr": "이번 달은 바쁩니다."},
+      "level": "N5",
+      "frequency": 5
+    },
+    {
+      "id": "k034",
+      "word": "週",
+      "reading": "しゅう",
+      "romaji": "shuu",
+      "meaning": "주",
+      "kanji": [
+        {"char": "週", "korean": "주", "meaning": "주일 주", "reading": "しゅう"}
+      ],
+      "partOfSpeech": "명사",
+      "example": {"jp": "来週会いましょう。", "kr": "다음 주에 만나요."},
+      "level": "N5",
+      "frequency": 5
+    },
+    {
+      "id": "k035",
+      "word": "火曜日",
+      "reading": "かようび",
+      "romaji": "kayoubi",
+      "meaning": "화요일",
+      "kanji": [
+        {"char": "火", "korean": "화", "meaning": "불 화", "reading": "か"},
+        {"char": "曜", "korean": "요", "meaning": "빛날 요", "reading": "よう"},
+        {"char": "日", "korean": "일", "meaning": "날 일", "reading": "び"}
+      ],
+      "partOfSpeech": "명사",
+      "example": {"jp": "火曜日に会います。", "kr": "화요일에 만납니다."},
+      "level": "N5",
+      "frequency": 4
+    },
+    {
+      "id": "k036",
+      "word": "金曜日",
+      "reading": "きんようび",
+      "romaji": "kinyoubi",
+      "meaning": "금요일",
+      "kanji": [
+        {"char": "金", "korean": "금", "meaning": "쇠 금", "reading": "きん"},
+        {"char": "曜", "korean": "요", "meaning": "빛날 요", "reading": "よう"},
+        {"char": "日", "korean": "일", "meaning": "날 일", "reading": "び"}
+      ],
+      "partOfSpeech": "명사",
+      "example": {"jp": "金曜日は忙しいです。", "kr": "금요일은 바쁩니다."},
+      "level": "N5",
+      "frequency": 4
+    },
+    {
+      "id": "k037",
+      "word": "午前",
+      "reading": "ごぜん",
+      "romaji": "gozen",
+      "meaning": "오전",
+      "kanji": [
+        {"char": "午", "korean": "오", "meaning": "낮 오", "reading": "ご"},
+        {"char": "前", "korean": "전", "meaning": "앞 전", "reading": "ぜん"}
+      ],
+      "partOfSpeech": "명사",
+      "example": {"jp": "午前中に勉強します。", "kr": "오전 중에 공부합니다."},
+      "level": "N5",
+      "frequency": 4
+    },
+    {
+      "id": "k038",
+      "word": "午後",
+      "reading": "ごご",
+      "romaji": "gogo",
+      "meaning": "오후",
+      "kanji": [
+        {"char": "午", "korean": "오", "meaning": "낮 오", "reading": "ご"},
+        {"char": "後", "korean": "후", "meaning": "뒤 후", "reading": "ご"}
+      ],
+      "partOfSpeech": "명사",
+      "example": {"jp": "午後は暇です。", "kr": "오후는 한가합니다."},
+      "level": "N5",
+      "frequency": 4
+    },
+    {
+      "id": "k039",
+      "word": "食事",
+      "reading": "しょくじ",
+      "romaji": "shokuji",
+      "meaning": "식사",
+      "kanji": [
+        {"char": "食", "korean": "식", "meaning": "먹을 식", "reading": "しょく"},
+        {"char": "事", "korean": "사", "meaning": "일 사", "reading": "じ"}
+      ],
+      "partOfSpeech": "명사",
+      "example": {"jp": "食事をします。", "kr": "식사를 합니다."},
+      "level": "N5",
+      "frequency": 5
+    },
+    {
+      "id": "k040",
+      "word": "料理",
+      "reading": "りょうり",
+      "romaji": "ryouri",
+      "meaning": "요리",
+      "kanji": [
+        {"char": "料", "korean": "료", "meaning": "헤아릴 료", "reading": "りょう"},
+        {"char": "理", "korean": "리", "meaning": "다스릴 리", "reading": "り"}
+      ],
+      "partOfSpeech": "명사",
+      "example": {"jp": "料理が好きです。", "kr": "요리를 좋아합니다."},
+      "level": "N5",
+      "frequency": 4
+    },
+    {
+      "id": "k041",
+      "word": "水",
+      "reading": "みず",
+      "romaji": "mizu",
+      "meaning": "물",
+      "kanji": [
+        {"char": "水", "korean": "수", "meaning": "물 수", "reading": "すい/みず"}
+      ],
+      "partOfSpeech": "명사",
+      "example": {"jp": "水を飲みます。", "kr": "물을 마십니다."},
+      "level": "N5",
+      "frequency": 5
+    },
+    {
+      "id": "k042",
+      "word": "茶",
+      "reading": "ちゃ",
+      "romaji": "cha",
+      "meaning": "차",
+      "kanji": [
+        {"char": "茶", "korean": "차", "meaning": "차 차", "reading": "ちゃ"}
+      ],
+      "partOfSpeech": "명사",
+      "example": {"jp": "お茶を飲みましょう。", "kr": "차를 마셔요."},
+      "level": "N5",
+      "frequency": 4
+    },
+    {
+      "id": "k043",
+      "word": "酒",
+      "reading": "さけ",
+      "romaji": "sake",
+      "meaning": "술",
+      "kanji": [
+        {"char": "酒", "korean": "주", "meaning": "술 주", "reading": "しゅ/さけ"}
+      ],
+      "partOfSpeech": "명사",
+      "example": {"jp": "お酒を飲みます。", "kr": "술을 마십니다."},
+      "level": "N5",
+      "frequency": 4
+    },
+    {
+      "id": "k044",
+      "word": "魚",
+      "reading": "さかな",
+      "romaji": "sakana",
+      "meaning": "생선",
+      "kanji": [
+        {"char": "魚", "korean": "어", "meaning": "물고기 어", "reading": "ぎょ/さかな"}
+      ],
+      "partOfSpeech": "명사",
+      "example": {"jp": "魚が好きです。", "kr": "생선을 좋아합니다."},
+      "level": "N5",
+      "frequency": 4
+    },
+    {
+      "id": "k045",
+      "word": "肉",
+      "reading": "にく",
+      "romaji": "niku",
+      "meaning": "고기",
+      "kanji": [
+        {"char": "肉", "korean": "육", "meaning": "고기 육", "reading": "にく"}
+      ],
+      "partOfSpeech": "명사",
+      "example": {"jp": "肉を食べます。", "kr": "고기를 먹습니다."},
+      "level": "N5",
+      "frequency": 4
+    },
+    {
+      "id": "k046",
+      "word": "野菜",
+      "reading": "やさい",
+      "romaji": "yasai",
+      "meaning": "야채",
+      "kanji": [
+        {"char": "野", "korean": "야", "meaning": "들 야", "reading": "や"},
+        {"char": "菜", "korean": "채", "meaning": "나물 채", "reading": "さい"}
+      ],
+      "partOfSpeech": "명사",
+      "example": {"jp": "野菜を食べます。", "kr": "야채를 먹습니다."},
+      "level": "N5",
+      "frequency": 4
+    },
+    {
+      "id": "k047",
+      "word": "店",
+      "reading": "みせ",
+      "romaji": "mise",
+      "meaning": "가게",
+      "kanji": [
+        {"char": "店", "korean": "점", "meaning": "가게 점", "reading": "てん/みせ"}
+      ],
+      "partOfSpeech": "명사",
+      "example": {"jp": "店で買います。", "kr": "가게에서 삽니다."},
+      "level": "N5",
+      "frequency": 5
+    },
+    {
+      "id": "k048",
+      "word": "銀行",
+      "reading": "ぎんこう",
+      "romaji": "ginkou",
+      "meaning": "은행",
+      "kanji": [
+        {"char": "銀", "korean": "은", "meaning": "은 은", "reading": "ぎん"},
+        {"char": "行", "korean": "행", "meaning": "다닐 행", "reading": "こう"}
+      ],
+      "partOfSpeech": "명사",
+      "example": {"jp": "銀行に行きます。", "kr": "은행에 갑니다."},
+      "level": "N5",
+      "frequency": 4
+    },
+    {
+      "id": "k049",
+      "word": "病院",
+      "reading": "びょういん",
+      "romaji": "byouin",
+      "meaning": "병원",
+      "kanji": [
+        {"char": "病", "korean": "병", "meaning": "병 병", "reading": "びょう"},
+        {"char": "院", "korean": "원", "meaning": "집 원", "reading": "いん"}
+      ],
+      "partOfSpeech": "명사",
+      "example": {"jp": "病院に行きます。", "kr": "병원에 갑니다."},
+      "level": "N5",
+      "frequency": 4
+    },
+    {
+      "id": "k050",
+      "word": "駅",
+      "reading": "えき",
+      "romaji": "eki",
+      "meaning": "역",
+      "kanji": [
+        {"char": "駅", "korean": "역", "meaning": "역 역", "reading": "えき"}
+      ],
+      "partOfSpeech": "명사",
+      "example": {"jp": "駅まで歩きます。", "kr": "역까지 걸어갑니다."},
+      "level": "N5",
+      "frequency": 5
+    },
+    {
+      "id": "k051",
+      "word": "図書館",
+      "reading": "としょかん",
+      "romaji": "toshokan",
+      "meaning": "도서관",
+      "kanji": [
+        {"char": "図", "korean": "도", "meaning": "그림 도", "reading": "と"},
+        {"char": "書", "korean": "서", "meaning": "글 서", "reading": "しょ"},
+        {"char": "館", "korean": "관", "meaning": "집 관", "reading": "かん"}
+      ],
+      "partOfSpeech": "명사",
+      "example": {"jp": "図書館で勉強します。", "kr": "도서관에서 공부합니다."},
+      "level": "N5",
+      "frequency": 4
+    },
+    {
+      "id": "k052",
+      "word": "公園",
+      "reading": "こうえん",
+      "romaji": "kouen",
+      "meaning": "공원",
+      "kanji": [
+        {"char": "公", "korean": "공", "meaning": "공평할 공", "reading": "こう"},
+        {"char": "園", "korean": "원", "meaning": "동산 원", "reading": "えん"}
+      ],
+      "partOfSpeech": "명사",
+      "example": {"jp": "公園で遊びます。", "kr": "공원에서 놉니다."},
+      "level": "N5",
+      "frequency": 4
+    },
+    {
+      "id": "k053",
+      "word": "映画",
+      "reading": "えいが",
+      "romaji": "eiga",
+      "meaning": "영화",
+      "kanji": [
+        {"char": "映", "korean": "영", "meaning": "비칠 영", "reading": "えい"},
+        {"char": "画", "korean": "화", "meaning": "그림 화", "reading": "が"}
+      ],
+      "partOfSpeech": "명사",
+      "example": {"jp": "映画を見ます。", "kr": "영화를 봅니다."},
+      "level": "N5",
+      "frequency": 5
+    },
+    {
+      "id": "k054",
+      "word": "音楽",
+      "reading": "おんがく",
+      "romaji": "ongaku",
+      "meaning": "음악",
+      "kanji": [
+        {"char": "音", "korean": "음", "meaning": "소리 음", "reading": "おん"},
+        {"char": "楽", "korean": "악", "meaning": "즐거울 악", "reading": "がく"}
+      ],
+      "partOfSpeech": "명사",
+      "example": {"jp": "音楽を聞きます。", "kr": "음악을 듣습니다."},
+      "level": "N5",
+      "frequency": 5
+    },
+    {
+      "id": "k055",
+      "word": "写真",
+      "reading": "しゃしん",
+      "romaji": "shashin",
+      "meaning": "사진",
+      "kanji": [
+        {"char": "写", "korean": "사", "meaning": "베낄 사", "reading": "しゃ"},
+        {"char": "真", "korean": "진", "meaning": "참 진", "reading": "しん"}
+      ],
+      "partOfSpeech": "명사",
+      "example": {"jp": "写真を撮ります。", "kr": "사진을 찍습니다."},
+      "level": "N5",
+      "frequency": 5
+    },
+    {
+      "id": "k056",
+      "word": "質問",
+      "reading": "しつもん",
+      "romaji": "shitsumon",
+      "meaning": "질문",
+      "kanji": [
+        {"char": "質", "korean": "질", "meaning": "바탕 질", "reading": "しつ"},
+        {"char": "問", "korean": "문", "meaning": "물을 문", "reading": "もん"}
+      ],
+      "partOfSpeech": "명사",
+      "example": {"jp": "質問があります。", "kr": "질문이 있습니다."},
+      "level": "N5",
+      "frequency": 4
+    },
+    {
+      "id": "k057",
+      "word": "答え",
+      "reading": "こたえ",
+      "romaji": "kotae",
+      "meaning": "답",
+      "kanji": [
+        {"char": "答", "korean": "답", "meaning": "대답 답", "reading": "とう"}
+      ],
+      "partOfSpeech": "명사",
+      "example": {"jp": "答えを教えてください。", "kr": "답을 가르쳐 주세요."},
+      "level": "N5",
+      "frequency": 4
+    },
+    {
+      "id": "k058",
+      "word": "方",
+      "reading": "かた",
+      "romaji": "kata",
+      "meaning": "분, 방법",
+      "kanji": [
+        {"char": "方", "korean": "방", "meaning": "모 방", "reading": "ほう/かた"}
+      ],
+      "partOfSpeech": "명사",
+      "example": {"jp": "あの方は誰ですか。", "kr": "저 분은 누구입니까?"},
+      "level": "N5",
+      "frequency": 5
+    },
+    {
+      "id": "k059",
+      "word": "場所",
+      "reading": "ばしょ",
+      "romaji": "basho",
+      "meaning": "장소",
+      "kanji": [
+        {"char": "場", "korean": "장", "meaning": "마당 장", "reading": "ば"},
+        {"char": "所", "korean": "소", "meaning": "바 소", "reading": "しょ"}
+      ],
+      "partOfSpeech": "명사",
+      "example": {"jp": "待ち合わせの場所です。", "kr": "만나기로 한 장소입니다."},
+      "level": "N5",
+      "frequency": 5
+    },
+    {
+      "id": "k060",
+      "word": "物",
+      "reading": "もの",
+      "romaji": "mono",
+      "meaning": "물건",
+      "kanji": [
+        {"char": "物", "korean": "물", "meaning": "만물 물", "reading": "ぶつ/もの"}
+      ],
+      "partOfSpeech": "명사",
+      "example": {"jp": "新しい物を買いました。", "kr": "새 물건을 샀습니다."},
+      "level": "N5",
+      "frequency": 5
+    },
+    {
+      "id": "k061",
+      "word": "仕事",
+      "reading": "しごと",
+      "romaji": "shigoto",
+      "meaning": "일, 직업",
+      "kanji": [
+        {"char": "仕", "korean": "사", "meaning": "섬길 사", "reading": "し"},
+        {"char": "事", "korean": "사", "meaning": "일 사", "reading": "ごと"}
+      ],
+      "partOfSpeech": "명사",
+      "example": {"jp": "仕事をします。", "kr": "일을 합니다."},
+      "level": "N5",
+      "frequency": 5
+    },
+    {
+      "id": "k062",
+      "word": "勉強",
+      "reading": "べんきょう",
+      "romaji": "benkyou",
+      "meaning": "공부",
+      "kanji": [
+        {"char": "勉", "korean": "면", "meaning": "힘쓸 면", "reading": "べん"},
+        {"char": "強", "korean": "강", "meaning": "강할 강", "reading": "きょう"}
+      ],
+      "partOfSpeech": "명사",
+      "example": {"jp": "日本語の勉強をします。", "kr": "일본어 공부를 합니다."},
+      "level": "N5",
+      "frequency": 5
+    },
+    {
+      "id": "k063",
+      "word": "練習",
+      "reading": "れんしゅう",
+      "romaji": "renshuu",
+      "meaning": "연습",
+      "kanji": [
+        {"char": "練", "korean": "련", "meaning": "익힐 련", "reading": "れん"},
+        {"char": "習", "korean": "습", "meaning": "익힐 습", "reading": "しゅう"}
+      ],
+      "partOfSpeech": "명사",
+      "example": {"jp": "毎日練習します。", "kr": "매일 연습합니다."},
+      "level": "N5",
+      "frequency": 4
+    },
+    {
+      "id": "k064",
+      "word": "試験",
+      "reading": "しけん",
+      "romaji": "shiken",
+      "meaning": "시험",
+      "kanji": [
+        {"char": "試", "korean": "시", "meaning": "시험할 시", "reading": "し"},
+        {"char": "験", "korean": "험", "meaning": "시험할 험", "reading": "けん"}
+      ],
+      "partOfSpeech": "명사",
+      "example": {"jp": "明日試験があります。", "kr": "내일 시험이 있습니다."},
+      "level": "N5",
+      "frequency": 5
+    },
+    {
+      "id": "k065",
+      "word": "宿題",
+      "reading": "しゅくだい",
+      "romaji": "shukudai",
+      "meaning": "숙제",
+      "kanji": [
+        {"char": "宿", "korean": "숙", "meaning": "잘 숙", "reading": "しゅく"},
+        {"char": "題", "korean": "제", "meaning": "제목 제", "reading": "だい"}
+      ],
+      "partOfSpeech": "명사",
+      "example": {"jp": "宿題をします。", "kr": "숙제를 합니다."},
+      "level": "N5",
+      "frequency": 5
+    },
+    {
+      "id": "k066",
+      "word": "教室",
+      "reading": "きょうしつ",
+      "romaji": "kyoushitsu",
+      "meaning": "교실",
+      "kanji": [
+        {"char": "教", "korean": "교", "meaning": "가르칠 교", "reading": "きょう"},
+        {"char": "室", "korean": "실", "meaning": "집 실", "reading": "しつ"}
+      ],
+      "partOfSpeech": "명사",
+      "example": {"jp": "教室に入ります。", "kr": "교실에 들어갑니다."},
+      "level": "N5",
+      "frequency": 4
+    },
+    {
+      "id": "k067",
+      "word": "机",
+      "reading": "つくえ",
+      "romaji": "tsukue",
+      "meaning": "책상",
+      "kanji": [
+        {"char": "机", "korean": "기", "meaning": "책상 기", "reading": "き"}
+      ],
+      "partOfSpeech": "명사",
+      "example": {"jp": "机の上に本があります。", "kr": "책상 위에 책이 있습니다."},
+      "level": "N5",
+      "frequency": 4
+    },
+    {
+      "id": "k068",
+      "word": "椅子",
+      "reading": "いす",
+      "romaji": "isu",
+      "meaning": "의자",
+      "kanji": [
+        {"char": "椅", "korean": "의", "meaning": "의자 의", "reading": "い"},
+        {"char": "子", "korean": "자", "meaning": "아들 자", "reading": "す"}
+      ],
+      "partOfSpeech": "명사",
+      "example": {"jp": "椅子に座ります。", "kr": "의자에 앉습니다."},
+      "level": "N5",
+      "frequency": 4
+    },
+    {
+      "id": "k069",
+      "word": "窓",
+      "reading": "まど",
+      "romaji": "mado",
+      "meaning": "창문",
+      "kanji": [
+        {"char": "窓", "korean": "창", "meaning": "창 창", "reading": "そう/まど"}
+      ],
+      "partOfSpeech": "명사",
+      "example": {"jp": "窓を開けます。", "kr": "창문을 엽니다."},
+      "level": "N5",
+      "frequency": 4
+    },
+    {
+      "id": "k070",
+      "word": "入口",
+      "reading": "いりぐち",
+      "romaji": "iriguchi",
+      "meaning": "입구",
+      "kanji": [
+        {"char": "入", "korean": "입", "meaning": "들 입", "reading": "にゅう"},
+        {"char": "口", "korean": "구", "meaning": "입 구", "reading": "こう"}
+      ],
+      "partOfSpeech": "명사",
+      "example": {"jp": "入口はどこですか。", "kr": "입구는 어디입니까?"},
+      "level": "N5",
+      "frequency": 4
+    },
+    {
+      "id": "k071",
+      "word": "出口",
+      "reading": "でぐち",
+      "romaji": "deguchi",
+      "meaning": "출구",
+      "kanji": [
+        {"char": "出", "korean": "출", "meaning": "날 출", "reading": "しゅつ"},
+        {"char": "口", "korean": "구", "meaning": "입 구", "reading": "こう"}
+      ],
+      "partOfSpeech": "명사",
+      "example": {"jp": "出口はあちらです。", "kr": "출구는 저쪽입니다."},
+      "level": "N5",
+      "frequency": 4
+    },
+    {
+      "id": "k072",
+      "word": "道",
+      "reading": "みち",
+      "romaji": "michi",
+      "meaning": "길",
+      "kanji": [
+        {"char": "道", "korean": "도", "meaning": "길 도", "reading": "どう/みち"}
+      ],
+      "partOfSpeech": "명사",
+      "example": {"jp": "道を教えてください。", "kr": "길을 가르쳐 주세요."},
+      "level": "N5",
+      "frequency": 5
+    },
+    {
+      "id": "k073",
+      "word": "空",
+      "reading": "そら",
+      "romaji": "sora",
+      "meaning": "하늘",
+      "kanji": [
+        {"char": "空", "korean": "공", "meaning": "빌 공", "reading": "くう/そら"}
+      ],
+      "partOfSpeech": "명사",
+      "example": {"jp": "空が青いです。", "kr": "하늘이 파랗습니다."},
+      "level": "N5",
+      "frequency": 4
+    },
+    {
+      "id": "k074",
+      "word": "花",
+      "reading": "はな",
+      "romaji": "hana",
+      "meaning": "꽃",
+      "kanji": [
+        {"char": "花", "korean": "화", "meaning": "꽃 화", "reading": "か/はな"}
+      ],
+      "partOfSpeech": "명사",
+      "example": {"jp": "花がきれいです。", "kr": "꽃이 예쁩니다."},
+      "level": "N5",
+      "frequency": 4
+    },
+    {
+      "id": "k075",
+      "word": "木",
+      "reading": "き",
+      "romaji": "ki",
+      "meaning": "나무",
+      "kanji": [
+        {"char": "木", "korean": "목", "meaning": "나무 목", "reading": "もく/き"}
+      ],
+      "partOfSpeech": "명사",
+      "example": {"jp": "大きい木があります。", "kr": "큰 나무가 있습니다."},
+      "level": "N5",
+      "frequency": 4
+    },
+    {
+      "id": "k076",
+      "word": "火",
+      "reading": "ひ",
+      "romaji": "hi",
+      "meaning": "불",
+      "kanji": [
+        {"char": "火", "korean": "화", "meaning": "불 화", "reading": "か/ひ"}
+      ],
+      "partOfSpeech": "명사",
+      "example": {"jp": "火をつけます。", "kr": "불을 켭니다."},
+      "level": "N5",
+      "frequency": 4
+    },
+    {
+      "id": "k077",
+      "word": "土",
+      "reading": "つち",
+      "romaji": "tsuchi",
+      "meaning": "흙",
+      "kanji": [
+        {"char": "土", "korean": "토", "meaning": "흙 토", "reading": "ど/つち"}
+      ],
+      "partOfSpeech": "명사",
+      "example": {"jp": "土で遊びます。", "kr": "흙으로 놉니다."},
+      "level": "N5",
+      "frequency": 3
+    },
+    {
+      "id": "k078",
+      "word": "色",
+      "reading": "いろ",
+      "romaji": "iro",
+      "meaning": "색",
+      "kanji": [
+        {"char": "色", "korean": "색", "meaning": "빛 색", "reading": "しょく/いろ"}
+      ],
+      "partOfSpeech": "명사",
+      "example": {"jp": "何色が好きですか。", "kr": "무슨 색을 좋아합니까?"},
+      "level": "N5",
+      "frequency": 4
+    },
+    {
+      "id": "k079",
+      "word": "白",
+      "reading": "しろ",
+      "romaji": "shiro",
+      "meaning": "하얀색",
+      "kanji": [
+        {"char": "白", "korean": "백", "meaning": "흰 백", "reading": "はく/しろ"}
+      ],
+      "partOfSpeech": "명사",
+      "example": {"jp": "白い服です。", "kr": "하얀 옷입니다."},
+      "level": "N5",
+      "frequency": 4
+    },
+    {
+      "id": "k080",
+      "word": "黒",
+      "reading": "くろ",
+      "romaji": "kuro",
+      "meaning": "검은색",
+      "kanji": [
+        {"char": "黒", "korean": "흑", "meaning": "검을 흑", "reading": "こく/くろ"}
+      ],
+      "partOfSpeech": "명사",
+      "example": {"jp": "黒い猫です。", "kr": "검은 고양이입니다."},
+      "level": "N5",
+      "frequency": 4
+    },
+    {
+      "id": "k081",
+      "word": "赤",
+      "reading": "あか",
+      "romaji": "aka",
+      "meaning": "빨간색",
+      "kanji": [
+        {"char": "赤", "korean": "적", "meaning": "붉을 적", "reading": "せき/あか"}
+      ],
+      "partOfSpeech": "명사",
+      "example": {"jp": "赤いバラです。", "kr": "빨간 장미입니다."},
+      "level": "N5",
+      "frequency": 4
+    },
+    {
+      "id": "k082",
+      "word": "青",
+      "reading": "あお",
+      "romaji": "ao",
+      "meaning": "파란색",
+      "kanji": [
+        {"char": "青", "korean": "청", "meaning": "푸를 청", "reading": "せい/あお"}
+      ],
+      "partOfSpeech": "명사",
+      "example": {"jp": "青い空です。", "kr": "파란 하늘입니다."},
+      "level": "N5",
+      "frequency": 4
+    },
+    {
+      "id": "k083",
+      "word": "古い",
+      "reading": "ふるい",
+      "romaji": "furui",
+      "meaning": "오래된",
+      "kanji": [
+        {"char": "古", "korean": "고", "meaning": "옛 고", "reading": "こ"}
+      ],
+      "partOfSpeech": "형용사",
+      "example": {"jp": "古い家です。", "kr": "오래된 집입니다."},
+      "level": "N5",
+      "frequency": 4
+    },
+    {
+      "id": "k084",
+      "word": "新しい",
+      "reading": "あたらしい",
+      "romaji": "atarashii",
+      "meaning": "새로운",
+      "kanji": [
+        {"char": "新", "korean": "신", "meaning": "새 신", "reading": "しん"}
+      ],
+      "partOfSpeech": "형용사",
+      "example": {"jp": "新しい車です。", "kr": "새 차입니다."},
+      "level": "N5",
+      "frequency": 5
+    },
+    {
+      "id": "k085",
+      "word": "高い",
+      "reading": "たかい",
+      "romaji": "takai",
+      "meaning": "높다, 비싸다",
+      "kanji": [
+        {"char": "高", "korean": "고", "meaning": "높을 고", "reading": "こう"}
+      ],
+      "partOfSpeech": "형용사",
+      "example": {"jp": "高い山です。", "kr": "높은 산입니다."},
+      "level": "N5",
+      "frequency": 5
+    },
+    {
+      "id": "k086",
+      "word": "安い",
+      "reading": "やすい",
+      "romaji": "yasui",
+      "meaning": "싸다",
+      "kanji": [
+        {"char": "安", "korean": "안", "meaning": "편안할 안", "reading": "あん"}
+      ],
+      "partOfSpeech": "형용사",
+      "example": {"jp": "安い店です。", "kr": "싼 가게입니다."},
+      "level": "N5",
+      "frequency": 5
+    },
+    {
+      "id": "k087",
+      "word": "早い",
+      "reading": "はやい",
+      "romaji": "hayai",
+      "meaning": "이르다, 빠르다",
+      "kanji": [
+        {"char": "早", "korean": "조", "meaning": "이를 조", "reading": "そう"}
+      ],
+      "partOfSpeech": "형용사",
+      "example": {"jp": "朝早く起きます。", "kr": "아침 일찍 일어납니다."},
+      "level": "N5",
+      "frequency": 5
+    },
+    {
+      "id": "k088",
+      "word": "遅い",
+      "reading": "おそい",
+      "romaji": "osoi",
+      "meaning": "늦다",
+      "kanji": [
+        {"char": "遅", "korean": "지", "meaning": "늦을 지", "reading": "ち"}
+      ],
+      "partOfSpeech": "형용사",
+      "example": {"jp": "遅く帰ります。", "kr": "늦게 돌아옵니다."},
+      "level": "N5",
+      "frequency": 4
+    },
+    {
+      "id": "k089",
+      "word": "多い",
+      "reading": "おおい",
+      "romaji": "ooi",
+      "meaning": "많다",
+      "kanji": [
+        {"char": "多", "korean": "다", "meaning": "많을 다", "reading": "た"}
+      ],
+      "partOfSpeech": "형용사",
+      "example": {"jp": "人が多いです。", "kr": "사람이 많습니다."},
+      "level": "N5",
+      "frequency": 5
+    },
+    {
+      "id": "k090",
+      "word": "少ない",
+      "reading": "すくない",
+      "romaji": "sukunai",
+      "meaning": "적다",
+      "kanji": [
+        {"char": "少", "korean": "소", "meaning": "적을 소", "reading": "しょう"}
+      ],
+      "partOfSpeech": "형용사",
+      "example": {"jp": "時間が少ないです。", "kr": "시간이 적습니다."},
+      "level": "N5",
+      "frequency": 4
+    },
+    {
+      "id": "k091",
+      "word": "長い",
+      "reading": "ながい",
+      "romaji": "nagai",
+      "meaning": "길다",
+      "kanji": [
+        {"char": "長", "korean": "장", "meaning": "길 장", "reading": "ちょう"}
+      ],
+      "partOfSpeech": "형용사",
+      "example": {"jp": "長い道です。", "kr": "긴 길입니다."},
+      "level": "N5",
+      "frequency": 5
+    },
+    {
+      "id": "k092",
+      "word": "短い",
+      "reading": "みじかい",
+      "romaji": "mijikai",
+      "meaning": "짧다",
+      "kanji": [
+        {"char": "短", "korean": "단", "meaning": "짧을 단", "reading": "たん"}
+      ],
+      "partOfSpeech": "형용사",
+      "example": {"jp": "短い時間です。", "kr": "짧은 시간입니다."},
+      "level": "N5",
+      "frequency": 4
+    },
+    {
+      "id": "k093",
+      "word": "明るい",
+      "reading": "あかるい",
+      "romaji": "akarui",
+      "meaning": "밝다",
+      "kanji": [
+        {"char": "明", "korean": "명", "meaning": "밝을 명", "reading": "めい"}
+      ],
+      "partOfSpeech": "형용사",
+      "example": {"jp": "明るい部屋です。", "kr": "밝은 방입니다."},
+      "level": "N5",
+      "frequency": 4
+    },
+    {
+      "id": "k094",
+      "word": "暗い",
+      "reading": "くらい",
+      "romaji": "kurai",
+      "meaning": "어둡다",
+      "kanji": [
+        {"char": "暗", "korean": "암", "meaning": "어두울 암", "reading": "あん"}
+      ],
+      "partOfSpeech": "형용사",
+      "example": {"jp": "暗い夜です。", "kr": "어두운 밤입니다."},
+      "level": "N5",
+      "frequency": 4
+    },
+    {
+      "id": "k095",
+      "word": "重い",
+      "reading": "おもい",
+      "romaji": "omoi",
+      "meaning": "무겁다",
+      "kanji": [
+        {"char": "重", "korean": "중", "meaning": "무거울 중", "reading": "じゅう"}
+      ],
+      "partOfSpeech": "형용사",
+      "example": {"jp": "重い荷物です。", "kr": "무거운 짐입니다."},
+      "level": "N5",
+      "frequency": 4
+    },
+    {
+      "id": "k096",
+      "word": "軽い",
+      "reading": "かるい",
+      "romaji": "karui",
+      "meaning": "가볍다",
+      "kanji": [
+        {"char": "軽", "korean": "경", "meaning": "가벼울 경", "reading": "けい"}
+      ],
+      "partOfSpeech": "형용사",
+      "example": {"jp": "軽い鞄です。", "kr": "가벼운 가방입니다."},
+      "level": "N5",
+      "frequency": 4
+    },
+    {
+      "id": "k097",
+      "word": "強い",
+      "reading": "つよい",
+      "romaji": "tsuyoi",
+      "meaning": "강하다",
+      "kanji": [
+        {"char": "強", "korean": "강", "meaning": "강할 강", "reading": "きょう"}
+      ],
+      "partOfSpeech": "형용사",
+      "example": {"jp": "強い人です。", "kr": "강한 사람입니다."},
+      "level": "N5",
+      "frequency": 4
+    },
+    {
+      "id": "k098",
+      "word": "弱い",
+      "reading": "よわい",
+      "romaji": "yowai",
+      "meaning": "약하다",
+      "kanji": [
+        {"char": "弱", "korean": "약", "meaning": "약할 약", "reading": "じゃく"}
+      ],
+      "partOfSpeech": "형용사",
+      "example": {"jp": "弱い風です。", "kr": "약한 바람입니다."},
+      "level": "N5",
+      "frequency": 3
+    },
+    {
+      "id": "k099",
+      "word": "正しい",
+      "reading": "ただしい",
+      "romaji": "tadashii",
+      "meaning": "올바르다",
+      "kanji": [
+        {"char": "正", "korean": "정", "meaning": "바를 정", "reading": "せい"}
+      ],
+      "partOfSpeech": "형용사",
+      "example": {"jp": "正しい答えです。", "kr": "올바른 답입니다."},
+      "level": "N5",
+      "frequency": 4
+    },
+    {
+      "id": "k100",
+      "word": "間違い",
+      "reading": "まちがい",
+      "romaji": "machigai",
+      "meaning": "실수, 틀림",
+      "kanji": [
+        {"char": "間", "korean": "간", "meaning": "사이 간", "reading": "かん"},
+        {"char": "違", "korean": "위", "meaning": "다를 위", "reading": "い"}
+      ],
+      "partOfSpeech": "명사",
+      "example": {"jp": "間違いがあります。", "kr": "실수가 있습니다."},
+      "level": "N5",
+      "frequency": 4
+    }
+  ]
+}

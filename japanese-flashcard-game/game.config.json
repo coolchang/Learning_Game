@@ -1,0 +1,21 @@
+{
+  "gameType": "flashcard",
+  "jlptLevel": "N5",
+  "category": "all",
+  "srs": {
+    "enabled": true,
+    "newCardsPerDay": 20,
+    "reviewCardsPerDay": 100
+  },
+  "audio": {
+    "enabled": true,
+    "autoplay": true,
+    "speed": 1.0
+  },
+  "gamification": {
+    "xp": true,
+    "levels": true,
+    "badges": true,
+    "dailyStreak": true
+  }
+}

@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>어휘 플래시카드 학습</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .flashcard {
+            perspective: 1000px;
+            cursor: pointer;
+        }
+        .flashcard-inner {
+            position: relative;
+            width: 100%;
+            height: 300px;
+            transition: transform 0.6s;
+            transform-style: preserve-3d;
+        }
+        .flashcard.flipped .flashcard-inner {
+            transform: rotateY(180deg);
+        }
+        .flashcard-front, .flashcard-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            border-radius: 1rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 2rem;
+        }
+        .flashcard-front {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+        .flashcard-back {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            color: white;
+            transform: rotateY(180deg);
+        }
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateX(100px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+        .slide-in {
+            animation: slideIn 0.4s ease-out;
+        }
+    </style>
+</head>
+<body class="bg-gradient-to-br from-purple-50 to-blue-50 min-h-screen p-4 md:p-8">
+    <div class="max-w-2xl mx-auto">
+        <!-- Header -->
+        <div class="bg-white rounded-2xl shadow-xl p-6 mb-6">
+            <h1 class="text-3xl font-bold text-gray-800 mb-2">📚 어휘 플래시카드</h1>
+            <p class="text-gray-600" id="topic">노래 속 한국어 어휘 학습</p>
+        </div>
+
+        <!-- Progress -->
+        <div class="bg-white rounded-2xl shadow-xl p-6 mb-6">
+            <div class="flex justify-between items-center mb-3">
+                <span class="text-gray-700 font-medium">학습 진도</span>
+                <span class="text-gray-700 font-medium">
+                    <span id="current-card">1</span> / <span id="total-cards">0</span>
+                </span>
+            </div>
+            <div class="w-full bg-gray-200 rounded-full h-3">
+                <div id="progress-bar" class="bg-purple-600 h-3 rounded-full transition-all duration-300" style="width: 0%"></div>
+            </div>
+            <div class="mt-3 flex justify-between text-sm text-gray-600">
+                <span>알고 있음: <span id="known-count" class="font-semibold text-green-600">0</span></span>
+                <span>복습 필요: <span id="review-count" class="font-semibold text-yellow-600">0</span></span>
+            </div>
+        </div>
+
+        <!-- Flashcard -->
+        <div class="flashcard mb-6" id="flashcard" onclick="flipCard()">
+            <div class="flashcard-inner" id="flashcard-inner">
+                <!-- Front: Korean Word -->
+                <div class="flashcard-front shadow-2xl">
+                    <div class="text-6xl mb-4" id="korean-word">단어</div>
+                    <div class="text-xl opacity-80" id="romanization">romanization</div>
+                    <div class="mt-8 text-sm opacity-60">클릭하여 뒤집기</div>
+                </div>
+                <!-- Back: Translation & Meaning -->
+                <div class="flashcard-back shadow-2xl">
+                    <div class="text-4xl mb-4" id="meaning">meaning</div>
+                    <div class="text-lg opacity-90 mb-4" id="pos">품사</div>
+                    <div class="text-base italic opacity-80 text-center" id="example">예문</div>
+                    <div class="text-sm opacity-70 mt-2" id="example-translation">번역</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Action Buttons -->
+        <div class="grid grid-cols-2 gap-4 mb-6">
+            <button onclick="markCard('known')"
+                    class="bg-green-600 hover:bg-green-700 text-white font-semibold py-4 px-6 rounded-xl transition-all transform hover:scale-105 active:scale-95 shadow-lg">
+                ✓ 알고 있어요
+            </button>
+            <button onclick="markCard('review')"
+                    class="bg-yellow-600 hover:bg-yellow-700 text-white font-semibold py-4 px-6 rounded-xl transition-all transform hover:scale-105 active:scale-95 shadow-lg">
+                ↻ 다시 복습
+            </button>
+        </div>
+
+        <!-- Navigation -->
+        <div class="grid grid-cols-3 gap-4">
+            <button onclick="previousCard()"
+                    class="bg-gray-600 hover:bg-gray-700 text-white font-semibold py-3 px-6 rounded-xl transition-all">
+                ← 이전
+            </button>
+            <button onclick="resetProgress()"
+                    class="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-6 rounded-xl transition-all">
+                🔄 처음부터
+            </button>
+            <button onclick="nextCard()"
+                    class="bg-gray-600 hover:bg-gray-700 text-white font-semibold py-3 px-6 rounded-xl transition-all">
+                다음 →
+            </button>
+        </div>
+
+        <!-- Summary (hidden initially) -->
+        <div id="summary" class="mt-6 bg-white rounded-2xl shadow-xl p-6 hidden">
+            <h3 class="text-2xl font-bold text-gray-800 mb-4">🎊 학습 완료!</h3>
+            <div class="space-y-3">
+                <div class="flex justify-between text-lg">
+                    <span>총 학습 단어:</span>
+                    <span class="font-semibold" id="summary-total">0</span>
+                </div>
+                <div class="flex justify-between text-lg text-green-600">
+                    <span>알고 있는 단어:</span>
+                    <span class="font-semibold" id="summary-known">0</span>
+                </div>
+                <div class="flex justify-between text-lg text-yellow-600">
+                    <span>복습 필요 단어:</span>
+                    <span class="font-semibold" id="summary-review">0</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // ========================================
+        // 플래시카드 데이터
+        // ========================================
+        const vocabularyData = {
+            topic: "노래 속 한국어 기본 어휘",
+            cards: [
+                {
+                    korean: "안녕하세요",
+                    romanization: "annyeonghaseyo",
+                    meaning: "hello (formal)",
+                    pos: "greeting",
+                    example: "안녕하세요, 선생님!",
+                    exampleTranslation: "Hello, teacher!"
+                },
+                {
+                    korean: "친구",
+                    romanization: "chingu",
+                    meaning: "friend",
+                    pos: "noun",
+                    example: "내 친구는 착해요",
+                    exampleTranslation: "My friend is kind"
+                },
+                {
+                    korean: "사랑",
+                    romanization: "sarang",
+                    meaning: "love",
+                    pos: "noun",
+                    example: "사랑해요",
+                    exampleTranslation: "I love you"
+                },
+                {
+                    korean: "행복",
+                    romanization: "haengbok",
+                    meaning: "happiness",
+                    pos: "noun",
+                    example: "행복한 하루 보내세요",
+                    exampleTranslation: "Have a happy day"
+                }
+            ]
+        };
+
+        // ========================================
+        // 게임 상태
+        // ========================================
+        let currentIndex = 0;
+        let knownCount = 0;
+        let reviewCount = 0;
+        let cardStates = []; // 'known', 'review', or null
+
+        function initFlashcards() {
+            document.getElementById('topic').textContent = vocabularyData.topic;
+            document.getElementById('total-cards').textContent = vocabularyData.cards.length;
+            cardStates = new Array(vocabularyData.cards.length).fill(null);
+            showCard(0);
+        }
+
+        function showCard(index) {
+            if (index < 0 || index >= vocabularyData.cards.length) return;
+
+            currentIndex = index;
+            const card = vocabularyData.cards[index];
+
+            // Update card content
+            document.getElementById('korean-word').textContent = card.korean;
+            document.getElementById('romanization').textContent = card.romanization;
+            document.getElementById('meaning').textContent = card.meaning;
+            document.getElementById('pos').textContent = card.pos;
+            document.getElementById('example').textContent = card.example;
+            document.getElementById('example-translation').textContent = card.exampleTranslation;
+
+            // Reset flip state
+            document.getElementById('flashcard').classList.remove('flipped');
+
+            // Update progress
+            document.getElementById('current-card').textContent = index + 1;
+            updateProgress();
+
+            // Add animation
+            const flashcard = document.getElementById('flashcard');
+            flashcard.classList.remove('slide-in');
+            setTimeout(() => flashcard.classList.add('slide-in'), 10);
+        }
+
+        function flipCard() {
+            document.getElementById('flashcard').classList.toggle('flipped');
+        }
+
+        function markCard(status) {
+            if (cardStates[currentIndex] === status) {
+                // Already marked, just move to next
+                nextCard();
+                return;
+            }
+
+            // Update counts
+            if (cardStates[currentIndex] === 'known') knownCount--;
+            if (cardStates[currentIndex] === 'review') reviewCount--;
+
+            cardStates[currentIndex] = status;
+
+            if (status === 'known') knownCount++;
+            if (status === 'review') reviewCount++;
+
+            updateProgress();
+
+            // Auto advance to next card
+            setTimeout(() => {
+                if (currentIndex < vocabularyData.cards.length - 1) {
+                    nextCard();
+                } else {
+                    showSummary();
+                }
+            }, 300);
+        }
+
+        function nextCard() {
+            if (currentIndex < vocabularyData.cards.length - 1) {
+                showCard(currentIndex + 1);
+            } else {
+                showSummary();
+            }
+        }
+
+        function previousCard() {
+            if (currentIndex > 0) {
+                showCard(currentIndex - 1);
+            }
+        }
+
+        function updateProgress() {
+            const progress = ((currentIndex + 1) / vocabularyData.cards.length) * 100;
+            document.getElementById('progress-bar').style.width = progress + '%';
+            document.getElementById('known-count').textContent = knownCount;
+            document.getElementById('review-count').textContent = reviewCount;
+        }
+
+        function resetProgress() {
+            currentIndex = 0;
+            knownCount = 0;
+            reviewCount = 0;
+            cardStates.fill(null);
+            document.getElementById('summary').classList.add('hidden');
+            showCard(0);
+        }
+
+        function showSummary() {
+            document.getElementById('summary-total').textContent = vocabularyData.cards.length;
+            document.getElementById('summary-known').textContent = knownCount;
+            document.getElementById('summary-review').textContent = reviewCount;
+            document.getElementById('summary').classList.remove('hidden');
+        }
+
+        // Keyboard navigation
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'ArrowLeft') previousCard();
+            if (e.key === 'ArrowRight') nextCard();
+            if (e.key === ' ') {
+                e.preventDefault();
+                flipCard();
+            }
+            if (e.key === '1') markCard('known');
+            if (e.key === '2') markCard('review');
+        });
+
+        // Initialize on load
+        document.addEventListener('DOMContentLoaded', initFlashcards);
+    </script>
+</body>
+</html>

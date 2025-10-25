@@ -1,0 +1,217 @@
+[
+  {
+    "id": 1,
+    "title": "사랑해 (愛してる)",
+    "artist": "K-POP アーティスト",
+    "level": "初級",
+    "lyrics": [
+      {
+        "korean": "사랑해 너를 {{사랑해}}",
+        "japanese": "愛してる、君を愛してる",
+        "blanks": ["사랑해"]
+      },
+      {
+        "korean": "{{매일}} 생각해 너만 생각해",
+        "japanese": "毎日考えてる、君だけを考えてる",
+        "blanks": ["매일"]
+      },
+      {
+        "korean": "함께 {{걷고}} 싶어",
+        "japanese": "一緒に歩きたい",
+        "blanks": ["걷고"]
+      },
+      {
+        "korean": "{{영원}}히 함께하자",
+        "japanese": "永遠に一緒にいよう",
+        "blanks": ["영원"]
+      }
+    ],
+    "pronunciationTips": [
+      {
+        "word": "사랑해",
+        "tip": "「サランヘ」パッチム「ㅇ」は鼻音です。日本語の「ン」に近い音です。",
+        "difficulty": "medium"
+      },
+      {
+        "word": "매일",
+        "tip": "「メイル」「ㅐ」と「ㅔ」の違いに注意してください。「ㅐ」は口を少し横に広げます。",
+        "difficulty": "hard"
+      },
+      {
+        "word": "영원",
+        "tip": "「ヨンウォン」二重パッチムの発音に注意。ㅇは次の音節に連音化します。",
+        "difficulty": "hard"
+      }
+    ]
+  },
+  {
+    "id": 2,
+    "title": "꿈 (夢)",
+    "artist": "バラードシンガー",
+    "level": "中級",
+    "lyrics": [
+      {
+        "korean": "{{꿈}}처럼 다가온 너",
+        "japanese": "夢のように近づいてきた君",
+        "blanks": ["꿈"]
+      },
+      {
+        "korean": "내 {{마음}}을 가져간 너",
+        "japanese": "私の心を持っていった君",
+        "blanks": ["마음"]
+      },
+      {
+        "korean": "{{영원}}히 함께하자",
+        "japanese": "永遠に一緒にいよう",
+        "blanks": ["영원"]
+      },
+      {
+        "korean": "이 {{순간}}이 멈추지 않길",
+        "japanese": "この瞬間が止まらないように",
+        "blanks": ["순간"]
+      }
+    ],
+    "pronunciationTips": [
+      {
+        "word": "꿈",
+        "tip": "「ックム」濃音「ㄲ」は強く発音します。喉を締めるようにして発音してください。",
+        "difficulty": "hard"
+      },
+      {
+        "word": "마음",
+        "tip": "「マウム」パッチム「ㅁ」は唇を閉じて発音します。",
+        "difficulty": "medium"
+      },
+      {
+        "word": "순간",
+        "tip": "「スンガン」パッチム「ㄴ」は舌を上あごにつけて発音します。",
+        "difficulty": "medium"
+      }
+    ]
+  },
+  {
+    "id": 3,
+    "title": "봄날 (春の日)",
+    "artist": "人気グループ",
+    "level": "中上級",
+    "lyrics": [
+      {
+        "korean": "{{보고}} 싶다 이렇게",
+        "japanese": "会いたい、こんなに",
+        "blanks": ["보고"]
+      },
+      {
+        "korean": "말하니까 {{더}} 보고 싶다",
+        "japanese": "言うからもっと会いたい",
+        "blanks": ["더"]
+      },
+      {
+        "korean": "{{봄날}}이 올 때까지",
+        "japanese": "春の日が来るまで",
+        "blanks": ["봄날"]
+      },
+      {
+        "korean": "{{기다리}}겠어",
+        "japanese": "待つよ",
+        "blanks": ["기다리"]
+      }
+    ],
+    "pronunciationTips": [
+      {
+        "word": "보고",
+        "tip": "「ポゴ」「ㅗ」は日本語の「オ」より口を丸くします。",
+        "difficulty": "medium"
+      },
+      {
+        "word": "봄날",
+        "tip": "「ポムナル」パッチム「ㅁ」の後の連音化に注意。「ㅁ」+「ㄴ」=「ムナル」",
+        "difficulty": "hard"
+      },
+      {
+        "word": "기다리",
+        "tip": "「キダリ」「ㄷ」は清音です。日本語の「タ」より弱く発音します。",
+        "difficulty": "medium"
+      }
+    ]
+  },
+  {
+    "id": 4,
+    "title": "별 (星)",
+    "artist": "ソロアーティスト",
+    "level": "中級",
+    "lyrics": [
+      {
+        "korean": "{{별}}처럼 빛나는 너",
+        "japanese": "星のように輝く君",
+        "blanks": ["별"]
+      },
+      {
+        "korean": "{{하늘}}에 떠 있는 너",
+        "japanese": "空に浮かんでいる君",
+        "blanks": ["하늘"]
+      },
+      {
+        "korean": "{{언제나}} 곁에 있어줘",
+        "japanese": "いつもそばにいて",
+        "blanks": ["언제나"]
+      }
+    ],
+    "pronunciationTips": [
+      {
+        "word": "별",
+        "tip": "「ピョル」パッチム「ㄹ」は舌を巻くように発音します。",
+        "difficulty": "hard"
+      },
+      {
+        "word": "하늘",
+        "tip": "「ハヌル」「ㅡ」は日本語にない音。唇を横に引いて発音します。",
+        "difficulty": "hard"
+      },
+      {
+        "word": "언제나",
+        "tip": "「オンジェナ」「ㅓ」は日本語の「オ」と「ア」の中間音です。",
+        "difficulty": "medium"
+      }
+    ]
+  },
+  {
+    "id": 5,
+    "title": "우리 (私たち)",
+    "artist": "デュオ",
+    "level": "初中級",
+    "lyrics": [
+      {
+        "korean": "{{우리}} 함께 걸어가요",
+        "japanese": "私たち、一緒に歩いて行きましょう",
+        "blanks": ["우리"]
+      },
+      {
+        "korean": "{{손}}을 잡고 나아가요",
+        "japanese": "手をつないで進みましょう",
+        "blanks": ["손"]
+      },
+      {
+        "korean": "{{행복}}한 미래를 향해",
+        "japanese": "幸せな未来に向かって",
+        "blanks": ["행복"]
+      }
+    ],
+    "pronunciationTips": [
+      {
+        "word": "우리",
+        "tip": "「ウリ」「ㅜ」は口をすぼめて発音します。",
+        "difficulty": "medium"
+      },
+      {
+        "word": "손",
+        "tip": "「ソン」パッチム「ㄴ」に注意してください。",
+        "difficulty": "easy"
+      },
+      {
+        "word": "행복",
+        "tip": "「ヘンボク」パッチム「ㅇ」と「ㄱ」の発音に注意。",
+        "difficulty": "medium"
+      }
+    ]
+  }
+]

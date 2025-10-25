@@ -1,0 +1,990 @@
+{
+  "totalWords": 100,
+  "totalStages": 14,
+  "wordsPerStage": 7,
+  "stages": [
+    {
+      "id": 1,
+      "title": "기본 인사",
+      "theme": "greetings",
+      "description": "일본어 기본 인사말을 배워봅시다",
+      "words": [
+        {
+          "word": "こんにちは",
+          "reading": "こんにちは",
+          "romaji": "konnichiwa",
+          "meaning": "안녕하세요",
+          "partOfSpeech": "인사",
+          "example": { "jp": "こんにちは、田中さん。", "kr": "안녕하세요, 다나카 씨." }
+        },
+        {
+          "word": "おはよう",
+          "reading": "おはよう",
+          "romaji": "ohayou",
+          "meaning": "좋은 아침",
+          "partOfSpeech": "인사",
+          "example": { "jp": "おはようございます。", "kr": "좋은 아침입니다." }
+        },
+        {
+          "word": "こんばんは",
+          "reading": "こんばんは",
+          "romaji": "konbanwa",
+          "meaning": "안녕하세요 (저녁)",
+          "partOfSpeech": "인사",
+          "example": { "jp": "こんばんは、皆さん。", "kr": "안녕하세요, 여러분." }
+        },
+        {
+          "word": "ありがとう",
+          "reading": "ありがとう",
+          "romaji": "arigatou",
+          "meaning": "고마워",
+          "partOfSpeech": "인사",
+          "example": { "jp": "ありがとうございます。", "kr": "감사합니다." }
+        },
+        {
+          "word": "すみません",
+          "reading": "すみません",
+          "romaji": "sumimasen",
+          "meaning": "죄송합니다, 실례합니다",
+          "partOfSpeech": "인사",
+          "example": { "jp": "すみません、ちょっといいですか。", "kr": "실례합니다, 잠깐 괜찮으세요?" }
+        },
+        {
+          "word": "さようなら",
+          "reading": "さようなら",
+          "romaji": "sayounara",
+          "meaning": "안녕히 가세요",
+          "partOfSpeech": "인사",
+          "example": { "jp": "さようなら、また明日。", "kr": "안녕히 가세요, 또 내일." }
+        },
+        {
+          "word": "おやすみ",
+          "reading": "おやすみ",
+          "romaji": "oyasumi",
+          "meaning": "잘 자",
+          "partOfSpeech": "인사",
+          "example": { "jp": "おやすみなさい。", "kr": "안녕히 주무세요." }
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "title": "숫자",
+      "theme": "numbers",
+      "description": "기본 숫자를 배워봅시다",
+      "words": [
+        {
+          "word": "一",
+          "reading": "いち",
+          "romaji": "ichi",
+          "meaning": "일, 하나",
+          "hanja": { "char": "一", "korean": "일", "meaning": "한 일" },
+          "partOfSpeech": "숫자",
+          "example": { "jp": "一つください。", "kr": "하나 주세요." }
+        },
+        {
+          "word": "二",
+          "reading": "に",
+          "romaji": "ni",
+          "meaning": "이, 둘",
+          "hanja": { "char": "二", "korean": "이", "meaning": "두 이" },
+          "partOfSpeech": "숫자",
+          "example": { "jp": "二人で行きます。", "kr": "두 명이서 갑니다." }
+        },
+        {
+          "word": "三",
+          "reading": "さん",
+          "romaji": "san",
+          "meaning": "삼, 셋",
+          "hanja": { "char": "三", "korean": "삼", "meaning": "석 삼" },
+          "partOfSpeech": "숫자",
+          "example": { "jp": "三つあります。", "kr": "세 개 있습니다." }
+        },
+        {
+          "word": "四",
+          "reading": "し/よん",
+          "romaji": "shi/yon",
+          "meaning": "사, 넷",
+          "hanja": { "char": "四", "korean": "사", "meaning": "넉 사" },
+          "partOfSpeech": "숫자",
+          "example": { "jp": "四時です。", "kr": "네 시입니다." }
+        },
+        {
+          "word": "五",
+          "reading": "ご",
+          "romaji": "go",
+          "meaning": "오, 다섯",
+          "hanja": { "char": "五", "korean": "오", "meaning": "다섯 오" },
+          "partOfSpeech": "숫자",
+          "example": { "jp": "五分待ってください。", "kr": "5분 기다려 주세요." }
+        },
+        {
+          "word": "六",
+          "reading": "ろく",
+          "romaji": "roku",
+          "meaning": "육, 여섯",
+          "hanja": { "char": "六", "korean": "육", "meaning": "여섯 육" },
+          "partOfSpeech": "숫자",
+          "example": { "jp": "六月です。", "kr": "6월입니다." }
+        },
+        {
+          "word": "七",
+          "reading": "しち/なな",
+          "romaji": "shichi/nana",
+          "meaning": "칠, 일곱",
+          "hanja": { "char": "七", "korean": "칠", "meaning": "일곱 칠" },
+          "partOfSpeech": "숫자",
+          "example": { "jp": "七時に起きます。", "kr": "7시에 일어납니다." }
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "title": "시간 표현",
+      "theme": "time",
+      "description": "시간 관련 표현을 배워봅시다",
+      "words": [
+        {
+          "word": "今日",
+          "reading": "きょう",
+          "romaji": "kyou",
+          "meaning": "오늘",
+          "hanja": { "char": "今日", "korean": "금일", "meaning": "이제 금, 날 일" },
+          "partOfSpeech": "명사",
+          "example": { "jp": "今日は暑いです。", "kr": "오늘은 덥습니다." }
+        },
+        {
+          "word": "昨日",
+          "reading": "きのう",
+          "romaji": "kinou",
+          "meaning": "어제",
+          "hanja": { "char": "昨日", "korean": "작일", "meaning": "어제 작, 날 일" },
+          "partOfSpeech": "명사",
+          "example": { "jp": "昨日は雨でした。", "kr": "어제는 비였습니다." }
+        },
+        {
+          "word": "明日",
+          "reading": "あした",
+          "romaji": "ashita",
+          "meaning": "내일",
+          "hanja": { "char": "明日", "korean": "명일", "meaning": "밝을 명, 날 일" },
+          "partOfSpeech": "명사",
+          "example": { "jp": "明日会いましょう。", "kr": "내일 만나요." }
+        },
+        {
+          "word": "朝",
+          "reading": "あさ",
+          "romaji": "asa",
+          "meaning": "아침",
+          "hanja": { "char": "朝", "korean": "조", "meaning": "아침 조" },
+          "partOfSpeech": "명사",
+          "example": { "jp": "朝ごはんを食べます。", "kr": "아침밥을 먹습니다." }
+        },
+        {
+          "word": "昼",
+          "reading": "ひる",
+          "romaji": "hiru",
+          "meaning": "낮, 점심",
+          "hanja": { "char": "昼", "korean": "주", "meaning": "낮 주" },
+          "partOfSpeech": "명사",
+          "example": { "jp": "昼ごはんは何ですか。", "kr": "점심은 무엇입니까?" }
+        },
+        {
+          "word": "夜",
+          "reading": "よる",
+          "romaji": "yoru",
+          "meaning": "밤",
+          "hanja": { "char": "夜", "korean": "야", "meaning": "밤 야" },
+          "partOfSpeech": "명사",
+          "example": { "jp": "夜、勉強します。", "kr": "밤에 공부합니다." }
+        },
+        {
+          "word": "毎日",
+          "reading": "まいにち",
+          "romaji": "mainichi",
+          "meaning": "매일",
+          "hanja": { "char": "毎日", "korean": "매일", "meaning": "매양 매, 날 일" },
+          "partOfSpeech": "명사",
+          "example": { "jp": "毎日運動します。", "kr": "매일 운동합니다." }
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "title": "가족",
+      "theme": "family",
+      "description": "가족 관련 단어를 배워봅시다",
+      "words": [
+        {
+          "word": "家族",
+          "reading": "かぞく",
+          "romaji": "kazoku",
+          "meaning": "가족",
+          "hanja": { "char": "家族", "korean": "가족", "meaning": "집 가, 겨레 족" },
+          "partOfSpeech": "명사",
+          "example": { "jp": "家族と旅行します。", "kr": "가족과 여행합니다." }
+        },
+        {
+          "word": "父",
+          "reading": "ちち",
+          "romaji": "chichi",
+          "meaning": "아버지",
+          "hanja": { "char": "父", "korean": "부", "meaning": "아비 부" },
+          "partOfSpeech": "명사",
+          "example": { "jp": "父は会社員です。", "kr": "아버지는 회사원입니다." }
+        },
+        {
+          "word": "母",
+          "reading": "はは",
+          "romaji": "haha",
+          "meaning": "어머니",
+          "hanja": { "char": "母", "korean": "모", "meaning": "어미 모" },
+          "partOfSpeech": "명사",
+          "example": { "jp": "母は料理が上手です。", "kr": "어머니는 요리를 잘합니다." }
+        },
+        {
+          "word": "兄",
+          "reading": "あに",
+          "romaji": "ani",
+          "meaning": "형, 오빠",
+          "hanja": { "char": "兄", "korean": "형", "meaning": "맏 형" },
+          "partOfSpeech": "명사",
+          "example": { "jp": "兄は大学生です。", "kr": "형은 대학생입니다." }
+        },
+        {
+          "word": "姉",
+          "reading": "あね",
+          "romaji": "ane",
+          "meaning": "언니, 누나",
+          "hanja": { "char": "姉", "korean": "자", "meaning": "맏누이 자" },
+          "partOfSpeech": "명사",
+          "example": { "jp": "姉は先生です。", "kr": "언니는 선생님입니다." }
+        },
+        {
+          "word": "弟",
+          "reading": "おとうと",
+          "romaji": "otouto",
+          "meaning": "남동생",
+          "hanja": { "char": "弟", "korean": "제", "meaning": "아우 제" },
+          "partOfSpeech": "명사",
+          "example": { "jp": "弟は高校生です。", "kr": "남동생은 고등학생입니다." }
+        },
+        {
+          "word": "妹",
+          "reading": "いもうと",
+          "romaji": "imouto",
+          "meaning": "여동생",
+          "hanja": { "char": "妹", "korean": "매", "meaning": "누이 매" },
+          "partOfSpeech": "명사",
+          "example": { "jp": "妹は中学生です。", "kr": "여동생은 중학생입니다." }
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "title": "음식 1",
+      "theme": "food",
+      "description": "음식 관련 단어를 배워봅시다",
+      "words": [
+        {
+          "word": "食べる",
+          "reading": "たべる",
+          "romaji": "taberu",
+          "meaning": "먹다",
+          "hanja": { "char": "食", "korean": "식", "meaning": "먹을 식" },
+          "partOfSpeech": "동사",
+          "example": { "jp": "朝ごはんを食べます。", "kr": "아침밥을 먹습니다." }
+        },
+        {
+          "word": "ご飯",
+          "reading": "ごはん",
+          "romaji": "gohan",
+          "meaning": "밥, 식사",
+          "hanja": { "char": "飯", "korean": "반", "meaning": "밥 반" },
+          "partOfSpeech": "명사",
+          "example": { "jp": "ご飯を食べましょう。", "kr": "밥을 먹읍시다." }
+        },
+        {
+          "word": "パン",
+          "reading": "パン",
+          "romaji": "pan",
+          "meaning": "빵",
+          "partOfSpeech": "명사",
+          "example": { "jp": "パンとコーヒーを食べます。", "kr": "빵과 커피를 먹습니다." }
+        },
+        {
+          "word": "肉",
+          "reading": "にく",
+          "romaji": "niku",
+          "meaning": "고기",
+          "hanja": { "char": "肉", "korean": "육", "meaning": "고기 육" },
+          "partOfSpeech": "명사",
+          "example": { "jp": "肉が好きです。", "kr": "고기를 좋아합니다." }
+        },
+        {
+          "word": "魚",
+          "reading": "さかな",
+          "romaji": "sakana",
+          "meaning": "생선, 물고기",
+          "hanja": { "char": "魚", "korean": "어", "meaning": "물고기 어" },
+          "partOfSpeech": "명사",
+          "example": { "jp": "魚を食べます。", "kr": "생선을 먹습니다." }
+        },
+        {
+          "word": "野菜",
+          "reading": "やさい",
+          "romaji": "yasai",
+          "meaning": "야채",
+          "hanja": { "char": "野菜", "korean": "야채", "meaning": "들 야, 나물 채" },
+          "partOfSpeech": "명사",
+          "example": { "jp": "野菜が嫌いです。", "kr": "야채를 싫어합니다." }
+        },
+        {
+          "word": "果物",
+          "reading": "くだもの",
+          "romaji": "kudamono",
+          "meaning": "과일",
+          "hanja": { "char": "果物", "korean": "과물", "meaning": "열매 과, 물건 물" },
+          "partOfSpeech": "명사",
+          "example": { "jp": "果物を買います。", "kr": "과일을 삽니다." }
+        }
+      ]
+    },
+    {
+      "id": 6,
+      "title": "음료",
+      "theme": "drinks",
+      "description": "음료 관련 단어를 배워봅시다",
+      "words": [
+        {
+          "word": "飲む",
+          "reading": "のむ",
+          "romaji": "nomu",
+          "meaning": "마시다",
+          "hanja": { "char": "飲", "korean": "음", "meaning": "마실 음" },
+          "partOfSpeech": "동사",
+          "example": { "jp": "水を飲みます。", "kr": "물을 마십니다." }
+        },
+        {
+          "word": "水",
+          "reading": "みず",
+          "romaji": "mizu",
+          "meaning": "물",
+          "hanja": { "char": "水", "korean": "수", "meaning": "물 수" },
+          "partOfSpeech": "명사",
+          "example": { "jp": "水をください。", "kr": "물 주세요." }
+        },
+        {
+          "word": "お茶",
+          "reading": "おちゃ",
+          "romaji": "ocha",
+          "meaning": "차",
+          "hanja": { "char": "茶", "korean": "차", "meaning": "차 차" },
+          "partOfSpeech": "명사",
+          "example": { "jp": "お茶を飲みましょう。", "kr": "차를 마십시다." }
+        },
+        {
+          "word": "コーヒー",
+          "reading": "コーヒー",
+          "romaji": "koohii",
+          "meaning": "커피",
+          "partOfSpeech": "명사",
+          "example": { "jp": "コーヒーが好きです。", "kr": "커피를 좋아합니다." }
+        },
+        {
+          "word": "ジュース",
+          "reading": "ジュース",
+          "romaji": "juusu",
+          "meaning": "주스",
+          "partOfSpeech": "명사",
+          "example": { "jp": "オレンジジュースをください。", "kr": "오렌지 주스 주세요." }
+        },
+        {
+          "word": "牛乳",
+          "reading": "ぎゅうにゅう",
+          "romaji": "gyuunyuu",
+          "meaning": "우유",
+          "hanja": { "char": "牛乳", "korean": "우유", "meaning": "소 우, 젖 유" },
+          "partOfSpeech": "명사",
+          "example": { "jp": "牛乳を飲みます。", "kr": "우유를 마십니다." }
+        },
+        {
+          "word": "お酒",
+          "reading": "おさけ",
+          "romaji": "osake",
+          "meaning": "술",
+          "hanja": { "char": "酒", "korean": "주", "meaning": "술 주" },
+          "partOfSpeech": "명사",
+          "example": { "jp": "お酒を飲みません。", "kr": "술을 마시지 않습니다." }
+        }
+      ]
+    },
+    {
+      "id": 7,
+      "title": "동작 동사 1",
+      "theme": "verbs1",
+      "description": "기본 동작 동사를 배워봅시다",
+      "words": [
+        {
+          "word": "行く",
+          "reading": "いく",
+          "romaji": "iku",
+          "meaning": "가다",
+          "hanja": { "char": "行", "korean": "행", "meaning": "다닐 행" },
+          "partOfSpeech": "동사",
+          "example": { "jp": "学校に行きます。", "kr": "학교에 갑니다." }
+        },
+        {
+          "word": "来る",
+          "reading": "くる",
+          "romaji": "kuru",
+          "meaning": "오다",
+          "hanja": { "char": "来", "korean": "래", "meaning": "올 래" },
+          "partOfSpeech": "동사",
+          "example": { "jp": "友達が来ます。", "kr": "친구가 옵니다." }
+        },
+        {
+          "word": "帰る",
+          "reading": "かえる",
+          "romaji": "kaeru",
+          "meaning": "돌아가다",
+          "hanja": { "char": "帰", "korean": "귀", "meaning": "돌아갈 귀" },
+          "partOfSpeech": "동사",
+          "example": { "jp": "家に帰ります。", "kr": "집에 돌아갑니다." }
+        },
+        {
+          "word": "見る",
+          "reading": "みる",
+          "romaji": "miru",
+          "meaning": "보다",
+          "hanja": { "char": "見", "korean": "견", "meaning": "볼 견" },
+          "partOfSpeech": "동사",
+          "example": { "jp": "テレビを見ます。", "kr": "텔레비전을 봅니다." }
+        },
+        {
+          "word": "聞く",
+          "reading": "きく",
+          "romaji": "kiku",
+          "meaning": "듣다, 묻다",
+          "hanja": { "char": "聞", "korean": "문", "meaning": "들을 문" },
+          "partOfSpeech": "동사",
+          "example": { "jp": "音楽を聞きます。", "kr": "음악을 듣습니다." }
+        },
+        {
+          "word": "話す",
+          "reading": "はなす",
+          "romaji": "hanasu",
+          "meaning": "말하다",
+          "hanja": { "char": "話", "korean": "화", "meaning": "말씀 화" },
+          "partOfSpeech": "동사",
+          "example": { "jp": "日本語を話します。", "kr": "일본어를 말합니다." }
+        },
+        {
+          "word": "読む",
+          "reading": "よむ",
+          "romaji": "yomu",
+          "meaning": "읽다",
+          "hanja": { "char": "読", "korean": "독", "meaning": "읽을 독" },
+          "partOfSpeech": "동사",
+          "example": { "jp": "本を読みます。", "kr": "책을 읽습니다." }
+        }
+      ]
+    },
+    {
+      "id": 8,
+      "title": "동작 동사 2",
+      "theme": "verbs2",
+      "description": "더 많은 동작 동사를 배워봅시다",
+      "words": [
+        {
+          "word": "書く",
+          "reading": "かく",
+          "romaji": "kaku",
+          "meaning": "쓰다",
+          "hanja": { "char": "書", "korean": "서", "meaning": "글 서" },
+          "partOfSpeech": "동사",
+          "example": { "jp": "手紙を書きます。", "kr": "편지를 씁니다." }
+        },
+        {
+          "word": "買う",
+          "reading": "かう",
+          "romaji": "kau",
+          "meaning": "사다",
+          "hanja": { "char": "買", "korean": "매", "meaning": "살 매" },
+          "partOfSpeech": "동사",
+          "example": { "jp": "本を買います。", "kr": "책을 삽니다." }
+        },
+        {
+          "word": "売る",
+          "reading": "うる",
+          "romaji": "uru",
+          "meaning": "팔다",
+          "hanja": { "char": "売", "korean": "매", "meaning": "팔 매" },
+          "partOfSpeech": "동사",
+          "example": { "jp": "車を売ります。", "kr": "차를 팝니다." }
+        },
+        {
+          "word": "作る",
+          "reading": "つくる",
+          "romaji": "tsukuru",
+          "meaning": "만들다",
+          "hanja": { "char": "作", "korean": "작", "meaning": "지을 작" },
+          "partOfSpeech": "동사",
+          "example": { "jp": "料理を作ります。", "kr": "요리를 만듭니다." }
+        },
+        {
+          "word": "勉強する",
+          "reading": "べんきょうする",
+          "romaji": "benkyou suru",
+          "meaning": "공부하다",
+          "hanja": { "char": "勉強", "korean": "면강", "meaning": "힘쓸 면, 강할 강" },
+          "partOfSpeech": "동사",
+          "example": { "jp": "毎日勉強します。", "kr": "매일 공부합니다." }
+        },
+        {
+          "word": "休む",
+          "reading": "やすむ",
+          "romaji": "yasumu",
+          "meaning": "쉬다",
+          "hanja": { "char": "休", "korean": "휴", "meaning": "쉴 휴" },
+          "partOfSpeech": "동사",
+          "example": { "jp": "日曜日に休みます。", "kr": "일요일에 쉽니다." }
+        },
+        {
+          "word": "働く",
+          "reading": "はたらく",
+          "romaji": "hataraku",
+          "meaning": "일하다",
+          "hanja": { "char": "働", "korean": "동", "meaning": "일할 동" },
+          "partOfSpeech": "동사",
+          "example": { "jp": "会社で働きます。", "kr": "회사에서 일합니다." }
+        }
+      ]
+    },
+    {
+      "id": 9,
+      "title": "형용사 1",
+      "theme": "adjectives1",
+      "description": "기본 형용사를 배워봅시다",
+      "words": [
+        {
+          "word": "大きい",
+          "reading": "おおきい",
+          "romaji": "ookii",
+          "meaning": "크다",
+          "hanja": { "char": "大", "korean": "대", "meaning": "큰 대" },
+          "partOfSpeech": "형용사",
+          "example": { "jp": "大きい家です。", "kr": "큰 집입니다." }
+        },
+        {
+          "word": "小さい",
+          "reading": "ちいさい",
+          "romaji": "chiisai",
+          "meaning": "작다",
+          "hanja": { "char": "小", "korean": "소", "meaning": "작을 소" },
+          "partOfSpeech": "형용사",
+          "example": { "jp": "小さい犬です。", "kr": "작은 개입니다." }
+        },
+        {
+          "word": "新しい",
+          "reading": "あたらしい",
+          "romaji": "atarashii",
+          "meaning": "새롭다",
+          "hanja": { "char": "新", "korean": "신", "meaning": "새 신" },
+          "partOfSpeech": "형용사",
+          "example": { "jp": "新しい車です。", "kr": "새 차입니다." }
+        },
+        {
+          "word": "古い",
+          "reading": "ふるい",
+          "romaji": "furui",
+          "meaning": "오래되다, 낡다",
+          "hanja": { "char": "古", "korean": "고", "meaning": "옛 고" },
+          "partOfSpeech": "형용사",
+          "example": { "jp": "古い本です。", "kr": "오래된 책입니다." }
+        },
+        {
+          "word": "高い",
+          "reading": "たかい",
+          "romaji": "takai",
+          "meaning": "높다, 비싸다",
+          "hanja": { "char": "高", "korean": "고", "meaning": "높을 고" },
+          "partOfSpeech": "형용사",
+          "example": { "jp": "高い山です。", "kr": "높은 산입니다." }
+        },
+        {
+          "word": "安い",
+          "reading": "やすい",
+          "romaji": "yasui",
+          "meaning": "싸다",
+          "hanja": { "char": "安", "korean": "안", "meaning": "편안할 안" },
+          "partOfSpeech": "형용사",
+          "example": { "jp": "安いレストランです。", "kr": "싼 레스토랑입니다." }
+        },
+        {
+          "word": "良い",
+          "reading": "よい/いい",
+          "romaji": "yoi/ii",
+          "meaning": "좋다",
+          "hanja": { "char": "良", "korean": "양", "meaning": "좋을 양" },
+          "partOfSpeech": "형용사",
+          "example": { "jp": "良い天気です。", "kr": "좋은 날씨입니다." }
+        }
+      ]
+    },
+    {
+      "id": 10,
+      "title": "형용사 2",
+      "theme": "adjectives2",
+      "description": "더 많은 형용사를 배워봅시다",
+      "words": [
+        {
+          "word": "悪い",
+          "reading": "わるい",
+          "romaji": "warui",
+          "meaning": "나쁘다",
+          "hanja": { "char": "悪", "korean": "악", "meaning": "악할 악" },
+          "partOfSpeech": "형용사",
+          "example": { "jp": "悪い天気です。", "kr": "나쁜 날씨입니다." }
+        },
+        {
+          "word": "暑い",
+          "reading": "あつい",
+          "romaji": "atsui",
+          "meaning": "덥다",
+          "hanja": { "char": "暑", "korean": "서", "meaning": "더울 서" },
+          "partOfSpeech": "형용사",
+          "example": { "jp": "今日は暑いです。", "kr": "오늘은 덥습니다." }
+        },
+        {
+          "word": "寒い",
+          "reading": "さむい",
+          "romaji": "samui",
+          "meaning": "춥다",
+          "hanja": { "char": "寒", "korean": "한", "meaning": "찰 한" },
+          "partOfSpeech": "형용사",
+          "example": { "jp": "冬は寒いです。", "kr": "겨울은 춥습니다." }
+        },
+        {
+          "word": "忙しい",
+          "reading": "いそがしい",
+          "romaji": "isogashii",
+          "meaning": "바쁘다",
+          "hanja": { "char": "忙", "korean": "망", "meaning": "바쁠 망" },
+          "partOfSpeech": "형용사",
+          "example": { "jp": "毎日忙しいです。", "kr": "매일 바쁩니다." }
+        },
+        {
+          "word": "楽しい",
+          "reading": "たのしい",
+          "romaji": "tanoshii",
+          "meaning": "즐겁다",
+          "hanja": { "char": "楽", "korean": "락", "meaning": "즐길 락" },
+          "partOfSpeech": "형용사",
+          "example": { "jp": "楽しいです。", "kr": "즐겁습니다." }
+        },
+        {
+          "word": "難しい",
+          "reading": "むずかしい",
+          "romaji": "muzukashii",
+          "meaning": "어렵다",
+          "hanja": { "char": "難", "korean": "난", "meaning": "어려울 난" },
+          "partOfSpeech": "형용사",
+          "example": { "jp": "日本語は難しいです。", "kr": "일본어는 어렵습니다." }
+        },
+        {
+          "word": "簡単",
+          "reading": "かんたん",
+          "romaji": "kantan",
+          "meaning": "간단하다",
+          "hanja": { "char": "簡単", "korean": "간단", "meaning": "대쪽 간, 홑 단" },
+          "partOfSpeech": "형용동사",
+          "example": { "jp": "簡単な問題です。", "kr": "간단한 문제입니다." }
+        }
+      ]
+    },
+    {
+      "id": 11,
+      "title": "장소",
+      "theme": "places",
+      "description": "장소 관련 단어를 배워봅시다",
+      "words": [
+        {
+          "word": "学校",
+          "reading": "がっこう",
+          "romaji": "gakkou",
+          "meaning": "학교",
+          "hanja": { "char": "学校", "korean": "학교", "meaning": "배울 학, 학교 교" },
+          "partOfSpeech": "명사",
+          "example": { "jp": "学校に行きます。", "kr": "학교에 갑니다." }
+        },
+        {
+          "word": "会社",
+          "reading": "かいしゃ",
+          "romaji": "kaisha",
+          "meaning": "회사",
+          "hanja": { "char": "会社", "korean": "회사", "meaning": "모일 회, 모일 사" },
+          "partOfSpeech": "명사",
+          "example": { "jp": "会社で働きます。", "kr": "회사에서 일합니다." }
+        },
+        {
+          "word": "家",
+          "reading": "いえ/うち",
+          "romaji": "ie/uchi",
+          "meaning": "집",
+          "hanja": { "char": "家", "korean": "가", "meaning": "집 가" },
+          "partOfSpeech": "명사",
+          "example": { "jp": "家に帰ります。", "kr": "집에 돌아갑니다." }
+        },
+        {
+          "word": "駅",
+          "reading": "えき",
+          "romaji": "eki",
+          "meaning": "역",
+          "hanja": { "char": "駅", "korean": "역", "meaning": "역 역" },
+          "partOfSpeech": "명사",
+          "example": { "jp": "駅で会いましょう。", "kr": "역에서 만납시다." }
+        },
+        {
+          "word": "店",
+          "reading": "みせ",
+          "romaji": "mise",
+          "meaning": "가게",
+          "hanja": { "char": "店", "korean": "점", "meaning": "가게 점" },
+          "partOfSpeech": "명사",
+          "example": { "jp": "店で買います。", "kr": "가게에서 삽니다." }
+        },
+        {
+          "word": "病院",
+          "reading": "びょういん",
+          "romaji": "byouin",
+          "meaning": "병원",
+          "hanja": { "char": "病院", "korean": "병원", "meaning": "병 병, 뜰 원" },
+          "partOfSpeech": "명사",
+          "example": { "jp": "病院に行きます。", "kr": "병원에 갑니다." }
+        },
+        {
+          "word": "銀行",
+          "reading": "ぎんこう",
+          "romaji": "ginkou",
+          "meaning": "은행",
+          "hanja": { "char": "銀行", "korean": "은행", "meaning": "은 은, 다닐 행" },
+          "partOfSpeech": "명사",
+          "example": { "jp": "銀行でお金を下ろします。", "kr": "은행에서 돈을 찾습니다." }
+        }
+      ]
+    },
+    {
+      "id": 12,
+      "title": "학교 생활",
+      "theme": "school",
+      "description": "학교 생활 관련 단어를 배워봅시다",
+      "words": [
+        {
+          "word": "先生",
+          "reading": "せんせい",
+          "romaji": "sensei",
+          "meaning": "선생님",
+          "hanja": { "char": "先生", "korean": "선생", "meaning": "먼저 선, 날 생" },
+          "partOfSpeech": "명사",
+          "example": { "jp": "先生に質問します。", "kr": "선생님께 질문합니다." }
+        },
+        {
+          "word": "学生",
+          "reading": "がくせい",
+          "romaji": "gakusei",
+          "meaning": "학생",
+          "hanja": { "char": "学生", "korean": "학생", "meaning": "배울 학, 날 생" },
+          "partOfSpeech": "명사",
+          "example": { "jp": "私は学生です。", "kr": "저는 학생입니다." }
+        },
+        {
+          "word": "友達",
+          "reading": "ともだち",
+          "romaji": "tomodachi",
+          "meaning": "친구",
+          "hanja": { "char": "友達", "korean": "우달", "meaning": "벗 우, 통할 달" },
+          "partOfSpeech": "명사",
+          "example": { "jp": "友達と遊びます。", "kr": "친구와 놉니다." }
+        },
+        {
+          "word": "本",
+          "reading": "ほん",
+          "romaji": "hon",
+          "meaning": "책",
+          "hanja": { "char": "本", "korean": "본", "meaning": "근본 본" },
+          "partOfSpeech": "명사",
+          "example": { "jp": "本を読みます。", "kr": "책을 읽습니다." }
+        },
+        {
+          "word": "辞書",
+          "reading": "じしょ",
+          "romaji": "jisho",
+          "meaning": "사전",
+          "hanja": { "char": "辞書", "korean": "사서", "meaning": "말씀 사, 글 서" },
+          "partOfSpeech": "명사",
+          "example": { "jp": "辞書で調べます。", "kr": "사전으로 찾아봅니다." }
+        },
+        {
+          "word": "試験",
+          "reading": "しけん",
+          "romaji": "shiken",
+          "meaning": "시험",
+          "hanja": { "char": "試験", "korean": "시험", "meaning": "시험할 시, 시험할 험" },
+          "partOfSpeech": "명사",
+          "example": { "jp": "明日、試験があります。", "kr": "내일 시험이 있습니다." }
+        },
+        {
+          "word": "宿題",
+          "reading": "しゅくだい",
+          "romaji": "shukudai",
+          "meaning": "숙제",
+          "hanja": { "char": "宿題", "korean": "숙제", "meaning": "잘 숙, 제목 제" },
+          "partOfSpeech": "명사",
+          "example": { "jp": "宿題をします。", "kr": "숙제를 합니다." }
+        }
+      ]
+    },
+    {
+      "id": 13,
+      "title": "일상 생활",
+      "theme": "daily",
+      "description": "일상 생활 관련 단어를 배워봅시다",
+      "words": [
+        {
+          "word": "起きる",
+          "reading": "おきる",
+          "romaji": "okiru",
+          "meaning": "일어나다",
+          "hanja": { "char": "起", "korean": "기", "meaning": "일어날 기" },
+          "partOfSpeech": "동사",
+          "example": { "jp": "朝６時に起きます。", "kr": "아침 6시에 일어납니다." }
+        },
+        {
+          "word": "寝る",
+          "reading": "ねる",
+          "romaji": "neru",
+          "meaning": "자다",
+          "hanja": { "char": "寝", "korean": "침", "meaning": "잘 침" },
+          "partOfSpeech": "동사",
+          "example": { "jp": "夜11時に寝ます。", "kr": "밤 11시에 잡니다." }
+        },
+        {
+          "word": "洗う",
+          "reading": "あらう",
+          "romaji": "arau",
+          "meaning": "씻다, 빨다",
+          "hanja": { "char": "洗", "korean": "세", "meaning": "씻을 세" },
+          "partOfSpeech": "동사",
+          "example": { "jp": "手を洗います。", "kr": "손을 씻습니다." }
+        },
+        {
+          "word": "入る",
+          "reading": "はいる",
+          "romaji": "hairu",
+          "meaning": "들어가다",
+          "hanja": { "char": "入", "korean": "입", "meaning": "들 입" },
+          "partOfSpeech": "동사",
+          "example": { "jp": "部屋に入ります。", "kr": "방에 들어갑니다." }
+        },
+        {
+          "word": "出る",
+          "reading": "でる",
+          "romaji": "deru",
+          "meaning": "나가다, 나오다",
+          "hanja": { "char": "出", "korean": "출", "meaning": "날 출" },
+          "partOfSpeech": "동사",
+          "example": { "jp": "家を出ます。", "kr": "집을 나갑니다." }
+        },
+        {
+          "word": "着る",
+          "reading": "きる",
+          "romaji": "kiru",
+          "meaning": "입다",
+          "hanja": { "char": "着", "korean": "착", "meaning": "입을 착" },
+          "partOfSpeech": "동사",
+          "example": { "jp": "服を着ます。", "kr": "옷을 입습니다." }
+        },
+        {
+          "word": "脱ぐ",
+          "reading": "ぬぐ",
+          "romaji": "nugu",
+          "meaning": "벗다",
+          "hanja": { "char": "脱", "korean": "탈", "meaning": "벗을 탈" },
+          "partOfSpeech": "동사",
+          "example": { "jp": "靴を脱ぎます。", "kr": "신발을 벗습니다." }
+        }
+      ]
+    },
+    {
+      "id": 14,
+      "title": "감정 및 상태",
+      "theme": "emotions",
+      "description": "감정 및 상태 표현을 배워봅시다",
+      "words": [
+        {
+          "word": "好き",
+          "reading": "すき",
+          "romaji": "suki",
+          "meaning": "좋아하다",
+          "hanja": { "char": "好", "korean": "호", "meaning": "좋을 호" },
+          "partOfSpeech": "형용동사",
+          "example": { "jp": "日本語が好きです。", "kr": "일본어를 좋아합니다." }
+        },
+        {
+          "word": "嫌い",
+          "reading": "きらい",
+          "romaji": "kirai",
+          "meaning": "싫어하다",
+          "hanja": { "char": "嫌", "korean": "혐", "meaning": "싫어할 혐" },
+          "partOfSpeech": "형용동사",
+          "example": { "jp": "野菜が嫌いです。", "kr": "야채를 싫어합니다." }
+        },
+        {
+          "word": "元気",
+          "reading": "げんき",
+          "romaji": "genki",
+          "meaning": "건강하다, 기운차다",
+          "hanja": { "char": "元気", "korean": "원기", "meaning": "으뜸 원, 기운 기" },
+          "partOfSpeech": "형용동사",
+          "example": { "jp": "元気です。", "kr": "건강합니다." }
+        },
+        {
+          "word": "嬉しい",
+          "reading": "うれしい",
+          "romaji": "ureshii",
+          "meaning": "기쁘다",
+          "hanja": { "char": "嬉", "korean": "희", "meaning": "기쁠 희" },
+          "partOfSpeech": "형용사",
+          "example": { "jp": "とても嬉しいです。", "kr": "매우 기쁩니다." }
+        },
+        {
+          "word": "悲しい",
+          "reading": "かなしい",
+          "romaji": "kanashii",
+          "meaning": "슬프다",
+          "hanja": { "char": "悲", "korean": "비", "meaning": "슬플 비" },
+          "partOfSpeech": "형용사",
+          "example": { "jp": "悲しい映画です。", "kr": "슬픈 영화입니다." }
+        },
+        {
+          "word": "面白い",
+          "reading": "おもしろい",
+          "romaji": "omoshiroi",
+          "meaning": "재미있다",
+          "hanja": { "char": "面白", "korean": "면백", "meaning": "낯 면, 흰 백" },
+          "partOfSpeech": "형용사",
+          "example": { "jp": "面白い本です。", "kr": "재미있는 책입니다." }
+        },
+        {
+          "word": "つまらない",
+          "reading": "つまらない",
+          "romaji": "tsumaranai",
+          "meaning": "재미없다",
+          "partOfSpeech": "형용사",
+          "example": { "jp": "つまらない映画です。", "kr": "재미없는 영화입니다." }
+        }
+      ]
+    }
+  ]
+}

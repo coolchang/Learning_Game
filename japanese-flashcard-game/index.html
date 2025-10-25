@@ -1,0 +1,656 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>일본어 플래시카드 학습 게임 - N5</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Noto Sans KR', 'Noto Sans JP', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .container {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            padding: 40px;
+            max-width: 600px;
+            width: 100%;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .header h1 {
+            color: #667eea;
+            font-size: 28px;
+            margin-bottom: 10px;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background: #e0e0e0;
+            border-radius: 10px;
+            overflow: hidden;
+            margin-bottom: 20px;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+            transition: width 0.3s ease;
+        }
+
+        .stats {
+            display: flex;
+            justify-content: space-around;
+            margin-bottom: 30px;
+            padding: 15px;
+            background: #f5f5f5;
+            border-radius: 10px;
+        }
+
+        .stat {
+            text-align: center;
+        }
+
+        .stat-label {
+            font-size: 12px;
+            color: #666;
+            margin-bottom: 5px;
+        }
+
+        .stat-value {
+            font-size: 24px;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .card-container {
+            perspective: 1000px;
+            margin-bottom: 30px;
+        }
+
+        .card {
+            width: 100%;
+            height: 350px;
+            position: relative;
+            transform-style: preserve-3d;
+            transition: transform 0.6s;
+            cursor: pointer;
+        }
+
+        .card.flipped {
+            transform: rotateY(180deg);
+        }
+
+        .card-face {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            border-radius: 15px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .card-front {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        .card-back {
+            background: white;
+            transform: rotateY(180deg);
+            border: 3px solid #667eea;
+        }
+
+        .japanese-word {
+            font-size: 64px;
+            font-weight: bold;
+            margin-bottom: 20px;
+            font-family: 'Noto Sans JP', sans-serif;
+        }
+
+        .reading {
+            font-size: 32px;
+            margin-bottom: 10px;
+            opacity: 0.9;
+        }
+
+        .romaji {
+            font-size: 20px;
+            opacity: 0.7;
+        }
+
+        .korean-meaning {
+            font-size: 40px;
+            color: #333;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+
+        .part-of-speech {
+            font-size: 16px;
+            color: #667eea;
+            background: #e8eaf6;
+            padding: 5px 15px;
+            border-radius: 20px;
+            margin-bottom: 15px;
+        }
+
+        .example {
+            font-size: 16px;
+            color: #666;
+            text-align: center;
+            line-height: 1.8;
+        }
+
+        .buttons {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+        }
+
+        button {
+            padding: 15px 30px;
+            border: none;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .btn-audio {
+            background: #4caf50;
+            color: white;
+            flex: 1;
+        }
+
+        .btn-audio:hover {
+            background: #45a049;
+            transform: translateY(-2px);
+        }
+
+        .btn-know {
+            background: #2196F3;
+            color: white;
+            flex: 1;
+        }
+
+        .btn-know:hover {
+            background: #0b7dda;
+            transform: translateY(-2px);
+        }
+
+        .btn-dont-know {
+            background: #f44336;
+            color: white;
+            flex: 1;
+        }
+
+        .btn-dont-know:hover {
+            background: #da190b;
+            transform: translateY(-2px);
+        }
+
+        .hint {
+            text-align: center;
+            color: #999;
+            font-size: 14px;
+            margin-top: 15px;
+        }
+
+        .completion {
+            text-align: center;
+            display: none;
+        }
+
+        .completion.show {
+            display: block;
+        }
+
+        .completion h2 {
+            color: #667eea;
+            font-size: 36px;
+            margin-bottom: 20px;
+        }
+
+        .completion-stats {
+            font-size: 18px;
+            color: #666;
+            margin-bottom: 30px;
+        }
+
+        .btn-restart {
+            background: #667eea;
+            color: white;
+            padding: 15px 40px;
+            font-size: 18px;
+        }
+
+        .btn-restart:hover {
+            background: #5568d3;
+            transform: translateY(-2px);
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .fade-in {
+            animation: fadeIn 0.5s ease;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🎌 일본어 플래시카드 학습</h1>
+            <p>JLPT N5 단어 마스터하기</p>
+        </div>
+
+        <div class="progress-bar">
+            <div class="progress-fill" id="progressFill"></div>
+        </div>
+
+        <div class="stats">
+            <div class="stat">
+                <div class="stat-label">진행</div>
+                <div class="stat-value" id="currentCard">0 / 20</div>
+            </div>
+            <div class="stat">
+                <div class="stat-label">알고있음</div>
+                <div class="stat-value" id="knownCount">0</div>
+            </div>
+            <div class="stat">
+                <div class="stat-label">학습중</div>
+                <div class="stat-value" id="learningCount">0</div>
+            </div>
+        </div>
+
+        <div id="gameArea">
+            <div class="card-container">
+                <div class="card" id="flashcard" onclick="flipCard()">
+                    <div class="card-face card-front">
+                        <div class="japanese-word" id="japaneseWord"></div>
+                        <div class="reading" id="reading"></div>
+                        <div class="romaji" id="romaji"></div>
+                    </div>
+                    <div class="card-face card-back">
+                        <div class="korean-meaning" id="meaning"></div>
+                        <div class="part-of-speech" id="partOfSpeech"></div>
+                        <div class="example" id="example"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="buttons">
+                <button class="btn-audio" onclick="playAudio()">🔊 발음 듣기</button>
+            </div>
+
+            <div class="buttons" style="margin-top: 15px;">
+                <button class="btn-know" onclick="markKnown()">✓ 알아요</button>
+                <button class="btn-dont-know" onclick="markDontKnow()">✗ 모르겠어요</button>
+            </div>
+
+            <div class="hint">💡 카드를 클릭하면 뒤집힙니다</div>
+        </div>
+
+        <div class="completion" id="completion">
+            <h2>🎉 완료!</h2>
+            <div class="completion-stats">
+                <p>총 <strong id="totalCards">20</strong>개 단어 학습</p>
+                <p>알고 있음: <strong id="finalKnown">0</strong>개</p>
+                <p>복습 필요: <strong id="finalLearning">0</strong>개</p>
+                <p>정답률: <strong id="accuracy">0</strong>%</p>
+            </div>
+            <button class="btn-restart" onclick="restart()">🔄 다시 시작</button>
+        </div>
+    </div>
+
+    <script>
+        // 단어 데이터
+        const vocabulary = {
+  "words": [
+    {
+      "id": "n5-001",
+      "word": "こんにちは",
+      "reading": "こんにちは",
+      "romaji": "konnichiwa",
+      "meaning": "안녕하세요",
+      "partOfSpeech": "인사",
+      "examples": [{ "japanese": "こんにちは、田中さん。", "korean": "안녕하세요, 다나카 씨." }]
+    },
+    {
+      "id": "n5-002",
+      "word": "ありがとう",
+      "reading": "ありがとう",
+      "romaji": "arigatou",
+      "meaning": "고마워",
+      "partOfSpeech": "인사",
+      "examples": [{ "japanese": "ありがとうございます。", "korean": "감사합니다." }]
+    },
+    {
+      "id": "n5-003",
+      "word": "食べる",
+      "reading": "たべる",
+      "romaji": "taberu",
+      "meaning": "먹다",
+      "partOfSpeech": "동사",
+      "examples": [{ "japanese": "朝ごはんを食べます。", "korean": "아침밥을 먹습니다." }]
+    },
+    {
+      "id": "n5-004",
+      "word": "飲む",
+      "reading": "のむ",
+      "romaji": "nomu",
+      "meaning": "마시다",
+      "partOfSpeech": "동사",
+      "examples": [{ "japanese": "水を飲みます。", "korean": "물을 마십니다." }]
+    },
+    {
+      "id": "n5-005",
+      "word": "行く",
+      "reading": "いく",
+      "romaji": "iku",
+      "meaning": "가다",
+      "partOfSpeech": "동사",
+      "examples": [{ "japanese": "学校に行きます。", "korean": "학교에 갑니다." }]
+    },
+    {
+      "id": "n5-006",
+      "word": "来る",
+      "reading": "くる",
+      "romaji": "kuru",
+      "meaning": "오다",
+      "partOfSpeech": "동사",
+      "examples": [{ "japanese": "友達が来ます。", "korean": "친구가 옵니다." }]
+    },
+    {
+      "id": "n5-007",
+      "word": "大きい",
+      "reading": "おおきい",
+      "romaji": "ookii",
+      "meaning": "크다",
+      "partOfSpeech": "형용사",
+      "examples": [{ "japanese": "大きい家です。", "korean": "큰 집입니다." }]
+    },
+    {
+      "id": "n5-008",
+      "word": "小さい",
+      "reading": "ちいさい",
+      "romaji": "chiisai",
+      "meaning": "작다",
+      "partOfSpeech": "형용사",
+      "examples": [{ "japanese": "小さい犬です。", "korean": "작은 개입니다." }]
+    },
+    {
+      "id": "n5-009",
+      "word": "一",
+      "reading": "いち",
+      "romaji": "ichi",
+      "meaning": "일, 하나",
+      "partOfSpeech": "숫자",
+      "examples": [{ "japanese": "一つください。", "korean": "하나 주세요." }]
+    },
+    {
+      "id": "n5-010",
+      "word": "二",
+      "reading": "に",
+      "romaji": "ni",
+      "meaning": "이, 둘",
+      "partOfSpeech": "숫자",
+      "examples": [{ "japanese": "二人で行きます。", "korean": "두 명이서 갑니다." }]
+    },
+    {
+      "id": "n5-011",
+      "word": "今日",
+      "reading": "きょう",
+      "romaji": "kyou",
+      "meaning": "오늘",
+      "partOfSpeech": "명사",
+      "examples": [{ "japanese": "今日は暑いです。", "korean": "오늘은 덥습니다." }]
+    },
+    {
+      "id": "n5-012",
+      "word": "昨日",
+      "reading": "きのう",
+      "romaji": "kinou",
+      "meaning": "어제",
+      "partOfSpeech": "명사",
+      "examples": [{ "japanese": "昨日は雨でした。", "korean": "어제는 비였습니다." }]
+    },
+    {
+      "id": "n5-013",
+      "word": "明日",
+      "reading": "あした",
+      "romaji": "ashita",
+      "meaning": "내일",
+      "partOfSpeech": "명사",
+      "examples": [{ "japanese": "明日会いましょう。", "korean": "내일 만나요." }]
+    },
+    {
+      "id": "n5-014",
+      "word": "母",
+      "reading": "はは",
+      "romaji": "haha",
+      "meaning": "어머니",
+      "partOfSpeech": "명사",
+      "examples": [{ "japanese": "母は先生です。", "korean": "어머니는 선생님입니다." }]
+    },
+    {
+      "id": "n5-015",
+      "word": "父",
+      "reading": "ちち",
+      "romaji": "chichi",
+      "meaning": "아버지",
+      "partOfSpeech": "명사",
+      "examples": [{ "japanese": "父は会社員です。", "korean": "아버지는 회사원입니다." }]
+    },
+    {
+      "id": "n5-016",
+      "word": "好き",
+      "reading": "すき",
+      "romaji": "suki",
+      "meaning": "좋아하다",
+      "partOfSpeech": "형용동사",
+      "examples": [{ "japanese": "日本語が好きです。", "korean": "일본어를 좋아합니다." }]
+    },
+    {
+      "id": "n5-017",
+      "word": "嫌い",
+      "reading": "きらい",
+      "romaji": "kirai",
+      "meaning": "싫어하다",
+      "partOfSpeech": "형용동사",
+      "examples": [{ "japanese": "野菜が嫌いです。", "korean": "야채를 싫어합니다." }]
+    },
+    {
+      "id": "n5-018",
+      "word": "勉強する",
+      "reading": "べんきょうする",
+      "romaji": "benkyou suru",
+      "meaning": "공부하다",
+      "partOfSpeech": "동사",
+      "examples": [{ "japanese": "毎日勉強します。", "korean": "매일 공부합니다." }]
+    },
+    {
+      "id": "n5-019",
+      "word": "見る",
+      "reading": "みる",
+      "romaji": "miru",
+      "meaning": "보다",
+      "partOfSpeech": "동사",
+      "examples": [{ "japanese": "テレビを見ます。", "korean": "텔레비전을 봅니다." }]
+    },
+    {
+      "id": "n5-020",
+      "word": "聞く",
+      "reading": "きく",
+      "romaji": "kiku",
+      "meaning": "듣다, 묻다",
+      "partOfSpeech": "동사",
+      "examples": [{ "japanese": "音楽を聞きます。", "korean": "음악을 듣습니다." }]
+    }
+  ]
+};
+
+        // 게임 상태
+        let currentIndex = 0;
+        let knownCount = 0;
+        let learningCount = 0;
+        let isFlipped = false;
+
+        // 초기화
+        function init() {
+            showCard(currentIndex);
+            updateStats();
+        }
+
+        // 카드 표시
+        function showCard(index) {
+            const card = vocabulary.words[index];
+            const flashcard = document.getElementById('flashcard');
+
+            // 카드 리셋
+            flashcard.classList.remove('flipped');
+            isFlipped = false;
+
+            // 앞면
+            document.getElementById('japaneseWord').textContent = card.word;
+            document.getElementById('reading').textContent = card.reading;
+            document.getElementById('romaji').textContent = card.romaji;
+
+            // 뒷면
+            document.getElementById('meaning').textContent = card.meaning;
+            document.getElementById('partOfSpeech').textContent = card.partOfSpeech;
+            document.getElementById('example').innerHTML = `
+                ${card.examples[0].japanese}<br>
+                ${card.examples[0].korean}
+            `;
+
+            // 애니메이션
+            flashcard.style.animation = 'none';
+            setTimeout(() => {
+                flashcard.style.animation = 'fadeIn 0.5s ease';
+            }, 10);
+        }
+
+        // 카드 뒤집기
+        function flipCard() {
+            const flashcard = document.getElementById('flashcard');
+            flashcard.classList.toggle('flipped');
+            isFlipped = !isFlipped;
+        }
+
+        // 음성 재생
+        function playAudio() {
+            const card = vocabulary.words[currentIndex];
+            const utterance = new SpeechSynthesisUtterance(card.word);
+            utterance.lang = 'ja-JP';
+            utterance.rate = 0.8;
+            speechSynthesis.speak(utterance);
+        }
+
+        // 알고 있음
+        function markKnown() {
+            knownCount++;
+            nextCard();
+        }
+
+        // 모르겠음
+        function markDontKnow() {
+            learningCount++;
+            nextCard();
+        }
+
+        // 다음 카드
+        function nextCard() {
+            currentIndex++;
+
+            if (currentIndex >= vocabulary.words.length) {
+                showCompletion();
+            } else {
+                showCard(currentIndex);
+                updateStats();
+            }
+        }
+
+        // 통계 업데이트
+        function updateStats() {
+            document.getElementById('currentCard').textContent =
+                `${currentIndex + 1} / ${vocabulary.words.length}`;
+            document.getElementById('knownCount').textContent = knownCount;
+            document.getElementById('learningCount').textContent = learningCount;
+
+            const progress = ((currentIndex + 1) / vocabulary.words.length) * 100;
+            document.getElementById('progressFill').style.width = progress + '%';
+        }
+
+        // 완료 화면
+        function showCompletion() {
+            document.getElementById('gameArea').style.display = 'none';
+            document.getElementById('completion').classList.add('show');
+
+            document.getElementById('totalCards').textContent = vocabulary.words.length;
+            document.getElementById('finalKnown').textContent = knownCount;
+            document.getElementById('finalLearning').textContent = learningCount;
+
+            const accuracy = Math.round((knownCount / vocabulary.words.length) * 100);
+            document.getElementById('accuracy').textContent = accuracy;
+        }
+
+        // 재시작
+        function restart() {
+            currentIndex = 0;
+            knownCount = 0;
+            learningCount = 0;
+            isFlipped = false;
+
+            document.getElementById('gameArea').style.display = 'block';
+            document.getElementById('completion').classList.remove('show');
+
+            init();
+        }
+
+        // 키보드 단축키
+        document.addEventListener('keydown', (e) => {
+            if (e.key === ' ') {
+                e.preventDefault();
+                flipCard();
+            } else if (e.key === 'ArrowRight') {
+                markKnown();
+            } else if (e.key === 'ArrowLeft') {
+                markDontKnow();
+            } else if (e.key === 's') {
+                playAudio();
+            }
+        });
+
+        // 시작
+        init();
+    </script>
+</body>
+</html>

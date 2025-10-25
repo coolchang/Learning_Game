@@ -1,0 +1,548 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Advanced Business English - Enhanced Audio</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- ResponsiveVoice for better TTS quality -->
+    <script src="https://code.responsivevoice.org/responsivevoice.js?key=rFij8xMj"></script>
+    <style>
+        .stage-card { transition: all 0.3s ease; }
+        .stage-card:hover:not(.locked) { transform: translateY(-4px); box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15); }
+        .stage-card.locked { opacity: 0.5; cursor: not-allowed; }
+        .stage-card.completed { border-color: #10b981; background: linear-gradient(135deg, #f0fdf4 0%, #ffffff 100%); }
+        .stage-card.current { border-color: #3b82f6; box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1); }
+        .choice-btn { transition: all 0.3s ease; }
+        .choice-btn:hover:not(:disabled) { transform: translateY(-2px); box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); }
+        .correct { background-color: #10b981 !important; color: white !important; }
+        .incorrect { background-color: #ef4444 !important; color: white !important; }
+        .progress-bar { transition: width 0.5s ease; }
+        .speaker-btn { transition: all 0.2s ease; }
+        .speaker-btn:hover { transform: scale(1.1); }
+        .speaking { animation: pulse 1s ease-in-out infinite; }
+        @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }
+    </style>
+</head>
+<body class="bg-gray-50 min-h-screen">
+    <!-- Stage Selection Screen -->
+    <div id="stage-selection" class="container mx-auto px-4 py-8">
+        <div class="bg-white rounded-lg shadow-md p-6 mb-6">
+            <h1 class="text-4xl font-bold text-gray-800 mb-2">Advanced Business English</h1>
+            <p class="text-gray-600 mb-4">🔊 Enhanced Audio Quality • 105 professional expressions across 15 stages</p>
+
+            <div class="mb-4">
+                <div class="flex justify-between text-sm text-gray-600 mb-1">
+                    <span>Overall Progress</span>
+                    <span id="overall-progress-text">0/15 Stages</span>
+                </div>
+                <div class="w-full bg-gray-200 rounded-full h-3">
+                    <div class="progress-bar bg-blue-600 h-3 rounded-full" id="overall-progress-bar" style="width: 0%"></div>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-3 gap-4 text-center">
+                <div>
+                    <div class="text-2xl font-bold text-blue-600" id="total-completed">0</div>
+                    <div class="text-sm text-gray-600">Completed</div>
+                </div>
+                <div>
+                    <div class="text-2xl font-bold text-green-600" id="total-correct">0</div>
+                    <div class="text-sm text-gray-600">Correct</div>
+                </div>
+                <div>
+                    <div class="text-2xl font-bold text-yellow-600" id="average-score">0%</div>
+                    <div class="text-sm text-gray-600">Avg Score</div>
+                </div>
+            </div>
+
+            <div class="mt-4 text-center">
+                <button id="reset-progress-btn" class="text-sm text-red-600 hover:text-red-700 underline">
+                    Reset All Progress
+                </button>
+            </div>
+        </div>
+
+        <div id="stages-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4"></div>
+    </div>
+
+    <!-- Quiz Screen -->
+    <div id="quiz-screen" class="hidden container mx-auto px-4 py-8 max-w-3xl">
+        <div class="bg-white rounded-lg shadow-md p-6 mb-6">
+            <div class="flex justify-between items-center mb-4">
+                <button id="back-to-stages-btn" class="text-blue-600 hover:text-blue-700 flex items-center">
+                    ← Back to Stages
+                </button>
+                <button id="voice-settings-btn" class="p-2 hover:bg-gray-100 rounded-lg" title="Voice Settings">
+                    ⚙️
+                </button>
+            </div>
+
+            <h2 class="text-2xl font-bold text-gray-800 mb-2" id="stage-title">Stage 1</h2>
+            <p class="text-gray-600 mb-4" id="stage-description">Description</p>
+
+            <!-- Enhanced Voice Settings Panel -->
+            <div id="voice-settings" class="hidden mb-4 p-4 bg-gray-50 rounded-lg">
+                <h3 class="font-semibold text-gray-700 mb-3">🔊 Audio Settings</h3>
+
+                <!-- TTS Engine Selection -->
+                <div class="mb-4">
+                    <label class="block text-sm text-gray-600 mb-1">Audio Engine</label>
+                    <select id="tts-engine" class="w-full p-2 border rounded">
+                        <option value="responsivevoice">🌟 Enhanced Voice (Recommended)</option>
+                        <option value="webspeech">Browser Voice (Fallback)</option>
+                    </select>
+                    <p class="text-xs text-gray-500 mt-1">Enhanced Voice provides significantly better audio quality</p>
+                </div>
+
+                <div class="grid grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-sm text-gray-600 mb-1">Voice</label>
+                        <select id="voice-select" class="w-full p-2 border rounded">
+                            <!-- ResponsiveVoice options -->
+                            <optgroup label="🇺🇸 US English">
+                                <option value="US English Female">Female (Natural)</option>
+                                <option value="US English Male">Male (Natural)</option>
+                            </optgroup>
+                            <optgroup label="🇬🇧 UK English">
+                                <option value="UK English Female">Female (Natural)</option>
+                                <option value="UK English Male">Male (Natural)</option>
+                            </optgroup>
+                            <optgroup label="🇦🇺 Australian">
+                                <option value="Australian Female">Female (Natural)</option>
+                                <option value="Australian Male">Male (Natural)</option>
+                            </optgroup>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-sm text-gray-600 mb-1">Speed</label>
+                        <select id="voice-rate" class="w-full p-2 border rounded">
+                            <option value="0.7">0.7x (Slow)</option>
+                            <option value="0.85">0.85x (Relaxed)</option>
+                            <option value="1" selected>1x (Normal)</option>
+                            <option value="1.15">1.15x (Quick)</option>
+                            <option value="1.3">1.3x (Fast)</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Voice Quality Indicator -->
+                <div class="mt-3 p-2 bg-green-50 border border-green-200 rounded text-sm text-green-700">
+                    ✨ Using high-quality neural voice synthesis
+                </div>
+
+                <div class="mt-3">
+                    <button id="test-voice-btn" class="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 text-sm w-full">
+                        🔊 Test Voice
+                    </button>
+                </div>
+            </div>
+
+            <div class="mb-4">
+                <div class="flex justify-between text-sm text-gray-600 mb-1">
+                    <span>Stage Progress</span>
+                    <span id="stage-progress-text">0/7</span>
+                </div>
+                <div class="w-full bg-gray-200 rounded-full h-2">
+                    <div class="progress-bar bg-blue-600 h-2 rounded-full" id="stage-progress-bar" style="width: 0%"></div>
+                </div>
+            </div>
+
+            <div class="flex justify-between items-center">
+                <div class="text-lg font-semibold text-gray-700">
+                    Score: <span id="current-score" class="text-blue-600">0</span>/7
+                </div>
+            </div>
+        </div>
+
+        <div id="question-container" class="bg-white rounded-lg shadow-md p-6 mb-6">
+            <div class="mb-6">
+                <div class="flex justify-between items-center mb-2">
+                    <div class="text-sm text-gray-500">
+                        Question <span id="question-number">1</span> of 7
+                    </div>
+                    <button id="speak-question-btn" class="speaker-btn p-2 hover:bg-gray-100 rounded-lg text-xl">
+                        🔊
+                    </button>
+                </div>
+                <h3 class="text-xl font-semibold text-gray-800 mb-4" id="question-text">Loading...</h3>
+                <div class="text-sm text-gray-600 italic mb-4" id="question-context"></div>
+            </div>
+
+            <div class="space-y-3" id="choices-container"></div>
+
+            <div id="explanation" class="hidden mt-6 p-4 bg-blue-50 border-l-4 border-blue-500 rounded">
+                <h4 class="font-semibold text-blue-900 mb-2">Explanation</h4>
+                <p class="text-blue-800" id="explanation-text"></p>
+                <div id="alternatives" class="mt-3"></div>
+            </div>
+
+            <div class="mt-6 flex justify-end">
+                <button id="next-question-btn" class="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 disabled:opacity-50" disabled>
+                    Next Question
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Stage Complete Screen -->
+    <div id="stage-complete" class="hidden container mx-auto px-4 py-8 max-w-2xl">
+        <div class="bg-white rounded-lg shadow-md p-8 text-center">
+            <div class="text-6xl mb-4" id="complete-emoji">🎉</div>
+            <h2 class="text-3xl font-bold text-gray-800 mb-2">Stage Complete!</h2>
+            <p class="text-xl text-gray-600 mb-4">
+                Score: <span id="final-stage-score" class="font-bold text-blue-600">0</span>/7
+            </p>
+            <p class="text-lg text-gray-600 mb-6">
+                <span id="final-percentage">0%</span> Correct
+            </p>
+
+            <div class="mb-6 p-4 bg-gray-50 rounded-lg">
+                <h3 class="font-semibold text-gray-800 mb-2" id="performance-title">Great job!</h3>
+                <p class="text-gray-600" id="performance-message"></p>
+            </div>
+
+            <div class="flex gap-4 justify-center">
+                <button id="retry-stage-btn" class="px-6 py-3 bg-gray-200 text-gray-700 rounded-lg hover:bg-gray-300">
+                    Retry Stage
+                </button>
+                <button id="next-stage-btn" class="px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
+                    Next Stage
+                </button>
+                <button id="back-to-menu-btn" class="px-6 py-3 bg-gray-600 text-white rounded-lg hover:bg-gray-700">
+                    Back to Menu
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const gameData = {"title": "Advanced Business English", "total_stages": 15, "questions_per_stage": 7, "stages": []};
+
+        // Enhanced Voice Settings
+        let voiceSettings = {
+            engine: 'responsivevoice', // or 'webspeech'
+            voice: 'US English Female',
+            rate: 1.0,
+            pitch: 1.0
+        };
+
+        let webSpeechSynth = window.speechSynthesis;
+        let currentStage = 0;
+        let currentQuestion = 0;
+        let stageScore = 0;
+        let answered = false;
+        let progress = loadProgress();
+        let isSpeaking = false;
+
+        function loadProgress() {
+            const saved = localStorage.getItem('businessEnglishProgress');
+            return saved ? JSON.parse(saved) : {completed: [], scores: {}, unlockedStages: 1};
+        }
+
+        function saveProgress() {
+            localStorage.setItem('businessEnglishProgress', JSON.stringify(progress));
+        }
+
+        // Enhanced speak function with ResponsiveVoice
+        function speak(text, callback) {
+            if (isSpeaking) {
+                stopSpeaking();
+                return;
+            }
+
+            isSpeaking = true;
+
+            if (voiceSettings.engine === 'responsivevoice' && typeof responsiveVoice !== 'undefined') {
+                // Use ResponsiveVoice (better quality)
+                responsiveVoice.speak(text, voiceSettings.voice, {
+                    rate: voiceSettings.rate,
+                    pitch: voiceSettings.pitch,
+                    onend: () => {
+                        isSpeaking = false;
+                        if (callback) callback();
+                    }
+                });
+            } else {
+                // Fallback to Web Speech API with improved voice selection
+                if (webSpeechSynth.speaking) webSpeechSynth.cancel();
+
+                const utterance = new SpeechSynthesisUtterance(text);
+                utterance.rate = voiceSettings.rate;
+                utterance.pitch = voiceSettings.pitch;
+
+                // Get best quality voice
+                const voices = webSpeechSynth.getVoices();
+                const preferredVoice = voices.find(v =>
+                    v.lang.startsWith('en-US') &&
+                    (v.name.includes('Premium') || v.name.includes('Natural') || v.name.includes('Neural'))
+                ) || voices.find(v => v.lang.startsWith('en-US'));
+
+                if (preferredVoice) utterance.voice = preferredVoice;
+
+                utterance.onend = () => {
+                    isSpeaking = false;
+                    if (callback) callback();
+                };
+
+                webSpeechSynth.speak(utterance);
+            }
+        }
+
+        function stopSpeaking() {
+            isSpeaking = false;
+            if (typeof responsiveVoice !== 'undefined') {
+                responsiveVoice.cancel();
+            }
+            if (webSpeechSynth.speaking) {
+                webSpeechSynth.cancel();
+            }
+        }
+
+        function init() {
+            renderStageSelection();
+            setupEventListeners();
+
+            // Wait for voices to load
+            if (webSpeechSynth.getVoices().length === 0) {
+                webSpeechSynth.onvoiceschanged = () => {};
+            }
+        }
+
+        function renderStageSelection() {
+            const grid = document.getElementById('stages-grid');
+            grid.innerHTML = '';
+
+            gameData.stages.forEach((stage, index) => {
+                const stageNum = index + 1;
+                const isLocked = stageNum > progress.unlockedStages;
+                const isCompleted = progress.completed.includes(stageNum);
+                const score = progress.scores[stageNum] || 0;
+
+                const card = document.createElement('div');
+                card.className = `stage-card bg-white rounded-lg shadow p-6 border-2 cursor-pointer ${
+                    isLocked ? 'locked' : ''} ${isCompleted ? 'completed' : ''} ${
+                    !isLocked && !isCompleted ? 'current' : ''}`;
+
+                card.innerHTML = `
+                    <div class="flex justify-between items-start mb-2">
+                        <div class="text-sm font-semibold text-gray-500">STAGE ${stageNum}</div>
+                        ${isLocked ? '<span class="text-2xl">🔒</span>' :
+                          isCompleted ? '<span class="text-2xl">✅</span>' :
+                          '<span class="text-2xl">📚</span>'}
+                    </div>
+                    <h3 class="text-lg font-bold text-gray-800 mb-2">${stage.title}</h3>
+                    <p class="text-sm text-gray-600 mb-3">${stage.category.toUpperCase()}</p>
+                    ${isCompleted ? `<div class="text-sm text-green-600 font-semibold">Score: ${score}/7</div>` :
+                      !isLocked ? '<div class="text-sm text-blue-600">Click to start</div>' :
+                      '<div class="text-sm text-gray-400">Complete previous stage</div>'}
+                `;
+
+                if (!isLocked) card.onclick = () => startStage(stageNum);
+                grid.appendChild(card);
+            });
+
+            updateOverallStats();
+        }
+
+        function updateOverallStats() {
+            document.getElementById('total-completed').textContent = progress.completed.length;
+            const totalCorrect = Object.values(progress.scores).reduce((a, b) => a + b, 0);
+            document.getElementById('total-correct').textContent = totalCorrect;
+            const avgScore = progress.completed.length > 0 ?
+                Math.round((totalCorrect / (progress.completed.length * 7)) * 100) : 0;
+            document.getElementById('average-score').textContent = `${avgScore}%`;
+            document.getElementById('overall-progress-text').textContent = `${progress.completed.length}/15 Stages`;
+            document.getElementById('overall-progress-bar').style.width = `${(progress.completed.length / 15) * 100}%`;
+        }
+
+        function startStage(stageNum) {
+            currentStage = stageNum - 1;
+            currentQuestion = 0;
+            stageScore = 0;
+            document.getElementById('stage-selection').classList.add('hidden');
+            document.getElementById('quiz-screen').classList.remove('hidden');
+            document.getElementById('stage-title').textContent = `Stage ${stageNum}: ${gameData.stages[currentStage].title}`;
+            document.getElementById('stage-description').textContent = gameData.stages[currentStage].category.toUpperCase();
+            loadQuestion();
+        }
+
+        function loadQuestion() {
+            answered = false;
+            document.getElementById('explanation').classList.add('hidden');
+            document.getElementById('next-question-btn').disabled = true;
+            stopSpeaking();
+
+            const question = gameData.stages[currentStage].questions[currentQuestion];
+            document.getElementById('question-number').textContent = currentQuestion + 1;
+            document.getElementById('question-text').textContent = question.question;
+            document.getElementById('question-context').textContent = question.context ? `Context: ${question.context}` : '';
+            document.getElementById('stage-progress-text').textContent = `${currentQuestion}/7`;
+            document.getElementById('stage-progress-bar').style.width = `${(currentQuestion / 7) * 100}%`;
+            document.getElementById('current-score').textContent = stageScore;
+
+            const container = document.getElementById('choices-container');
+            container.innerHTML = '';
+
+            question.choices.forEach((choice, index) => {
+                const div = document.createElement('div');
+                div.className = 'flex items-center gap-2';
+
+                const btn = document.createElement('button');
+                btn.className = 'choice-btn flex-1 text-left p-4 border-2 border-gray-300 rounded-lg hover:border-blue-500';
+                btn.innerHTML = `<span class="font-semibold text-gray-700">${String.fromCharCode(65 + index)}.</span>
+                    <span class="ml-2 text-gray-800">${choice}</span>`;
+                btn.onclick = () => selectAnswer(index, btn);
+
+                const speaker = document.createElement('button');
+                speaker.className = 'speaker-btn p-3 hover:bg-gray-100 rounded-lg text-xl';
+                speaker.innerHTML = '🔊';
+                speaker.onclick = (e) => {
+                    e.stopPropagation();
+                    speak(choice);
+                };
+
+                div.appendChild(btn);
+                div.appendChild(speaker);
+                container.appendChild(div);
+            });
+        }
+
+        function selectAnswer(selectedIndex, button) {
+            if (answered) return;
+            answered = true;
+            stopSpeaking();
+
+            const question = gameData.stages[currentStage].questions[currentQuestion];
+            const allButtons = document.querySelectorAll('.choice-btn');
+            allButtons.forEach(btn => btn.disabled = true);
+
+            if (selectedIndex === question.correct) {
+                button.classList.add('correct');
+                stageScore++;
+                document.getElementById('current-score').textContent = stageScore;
+            } else {
+                button.classList.add('incorrect');
+                allButtons[question.correct].classList.add('correct');
+            }
+
+            document.getElementById('explanation-text').textContent = question.explanation;
+            if (question.alternatives) {
+                document.getElementById('alternatives').innerHTML = `
+                    <p class="text-sm text-blue-700">
+                        <strong>Alternative expressions:</strong> ${question.alternatives}
+                    </p>`;
+            }
+            document.getElementById('explanation').classList.remove('hidden');
+            document.getElementById('next-question-btn').disabled = false;
+        }
+
+        function nextQuestion() {
+            currentQuestion++;
+            if (currentQuestion < 7) {
+                loadQuestion();
+            } else {
+                showStageComplete();
+            }
+        }
+
+        function showStageComplete() {
+            const stageNum = currentStage + 1;
+            if (!progress.completed.includes(stageNum)) progress.completed.push(stageNum);
+            progress.scores[stageNum] = stageScore;
+            if (stageNum === progress.unlockedStages && stageNum < 15) progress.unlockedStages++;
+            saveProgress();
+
+            document.getElementById('quiz-screen').classList.add('hidden');
+            document.getElementById('stage-complete').classList.remove('hidden');
+
+            const percentage = Math.round((stageScore / 7) * 100);
+            document.getElementById('final-stage-score').textContent = stageScore;
+            document.getElementById('final-percentage').textContent = `${percentage}%`;
+
+            let emoji, title, message;
+            if (percentage >= 90) {
+                emoji = '🎉'; title = 'Outstanding!';
+                message = 'You have mastered these advanced expressions!';
+            } else if (percentage >= 70) {
+                emoji = '👍'; title = 'Well Done!';
+                message = 'Good grasp of these professional expressions!';
+            } else {
+                emoji = '📚'; title = 'Keep Practicing!';
+                message = 'Review the explanations and try again.';
+            }
+
+            document.getElementById('complete-emoji').textContent = emoji;
+            document.getElementById('performance-title').textContent = title;
+            document.getElementById('performance-message').textContent = message;
+
+            const nextBtn = document.getElementById('next-stage-btn');
+            if (stageNum >= 15) {
+                nextBtn.textContent = '🎓 Course Complete!';
+                nextBtn.onclick = () => location.reload();
+            } else {
+                nextBtn.onclick = () => {
+                    document.getElementById('stage-complete').classList.add('hidden');
+                    startStage(stageNum + 1);
+                };
+            }
+        }
+
+        function setupEventListeners() {
+            document.getElementById('voice-settings-btn').onclick = () => {
+                document.getElementById('voice-settings').classList.toggle('hidden');
+            };
+
+            document.getElementById('tts-engine').onchange = (e) => {
+                voiceSettings.engine = e.target.value;
+            };
+
+            document.getElementById('voice-select').onchange = (e) => {
+                voiceSettings.voice = e.target.value;
+            };
+
+            document.getElementById('voice-rate').onchange = (e) => {
+                voiceSettings.rate = parseFloat(e.target.value);
+            };
+
+            document.getElementById('test-voice-btn').onclick = () => {
+                speak("Could you please provide me with the details? This is a test of the enhanced audio quality.");
+            };
+
+            document.getElementById('speak-question-btn').onclick = () => {
+                const question = gameData.stages[currentStage].questions[currentQuestion];
+                speak(question.question + '. ' + (question.context || ''));
+            };
+
+            document.getElementById('next-question-btn').onclick = nextQuestion;
+
+            document.getElementById('back-to-stages-btn').onclick = () => {
+                stopSpeaking();
+                document.getElementById('quiz-screen').classList.add('hidden');
+                document.getElementById('stage-selection').classList.remove('hidden');
+                renderStageSelection();
+            };
+
+            document.getElementById('retry-stage-btn').onclick = () => {
+                document.getElementById('stage-complete').classList.add('hidden');
+                startStage(currentStage + 1);
+            };
+
+            document.getElementById('back-to-menu-btn').onclick = () => {
+                document.getElementById('stage-complete').classList.add('hidden');
+                document.getElementById('stage-selection').classList.remove('hidden');
+                renderStageSelection();
+            };
+
+            document.getElementById('reset-progress-btn').onclick = () => {
+                if (confirm('Are you sure you want to reset all progress? This cannot be undone.')) {
+                    localStorage.removeItem('businessEnglishProgress');
+                    location.reload();
+                }
+            };
+        }
+
+        init();
+    </script>
+</body>
+</html>

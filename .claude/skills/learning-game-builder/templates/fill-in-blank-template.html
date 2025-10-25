@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>가사 빈칸 채우기 게임</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .blank-input {
+            border-bottom: 2px solid #3b82f6;
+            background: transparent;
+            outline: none;
+            min-width: 80px;
+            text-align: center;
+            padding: 2px 8px;
+            transition: all 0.3s;
+        }
+        .blank-input:focus {
+            border-bottom-color: #6366f1;
+            background: #eef2ff;
+        }
+        .blank-input.correct {
+            border-bottom-color: #10b981;
+            color: #10b981;
+            font-weight: 600;
+        }
+        .blank-input.incorrect {
+            border-bottom-color: #ef4444;
+            color: #ef4444;
+        }
+        .lyric-line {
+            margin: 1.5rem 0;
+            font-size: 1.25rem;
+            line-height: 2.5;
+            text-align: center;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .feedback {
+            animation: fadeIn 0.3s ease-in;
+        }
+        @keyframes celebration {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+        .celebrate {
+            animation: celebration 0.5s ease-in-out;
+        }
+    </style>
+</head>
+<body class="bg-gradient-to-br from-blue-50 via-purple-50 to-pink-50 min-h-screen p-4 md:p-8">
+    <div class="max-w-4xl mx-auto">
+        <!-- Header -->
+        <div class="bg-white rounded-2xl shadow-xl p-6 md:p-8 mb-6">
+            <h1 class="text-3xl md:text-4xl font-bold text-gray-800 mb-3 flex items-center gap-3">
+                🎵 가사 빈칸 채우기
+            </h1>
+            <div class="flex flex-col md:flex-row md:justify-between md:items-center gap-3 text-gray-600">
+                <div>
+                    <span class="text-xl font-semibold text-blue-600" id="song-title">노래 제목</span>
+                    <span class="mx-2 hidden md:inline">-</span>
+                    <span class="text-lg block md:inline" id="artist">가수</span>
+                </div>
+                <div class="flex gap-4">
+                    <div class="text-sm">
+                        난이도: <span class="font-semibold px-2 py-1 bg-blue-100 text-blue-700 rounded" id="difficulty">초급</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Progress -->
+        <div class="bg-white rounded-2xl shadow-xl p-6 mb-6">
+            <div class="flex justify-between items-center mb-2">
+                <span class="text-gray-700 font-medium">진행률</span>
+                <span class="text-gray-700 font-medium" id="score">0 / 0</span>
+            </div>
+            <div class="w-full bg-gray-200 rounded-full h-4">
+                <div id="progress-bar" class="bg-gradient-to-r from-blue-600 to-purple-600 h-4 rounded-full transition-all duration-500" style="width: 0%"></div>
+            </div>
+        </div>
+
+        <!-- Lyrics Container -->
+        <div class="bg-white rounded-2xl shadow-xl p-6 md:p-8 mb-6">
+            <div id="lyrics-container" class="space-y-2">
+                <!-- Lyrics will be inserted here by JavaScript -->
+            </div>
+        </div>
+
+        <!-- Controls -->
+        <div class="bg-white rounded-2xl shadow-xl p-6">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <button onclick="checkAnswers()"
+                        class="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-6 rounded-lg transition-all transform hover:scale-105 active:scale-95">
+                    ✓ 정답 확인
+                </button>
+                <button onclick="showHint()"
+                        class="bg-green-600 hover:bg-green-700 text-white font-semibold py-3 px-6 rounded-lg transition-all transform hover:scale-105 active:scale-95">
+                    💡 힌트 (<span id="hint-count">3</span>)
+                </button>
+                <button onclick="resetGame()"
+                        class="bg-gray-600 hover:bg-gray-700 text-white font-semibold py-3 px-6 rounded-lg transition-all transform hover:scale-105 active:scale-95">
+                    🔄 다시하기
+                </button>
+            </div>
+        </div>
+
+        <!-- Feedback Area -->
+        <div id="feedback" class="mt-6 hidden">
+            <!-- Feedback content will be inserted here -->
+        </div>
+    </div>
+
+    <script>
+        // ========================================
+        // 게임 데이터 (여기에 실제 데이터를 넣으세요)
+        // ========================================
+        const gameData = {
+            songTitle: "학습 예제 노래",
+            artist: "교육용 샘플",
+            difficulty: "초급",
+            lyrics: [
+                { text: "안녕하세요 ", blank: { word: "친구", hint: "함께 노는 사람", pos: "명사" } },
+                { text: "들" },
+                { text: "오늘도 ", blank: { word: "좋은", hint: "기분이 나쁘지 않은", pos: "형용사" } },
+                { text: " 날" },
+                { text: "함께 ", blank: { word: "공부", hint: "배우기 위해 하는 활동", pos: "명사" } },
+                { text: "해요" },
+                { text: "한국어는 ", blank: { word: "재미있어요", hint: "즐겁다", pos: "형용사" } }
+            ]
+        };
+
+        // ========================================
+        // 게임 로직
+        // ========================================
+        let answers = [];
+        let hintsRemaining = 3;
+        let correctCount = 0;
+        let totalBlanks = 0;
+
+        function initGame() {
+            // Set title and metadata
+            document.getElementById('song-title').textContent = gameData.songTitle;
+            document.getElementById('artist').textContent = gameData.artist;
+            document.getElementById('difficulty').textContent = gameData.difficulty;
+
+            // Build lyrics HTML
+            let lyricsHTML = '<div class="lyric-line">';
+            let blankIndex = 0;
+
+            gameData.lyrics.forEach((segment, index) => {
+                if (segment.blank) {
+                    answers.push({
+                        correct: segment.blank.word,
+                        hint: segment.blank.hint,
+                        pos: segment.blank.pos
+                    });
+                    lyricsHTML += `<input type="text"
+                                          id="blank-${blankIndex}"
+                                          class="blank-input"
+                                          placeholder="___"
+                                          autocomplete="off">`;
+                    blankIndex++;
+                    totalBlanks++;
+                } else {
+                    lyricsHTML += segment.text;
+                }
+
+                // Add line break at certain points (customize as needed)
+                if (segment.text && segment.text.includes('\n')) {
+                    lyricsHTML += '</div><div class="lyric-line">';
+                }
+            });
+
+            lyricsHTML += '</div>';
+            document.getElementById('lyrics-container').innerHTML = lyricsHTML;
+            document.getElementById('score').textContent = `0 / ${totalBlanks}`;
+
+            // Add enter key navigation
+            setupKeyboardNavigation();
+        }
+
+        function checkAnswers() {
+            correctCount = 0;
+            const feedback = document.getElementById('feedback');
+            let feedbackHTML = '<div class="bg-white rounded-2xl shadow-xl p-6 feedback"><h3 class="text-2xl font-bold mb-4 text-gray-800">📊 결과</h3><div class="space-y-3">';
+
+            answers.forEach((answer, index) => {
+                const input = document.getElementById(`blank-${index}`);
+                const userAnswer = input.value.trim();
+                const correctAnswer = answer.correct;
+
+                input.classList.remove('correct', 'incorrect');
+
+                if (userAnswer === correctAnswer) {
+                    input.classList.add('correct');
+                    correctCount++;
+                    feedbackHTML += `
+                        <div class="flex items-start gap-2 p-3 bg-green-50 rounded-lg">
+                            <span class="text-green-600 font-bold text-xl">✓</span>
+                            <div>
+                                <span class="text-green-700 font-semibold">"${correctAnswer}"</span>
+                                <span class="text-gray-600"> - 정답입니다!</span>
+                            </div>
+                        </div>
+                    `;
+                } else {
+                    input.classList.add('incorrect');
+                    feedbackHTML += `
+                        <div class="flex items-start gap-2 p-3 bg-red-50 rounded-lg">
+                            <span class="text-red-600 font-bold text-xl">✗</span>
+                            <div>
+                                <div class="text-red-700 font-semibold">
+                                    정답: "${correctAnswer}"
+                                    ${userAnswer ? `(입력: "${userAnswer}")` : '(입력 안 함)'}
+                                </div>
+                                <div class="text-gray-600 text-sm mt-1">
+                                    💡 힌트: ${answer.hint} (${answer.pos})
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                }
+            });
+
+            // Final score and message
+            const percentage = Math.round((correctCount / totalBlanks) * 100);
+            let emoji = '💪';
+            let message = '다시 한번 도전해보세요!';
+            let bgColor = 'bg-yellow-50';
+            let textColor = 'text-yellow-800';
+
+            if (percentage === 100) {
+                emoji = '🎉';
+                message = '완벽합니다! 축하합니다!';
+                bgColor = 'bg-green-50';
+                textColor = 'text-green-800';
+            } else if (percentage >= 70) {
+                emoji = '👍';
+                message = '잘했어요! 조금만 더!';
+                bgColor = 'bg-blue-50';
+                textColor = 'text-blue-800';
+            }
+
+            feedbackHTML += `
+                </div>
+                <div class="mt-6 p-6 ${bgColor} rounded-xl border-2 border-${textColor.split('-')[1]}-200">
+                    <p class="text-2xl font-bold ${textColor} mb-2">${emoji} ${message}</p>
+                    <p class="text-lg ${textColor}">
+                        점수: <span class="font-bold">${correctCount} / ${totalBlanks}</span> (${percentage}%)
+                    </p>
+                </div>
+            </div>`;
+
+            feedback.innerHTML = feedbackHTML;
+            feedback.classList.remove('hidden');
+            updateProgress();
+
+            if (percentage === 100) {
+                document.querySelector('.bg-blue-600').classList.add('celebrate');
+            }
+        }
+
+        function showHint() {
+            if (hintsRemaining <= 0) {
+                alert('💡 힌트를 모두 사용했습니다!');
+                return;
+            }
+
+            // Find first empty or incorrect input
+            for (let i = 0; i < answers.length; i++) {
+                const input = document.getElementById(`blank-${i}`);
+                if (!input.value.trim() || input.classList.contains('incorrect')) {
+                    const answer = answers[i];
+                    alert(`💡 힌트\n\n뜻: ${answer.hint}\n품사: ${answer.pos}\n\n첫 글자: ${answer.correct[0]}\n글자 수: ${answer.correct.length}자`);
+                    hintsRemaining--;
+                    document.getElementById('hint-count').textContent = hintsRemaining;
+                    input.focus();
+                    return;
+                }
+            }
+
+            alert('✅ 모든 빈칸을 채웠습니다! 정답 확인을 눌러보세요.');
+        }
+
+        function resetGame() {
+            answers.forEach((_, index) => {
+                const input = document.getElementById(`blank-${index}`);
+                input.value = '';
+                input.classList.remove('correct', 'incorrect');
+            });
+
+            hintsRemaining = 3;
+            correctCount = 0;
+            document.getElementById('hint-count').textContent = hintsRemaining;
+            document.getElementById('feedback').classList.add('hidden');
+            updateProgress();
+
+            // Focus first input
+            document.getElementById('blank-0')?.focus();
+        }
+
+        function updateProgress() {
+            const percentage = totalBlanks > 0 ? (correctCount / totalBlanks) * 100 : 0;
+            document.getElementById('progress-bar').style.width = percentage + '%';
+            document.getElementById('score').textContent = `${correctCount} / ${totalBlanks}`;
+        }
+
+        function setupKeyboardNavigation() {
+            const inputs = document.querySelectorAll('.blank-input');
+            inputs.forEach((input, index) => {
+                input.addEventListener('keypress', function(e) {
+                    if (e.key === 'Enter') {
+                        e.preventDefault();
+                        if (index < inputs.length - 1) {
+                            inputs[index + 1].focus();
+                        } else {
+                            checkAnswers();
+                        }
+                    }
+                });
+            });
+        }
+
+        // Initialize game on load
+        document.addEventListener('DOMContentLoaded', initGame);
+    </script>
+</body>
+</html>

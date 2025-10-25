@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>表現学習 - 韓国語フレーズマスター</title>
+    <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
+    <style>
+        :root {
+            --primary: #8b5cf6;
+            --primary-dark: #7c3aed;
+            --font-sans: 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: var(--font-sans);
+            background: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%);
+            min-height: 100vh;
+            padding: 1rem;
+        }
+
+        .container { max-width: 900px; margin: 0 auto; }
+
+        .header {
+            background: white;
+            padding: 1.5rem 2rem;
+            border-radius: 1rem;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+            margin-bottom: 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .header-title { display: flex; align-items: center; gap: 1rem; }
+        .header-title h1 { font-size: 1.75rem; color: var(--primary); }
+
+        .home-btn {
+            padding: 0.5rem 1.5rem;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            color: white;
+            border: none;
+            border-radius: 0.5rem;
+            cursor: pointer;
+            font-weight: 600;
+            text-decoration: none;
+        }
+
+        .content-area {
+            background: white;
+            padding: 2rem;
+            border-radius: 1rem;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+        }
+
+        .categories-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .category-btn {
+            padding: 1rem;
+            background: linear-gradient(135deg, #f5f3ff 0%, #ede9fe 100%);
+            border: 3px solid transparent;
+            border-radius: 0.75rem;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 1rem;
+            transition: all 0.3s;
+        }
+
+        .category-btn:hover, .category-btn.active {
+            border-color: var(--primary);
+            transform: translateY(-3px);
+        }
+
+        .expression-card {
+            background: linear-gradient(135deg, #f5f3ff 0%, #ede9fe 100%);
+            padding: 2rem;
+            border-radius: 0.75rem;
+            margin-bottom: 1.5rem;
+            border-left: 5px solid var(--primary);
+        }
+
+        .korean-expr {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #5b21b6;
+            margin-bottom: 0.5rem;
+        }
+
+        .reading-expr {
+            font-size: 1.2rem;
+            color: #6d28d9;
+            margin-bottom: 1rem;
+        }
+
+        .meaning-expr {
+            font-size: 1.3rem;
+            color: #1f2937;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        .situation {
+            background: white;
+            padding: 1rem;
+            border-radius: 0.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .situation-title {
+            font-weight: 600;
+            color: #4b5563;
+            margin-bottom: 0.5rem;
+        }
+
+        .situation-desc {
+            color: #6b7280;
+            font-size: 0.95rem;
+        }
+
+        .example-conversation {
+            background: #fef3c7;
+            padding: 1rem;
+            border-radius: 0.5rem;
+            margin-top: 1rem;
+        }
+
+        .conversation-line {
+            margin-bottom: 0.75rem;
+            padding: 0.5rem;
+            background: white;
+            border-radius: 0.375rem;
+        }
+
+        .speaker {
+            font-weight: 700;
+            color: #92400e;
+            margin-bottom: 0.25rem;
+        }
+
+        .dialogue {
+            color: #78350f;
+        }
+
+        @media (max-width: 768px) {
+            .header { flex-direction: column; gap: 1rem; }
+            .korean-expr { font-size: 1.5rem; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="header-title">
+                <span style="font-size: 2rem;">💬</span>
+                <h1>表現学習モード</h1>
+            </div>
+            <a href="../index.html" class="home-btn">ホームに戻る</a>
+        </div>
+
+        <div class="content-area">
+            <h2 style="margin-bottom: 1.5rem; text-align: center; color: #111827;">
+                シチュエーション別フレーズ
+            </h2>
+
+            <div class="categories-grid" id="categoriesGrid"></div>
+            <div id="expressionsContainer"></div>
+        </div>
+    </div>
+
+    <script>
+        const expressionsData = {
+            greeting: {
+                name: "挨拶",
+                expressions: [
+                    {
+                        korean: "오랜만이에요",
+                        reading: "オレンマニエヨ",
+                        meaning: "お久しぶりです",
+                        situation: "久しぶりに会った時",
+                        example: [
+                            { speaker: "A", text: "오랜만이에요! 어떻게 지냈어요?" },
+                            { speaker: "B", text: "잘 지냈어요. 당신은요?" }
+                        ]
+                    },
+                    {
+                        korean: "잘 지내셨어요?",
+                        reading: "チャル チネショッソヨ?",
+                        meaning: "お元気でしたか?",
+                        situation: "相手の様子を尋ねる時",
+                        example: [
+                            { speaker: "A", text: "잘 지내셨어요?" },
+                            { speaker: "B", text: "네, 덕분에 잘 지냈어요" }
+                        ]
+                    }
+                ]
+            },
+            restaurant: {
+                name: "レストラン",
+                expressions: [
+                    {
+                        korean: "주문하시겠어요?",
+                        reading: "チュムンハシゲッソヨ?",
+                        meaning: "ご注文されますか?",
+                        situation: "レストランで注文を取る時",
+                        example: [
+                            { speaker: "店員", text: "주문하시겠어요?" },
+                            { speaker: "客", text: "네, 비빔밥 하나 주세요" }
+                        ]
+                    },
+                    {
+                        korean: "계산서 주세요",
+                        reading: "ケサンソ ジュセヨ",
+                        meaning: "お会計をお願いします",
+                        situation: "支払いをする時",
+                        example: [
+                            { speaker: "客", text: "계산서 주세요" },
+                            { speaker: "店員", text: "네, 잠시만요" }
+                        ]
+                    }
+                ]
+            },
+            shopping: {
+                name: "ショッピング",
+                expressions: [
+                    {
+                        korean: "얼마예요?",
+                        reading: "オルマエヨ?",
+                        meaning: "いくらですか?",
+                        situation: "値段を聞く時",
+                        example: [
+                            { speaker: "客", text: "이거 얼마예요?" },
+                            { speaker: "店員", text: "만 원이에요" }
+                        ]
+                    },
+                    {
+                        korean: "입어 봐도 돼요?",
+                        reading: "イボ ボァド デヨ?",
+                        meaning: "試着してもいいですか?",
+                        situation: "服を試着したい時",
+                        example: [
+                            { speaker: "客", text: "이 옷 입어 봐도 돼요?" },
+                            { speaker: "店員", text: "네, 탈의실은 저쪽이에요" }
+                        ]
+                    }
+                ]
+            },
+            emotion: {
+                name: "感情表現",
+                expressions: [
+                    {
+                        korean: "너무 기뻐요!",
+                        reading: "ノム キッポヨ!",
+                        meaning: "とても嬉しいです!",
+                        situation: "喜びを表現する時",
+                        example: [
+                            { speaker: "A", text: "합격했어요!" },
+                            { speaker: "B", text: "너무 기뻐요! 축하해요!" }
+                        ]
+                    },
+                    {
+                        korean: "속상해요",
+                        reading: "ソクサンヘヨ",
+                        meaning: "がっかりです、悲しいです",
+                        situation: "残念な気持ちを表す時",
+                        example: [
+                            { speaker: "A", text: "시험을 못 봤어요" },
+                            { speaker: "B", text: "속상하겠어요. 다음엔 잘 할 거예요" }
+                        ]
+                    }
+                ]
+            }
+        };
+
+        function init() {
+            renderCategories();
+            showCategory('greeting');
+        }
+
+        function renderCategories() {
+            const grid = document.getElementById('categoriesGrid');
+            grid.innerHTML = Object.entries(expressionsData).map(([key, value]) => `
+                <button class="category-btn" onclick="showCategory('${key}')">${value.name}</button>
+            `).join('');
+        }
+
+        function showCategory(category) {
+            document.querySelectorAll('.category-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            event?.target?.classList.add('active');
+
+            const data = expressionsData[category];
+            const container = document.getElementById('expressionsContainer');
+
+            container.innerHTML = data.expressions.map(expr => `
+                <div class="expression-card">
+                    <div class="korean-expr">${expr.korean}</div>
+                    <div class="reading-expr">${expr.reading}</div>
+                    <div class="meaning-expr">📝 ${expr.meaning}</div>
+
+                    <div class="situation">
+                        <div class="situation-title">使用場面</div>
+                        <div class="situation-desc">${expr.situation}</div>
+                    </div>
+
+                    <div class="example-conversation">
+                        <div style="font-weight: 700; margin-bottom: 0.5rem; color: #92400e;">
+                            💬 会話例
+                        </div>
+                        ${expr.example.map(line => `
+                            <div class="conversation-line">
+                                <div class="speaker">${line.speaker}:</div>
+                                <div class="dialogue">${line.text}</div>
+                            </div>
+                        `).join('')}
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        window.addEventListener('DOMContentLoaded', init);
+    </script>
+</body>
+</html>

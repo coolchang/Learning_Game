@@ -1,0 +1,420 @@
+{
+  "level": "N5",
+  "totalWords": 50,
+  "categories": ["기본", "숫자", "시간", "음식", "동작", "형용사", "가족", "인사"],
+  "words": [
+    {
+      "id": "n5-001",
+      "word": "こんにちは",
+      "reading": "こんにちは",
+      "romaji": "konnichiwa",
+      "meaning": "안녕하세요",
+      "partOfSpeech": "인사",
+      "category": ["기본", "인사"],
+      "jlptLevel": "N5",
+      "examples": [
+        {
+          "japanese": "こんにちは、田中さん。",
+          "korean": "안녕하세요, 다나카 씨."
+        }
+      ],
+      "difficulty": 1,
+      "frequency": 5,
+      "tags": ["필수", "일상"]
+    },
+    {
+      "id": "n5-002",
+      "word": "ありがとう",
+      "reading": "ありがとう",
+      "romaji": "arigatou",
+      "meaning": "고마워",
+      "partOfSpeech": "인사",
+      "category": ["기본", "인사"],
+      "jlptLevel": "N5",
+      "examples": [
+        {
+          "japanese": "ありがとうございます。",
+          "korean": "감사합니다."
+        }
+      ],
+      "difficulty": 1,
+      "frequency": 5,
+      "tags": ["필수", "일상", "감사"]
+    },
+    {
+      "id": "n5-003",
+      "word": "食べる",
+      "reading": "たべる",
+      "romaji": "taberu",
+      "meaning": "먹다",
+      "partOfSpeech": "동사",
+      "category": ["음식", "동작"],
+      "jlptLevel": "N5",
+      "examples": [
+        {
+          "japanese": "朝ごはんを食べます。",
+          "korean": "아침밥을 먹습니다."
+        },
+        {
+          "japanese": "何を食べますか。",
+          "korean": "무엇을 먹습니까?"
+        }
+      ],
+      "related": ["n5-004", "n5-010"],
+      "difficulty": 1,
+      "frequency": 5,
+      "tags": ["필수", "동사", "일상"]
+    },
+    {
+      "id": "n5-004",
+      "word": "飲む",
+      "reading": "のむ",
+      "romaji": "nomu",
+      "meaning": "마시다",
+      "partOfSpeech": "동사",
+      "category": ["음식", "동작"],
+      "jlptLevel": "N5",
+      "examples": [
+        {
+          "japanese": "水を飲みます。",
+          "korean": "물을 마십니다."
+        },
+        {
+          "japanese": "コーヒーを飲みたいです。",
+          "korean": "커피를 마시고 싶습니다."
+        }
+      ],
+      "related": ["n5-003", "n5-015"],
+      "difficulty": 1,
+      "frequency": 5,
+      "tags": ["필수", "동사", "일상"]
+    },
+    {
+      "id": "n5-005",
+      "word": "行く",
+      "reading": "いく",
+      "romaji": "iku",
+      "meaning": "가다",
+      "partOfSpeech": "동사",
+      "category": ["동작", "이동"],
+      "jlptLevel": "N5",
+      "examples": [
+        {
+          "japanese": "学校に行きます。",
+          "korean": "학교에 갑니다."
+        },
+        {
+          "japanese": "どこに行きますか。",
+          "korean": "어디에 갑니까?"
+        }
+      ],
+      "antonyms": ["n5-006"],
+      "difficulty": 1,
+      "frequency": 5,
+      "tags": ["필수", "동사", "이동"]
+    },
+    {
+      "id": "n5-006",
+      "word": "来る",
+      "reading": "くる",
+      "romaji": "kuru",
+      "meaning": "오다",
+      "partOfSpeech": "동사",
+      "category": ["동작", "이동"],
+      "jlptLevel": "N5",
+      "examples": [
+        {
+          "japanese": "友達が来ます。",
+          "korean": "친구가 옵니다."
+        },
+        {
+          "japanese": "いつ来ますか。",
+          "korean": "언제 옵니까?"
+        }
+      ],
+      "antonyms": ["n5-005"],
+      "difficulty": 1,
+      "frequency": 5,
+      "tags": ["필수", "동사", "이동"]
+    },
+    {
+      "id": "n5-007",
+      "word": "大きい",
+      "reading": "おおきい",
+      "romaji": "ookii",
+      "meaning": "크다",
+      "partOfSpeech": "형용사",
+      "category": ["형용사", "크기"],
+      "jlptLevel": "N5",
+      "examples": [
+        {
+          "japanese": "大きい家です。",
+          "korean": "큰 집입니다."
+        }
+      ],
+      "antonyms": ["n5-008"],
+      "difficulty": 2,
+      "frequency": 4,
+      "tags": ["형용사", "기본"]
+    },
+    {
+      "id": "n5-008",
+      "word": "小さい",
+      "reading": "ちいさい",
+      "romaji": "chiisai",
+      "meaning": "작다",
+      "partOfSpeech": "형용사",
+      "category": ["형용사", "크기"],
+      "jlptLevel": "N5",
+      "examples": [
+        {
+          "japanese": "小さい犬です。",
+          "korean": "작은 개입니다."
+        }
+      ],
+      "antonyms": ["n5-007"],
+      "difficulty": 2,
+      "frequency": 4,
+      "tags": ["형용사", "기본"]
+    },
+    {
+      "id": "n5-009",
+      "word": "一",
+      "reading": "いち",
+      "romaji": "ichi",
+      "meaning": "일, 하나",
+      "partOfSpeech": "숫자",
+      "category": ["숫자"],
+      "jlptLevel": "N5",
+      "examples": [
+        {
+          "japanese": "一つください。",
+          "korean": "하나 주세요."
+        }
+      ],
+      "difficulty": 1,
+      "frequency": 5,
+      "tags": ["필수", "숫자"]
+    },
+    {
+      "id": "n5-010",
+      "word": "二",
+      "reading": "に",
+      "romaji": "ni",
+      "meaning": "이, 둘",
+      "partOfSpeech": "숫자",
+      "category": ["숫자"],
+      "jlptLevel": "N5",
+      "examples": [
+        {
+          "japanese": "二人で行きます。",
+          "korean": "두 명이서 갑니다."
+        }
+      ],
+      "difficulty": 1,
+      "frequency": 5,
+      "tags": ["필수", "숫자"]
+    },
+    {
+      "id": "n5-011",
+      "word": "今日",
+      "reading": "きょう",
+      "romaji": "kyou",
+      "meaning": "오늘",
+      "partOfSpeech": "명사",
+      "category": ["시간"],
+      "jlptLevel": "N5",
+      "examples": [
+        {
+          "japanese": "今日は暑いです。",
+          "korean": "오늘은 덥습니다."
+        }
+      ],
+      "related": ["n5-012", "n5-013"],
+      "difficulty": 1,
+      "frequency": 5,
+      "tags": ["필수", "시간", "일상"]
+    },
+    {
+      "id": "n5-012",
+      "word": "昨日",
+      "reading": "きのう",
+      "romaji": "kinou",
+      "meaning": "어제",
+      "partOfSpeech": "명사",
+      "category": ["시간"],
+      "jlptLevel": "N5",
+      "examples": [
+        {
+          "japanese": "昨日は雨でした。",
+          "korean": "어제는 비였습니다."
+        }
+      ],
+      "related": ["n5-011", "n5-013"],
+      "difficulty": 2,
+      "frequency": 4,
+      "tags": ["시간", "일상"]
+    },
+    {
+      "id": "n5-013",
+      "word": "明日",
+      "reading": "あした",
+      "romaji": "ashita",
+      "meaning": "내일",
+      "partOfSpeech": "명사",
+      "category": ["시간"],
+      "jlptLevel": "N5",
+      "examples": [
+        {
+          "japanese": "明日会いましょう。",
+          "korean": "내일 만나요."
+        }
+      ],
+      "related": ["n5-011", "n5-012"],
+      "difficulty": 2,
+      "frequency": 4,
+      "tags": ["시간", "일상"]
+    },
+    {
+      "id": "n5-014",
+      "word": "母",
+      "reading": "はは",
+      "romaji": "haha",
+      "meaning": "어머니",
+      "partOfSpeech": "명사",
+      "category": ["가족"],
+      "jlptLevel": "N5",
+      "examples": [
+        {
+          "japanese": "母は先生です。",
+          "korean": "어머니는 선생님입니다."
+        }
+      ],
+      "related": ["n5-015"],
+      "difficulty": 2,
+      "frequency": 4,
+      "tags": ["가족", "기본"]
+    },
+    {
+      "id": "n5-015",
+      "word": "父",
+      "reading": "ちち",
+      "romaji": "chichi",
+      "meaning": "아버지",
+      "partOfSpeech": "명사",
+      "category": ["가족"],
+      "jlptLevel": "N5",
+      "examples": [
+        {
+          "japanese": "父は会社員です。",
+          "korean": "아버지는 회사원입니다."
+        }
+      ],
+      "related": ["n5-014"],
+      "difficulty": 2,
+      "frequency": 4,
+      "tags": ["가족", "기본"]
+    },
+    {
+      "id": "n5-016",
+      "word": "好き",
+      "reading": "すき",
+      "romaji": "suki",
+      "meaning": "좋아하다",
+      "partOfSpeech": "형용동사",
+      "category": ["형용사", "감정"],
+      "jlptLevel": "N5",
+      "examples": [
+        {
+          "japanese": "日本語が好きです。",
+          "korean": "일본어를 좋아합니다."
+        }
+      ],
+      "antonyms": ["n5-017"],
+      "difficulty": 2,
+      "frequency": 5,
+      "tags": ["감정", "기본"]
+    },
+    {
+      "id": "n5-017",
+      "word": "嫌い",
+      "reading": "きらい",
+      "romaji": "kirai",
+      "meaning": "싫어하다",
+      "partOfSpeech": "형용동사",
+      "category": ["형용사", "감정"],
+      "jlptLevel": "N5",
+      "examples": [
+        {
+          "japanese": "野菜が嫌いです。",
+          "korean": "야채를 싫어합니다."
+        }
+      ],
+      "antonyms": ["n5-016"],
+      "difficulty": 2,
+      "frequency": 4,
+      "tags": ["감정", "기본"]
+    },
+    {
+      "id": "n5-018",
+      "word": "勉強する",
+      "reading": "べんきょうする",
+      "romaji": "benkyou suru",
+      "meaning": "공부하다",
+      "partOfSpeech": "동사",
+      "category": ["동작", "학습"],
+      "jlptLevel": "N5",
+      "examples": [
+        {
+          "japanese": "毎日勉強します。",
+          "korean": "매일 공부합니다."
+        }
+      ],
+      "difficulty": 2,
+      "frequency": 5,
+      "tags": ["동사", "학습", "일상"]
+    },
+    {
+      "id": "n5-019",
+      "word": "見る",
+      "reading": "みる",
+      "romaji": "miru",
+      "meaning": "보다",
+      "partOfSpeech": "동사",
+      "category": ["동작"],
+      "jlptLevel": "N5",
+      "examples": [
+        {
+          "japanese": "テレビを見ます。",
+          "korean": "텔레비전을 봅니다."
+        }
+      ],
+      "difficulty": 1,
+      "frequency": 5,
+      "tags": ["동사", "일상"]
+    },
+    {
+      "id": "n5-020",
+      "word": "聞く",
+      "reading": "きく",
+      "romaji": "kiku",
+      "meaning": "듣다, 묻다",
+      "partOfSpeech": "동사",
+      "category": ["동작"],
+      "jlptLevel": "N5",
+      "examples": [
+        {
+          "japanese": "音楽を聞きます。",
+          "korean": "음악을 듣습니다."
+        },
+        {
+          "japanese": "先生に聞きます。",
+          "korean": "선생님께 묻습니다."
+        }
+      ],
+      "difficulty": 2,
+      "frequency": 5,
+      "tags": ["동사", "일상"]
+    }
+  ]
+}

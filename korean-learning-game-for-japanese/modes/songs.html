@@ -1,0 +1,837 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>歌で学習 - K-POP韓国語マスター</title>
+    <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
+    <style>
+        :root {
+            --primary: #06b6d4;
+            --primary-dark: #0891b2;
+            --secondary: #0ea5e9;
+            --accent: #67e8f9;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --error: #ef4444;
+            --font-sans: 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--font-sans);
+            background: linear-gradient(135deg, #06b6d4 0%, #0ea5e9 100%);
+            min-height: 100vh;
+            padding: 1rem;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        /* ヘッダー */
+        .header {
+            background: white;
+            padding: 1.5rem 2rem;
+            border-radius: 1rem;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+            margin-bottom: 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .header-title {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .header-title h1 {
+            font-size: 1.75rem;
+            color: var(--primary);
+        }
+
+        .home-btn {
+            padding: 0.5rem 1.5rem;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: white;
+            border: none;
+            border-radius: 0.5rem;
+            cursor: pointer;
+            font-weight: 600;
+            transition: transform 0.2s;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .home-btn:hover {
+            transform: scale(1.05);
+        }
+
+        /* ナビゲーション -->
+        .nav-tabs {
+            background: white;
+            padding: 1rem;
+            border-radius: 1rem;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            margin-bottom: 2rem;
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+        }
+
+        .nav-tab {
+            padding: 0.75rem 1.5rem;
+            background: #f3f4f6;
+            border: none;
+            border-radius: 0.5rem;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+            font-size: 0.9rem;
+        }
+
+        .nav-tab.active {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: white;
+        }
+
+        .nav-tab:hover:not(.active) {
+            background: #e5e7eb;
+        }
+
+        /* コンテンツエリア */
+        .content-area {
+            background: white;
+            padding: 2rem;
+            border-radius: 1rem;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+            min-height: 500px;
+        }
+
+        .mode-section {
+            display: none;
+        }
+
+        .mode-section.active {
+            display: block;
+            animation: fadeIn 0.5s;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* 歌選択画面 */
+        .songs-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .song-card {
+            background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+            padding: 1.5rem;
+            border-radius: 0.75rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            border: 2px solid transparent;
+        }
+
+        .song-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+            border-color: var(--primary);
+        }
+
+        .song-title {
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            color: #111827;
+        }
+
+        .song-artist {
+            font-size: 0.9rem;
+            color: #6b7280;
+            margin-bottom: 0.5rem;
+        }
+
+        .song-level {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            background: var(--primary);
+            color: white;
+            font-size: 0.75rem;
+            border-radius: 0.375rem;
+            font-weight: 600;
+        }
+
+        /* 穴埋めゲーム画面 */
+        .game-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .song-info {
+            text-align: center;
+            margin-bottom: 2rem;
+            padding: 1.5rem;
+            background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+            border-radius: 0.75rem;
+        }
+
+        .song-info h2 {
+            font-size: 1.75rem;
+            margin-bottom: 0.5rem;
+            color: var(--primary);
+        }
+
+        .song-info p {
+            color: #6b7280;
+            font-size: 1rem;
+        }
+
+        .lyrics-container {
+            background: #f9fafb;
+            padding: 2rem;
+            border-radius: 0.75rem;
+            margin-bottom: 2rem;
+            line-height: 2;
+            font-size: 1.1rem;
+        }
+
+        .lyrics-line {
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .blank-input {
+            display: inline-block;
+            min-width: 100px;
+            padding: 0.5rem;
+            border: 2px solid #d1d5db;
+            border-radius: 0.375rem;
+            font-size: 1.1rem;
+            transition: all 0.3s;
+        }
+
+        .blank-input:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(6, 182, 212, 0.1);
+        }
+
+        .blank-input.correct {
+            border-color: var(--success);
+            background: #f0fdf4;
+        }
+
+        .blank-input.incorrect {
+            border-color: var(--error);
+            background: #fef2f2;
+            animation: shake 0.5s;
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-10px); }
+            75% { transform: translateX(10px); }
+        }
+
+        .hint-btn {
+            background: var(--warning);
+            color: white;
+            border: none;
+            padding: 0.25rem 0.75rem;
+            border-radius: 0.375rem;
+            cursor: pointer;
+            font-size: 0.85rem;
+            margin-left: 0.5rem;
+        }
+
+        .translation-toggle {
+            background: #8b5cf6;
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 0.375rem;
+            cursor: pointer;
+            margin-bottom: 1rem;
+            font-weight: 600;
+        }
+
+        .japanese-translation {
+            display: none;
+            color: #6b7280;
+            font-size: 0.95rem;
+            margin-top: 0.5rem;
+            font-style: italic;
+        }
+
+        .japanese-translation.show {
+            display: block;
+        }
+
+        /* 発音ガイド */
+        .pronunciation-guide {
+            background: #fef3c7;
+            border-left: 4px solid var(--warning);
+            padding: 1rem;
+            margin: 1rem 0;
+            border-radius: 0.375rem;
+        }
+
+        .pronunciation-guide h4 {
+            color: #92400e;
+            margin-bottom: 0.5rem;
+        }
+
+        .pronunciation-tip {
+            color: #78350f;
+            font-size: 0.9rem;
+            margin-bottom: 0.25rem;
+        }
+
+        /* コントロールボタン */
+        .controls {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            margin-top: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 0.75rem 2rem;
+            border: none;
+            border-radius: 0.5rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 1rem;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: white;
+        }
+
+        .btn-secondary {
+            background: #6b7280;
+            color: white;
+        }
+
+        .btn-success {
+            background: var(--success);
+            color: white;
+        }
+
+        .btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+
+        .btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        /* 進捗表示 */
+        .progress-container {
+            margin-bottom: 2rem;
+        }
+
+        .progress-bar {
+            background: #e5e7eb;
+            height: 12px;
+            border-radius: 6px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--primary) 0%, var(--secondary) 100%);
+            transition: width 0.5s ease;
+        }
+
+        .progress-text {
+            text-align: center;
+            margin-top: 0.5rem;
+            color: #6b7280;
+            font-weight: 600;
+        }
+
+        /* 統計 */
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .stat-card {
+            background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+            padding: 1.5rem;
+            border-radius: 0.75rem;
+            text-align: center;
+        }
+
+        .stat-value {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        .stat-label {
+            font-size: 0.85rem;
+            color: #6b7280;
+            margin-top: 0.25rem;
+        }
+
+        /* レスポンシブ */
+        @media (max-width: 768px) {
+            .header {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .nav-tabs {
+                justify-content: center;
+            }
+
+            .lyrics-line {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- ヘッダー -->
+        <div class="header">
+            <div class="header-title">
+                <span style="font-size: 2rem;">🎵</span>
+                <h1>歌で学習モード</h1>
+            </div>
+            <a href="../index.html" class="home-btn">ホームに戻る</a>
+        </div>
+
+        <!-- ナビゲーションタブ -->
+        <div class="nav-tabs">
+            <button class="nav-tab active" onclick="showMode('select')">歌を選ぶ</button>
+            <button class="nav-tab" onclick="showMode('fillblank')" id="fillblankTab" disabled>穴埋めゲーム</button>
+            <button class="nav-tab" onclick="showMode('pronunciation')" id="pronunciationTab" disabled>発音練習</button>
+            <button class="nav-tab" onclick="showMode('stats')">学習統計</button>
+        </div>
+
+        <!-- コンテンツエリア -->
+        <div class="content-area">
+            <!-- 歌選択モード -->
+            <div id="selectMode" class="mode-section active">
+                <h2 style="margin-bottom: 2rem; text-align: center; color: #111827;">学習したい歌を選んでください</h2>
+                <div class="songs-grid" id="songsGrid">
+                    <!-- JavaScriptで動的に生成 -->
+                </div>
+            </div>
+
+            <!-- 穴埋めゲームモード -->
+            <div id="fillblankMode" class="mode-section">
+                <div class="game-container">
+                    <div class="song-info" id="songInfo">
+                        <h2 id="currentSongTitle"></h2>
+                        <p id="currentSongArtist"></p>
+                    </div>
+
+                    <div class="progress-container">
+                        <div class="progress-bar">
+                            <div class="progress-fill" id="progressFill" style="width: 0%"></div>
+                        </div>
+                        <div class="progress-text" id="progressText">0 / 0 正解</div>
+                    </div>
+
+                    <button class="translation-toggle" onclick="toggleTranslations()">
+                        日本語訳を表示 / 非表示
+                    </button>
+
+                    <div class="lyrics-container" id="lyricsContainer">
+                        <!-- JavaScriptで動的に生成 -->
+                    </div>
+
+                    <div class="controls">
+                        <button class="btn btn-secondary" onclick="resetGame()">リセット</button>
+                        <button class="btn btn-primary" onclick="checkAnswers()">答え合わせ</button>
+                        <button class="btn btn-success" onclick="showAllAnswers()">答えを見る</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 発音練習モード -->
+            <div id="pronunciationMode" class="mode-section">
+                <div class="game-container">
+                    <h2 style="text-align: center; margin-bottom: 2rem; color: #111827;">
+                        発音ガイド - 日本人が苦手な発音
+                    </h2>
+
+                    <div class="pronunciation-guide">
+                        <h4>この歌で練習する発音</h4>
+                        <div id="pronunciationTips">
+                            <!-- JavaScriptで動的に生成 -->
+                        </div>
+                    </div>
+
+                    <div class="lyrics-container" id="pronunciationLyrics">
+                        <!-- JavaScriptで動的に生成 -->
+                    </div>
+
+                    <div class="controls">
+                        <button class="btn btn-primary" onclick="playPronunciation()">発音を聞く</button>
+                        <button class="btn btn-secondary" onclick="showMode('fillblank')">穴埋めに戻る</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 統計モード -->
+            <div id="statsMode" class="mode-section">
+                <h2 style="text-align: center; margin-bottom: 2rem; color: #111827;">あなたの学習統計</h2>
+                <div class="stats" id="statsContainer">
+                    <!-- JavaScriptで動的に生成 -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // グローバル変数
+        let currentSong = null;
+        let songsData = [];
+        let correctAnswers = 0;
+        let totalBlanks = 0;
+        let stats = {
+            songsCompleted: 0,
+            totalCorrect: 0,
+            totalAttempts: 0,
+            studyTime: 0
+        };
+
+        // 初期化
+        async function init() {
+            loadStats();
+            await loadSongsData();
+            renderSongsGrid();
+            updateStatsDisplay();
+        }
+
+        // 歌データ読み込み
+        async function loadSongsData() {
+            try {
+                const response = await fetch('../data/songs/songs-data.json');
+                songsData = await response.json();
+            } catch (error) {
+                console.error('歌データの読み込みエラー:', error);
+                // デモデータを使用
+                songsData = getDemoSongs();
+            }
+        }
+
+        // デモ歌データ
+        function getDemoSongs() {
+            return [
+                {
+                    id: 1,
+                    title: "사랑해 (愛してる)",
+                    artist: "K-POP アーティスト",
+                    level: "初級",
+                    lyrics: [
+                        { korean: "사랑해 너를 {{사랑해}}", japanese: "愛してる、君を愛してる", blanks: ["사랑해"] },
+                        { korean: "{{매일}} 생각해 너만 생각해", japanese: "毎日考えてる、君だけを考えてる", blanks: ["매일"] },
+                        { korean: "함께 {{걷고}} 싶어", japanese: "一緒に歩きたい", blanks: ["걷고"] }
+                    ],
+                    pronunciationTips: [
+                        { word: "사랑해", tip: "「サランヘ」パッチム「ㅇ」は鼻音です", difficulty: "medium" },
+                        { word: "매일", tip: "「メイル」「ㅐ」と「ㅔ」の違いに注意", difficulty: "hard" }
+                    ]
+                },
+                {
+                    id: 2,
+                    title: "꿈 (夢)",
+                    artist: "バラードシンガー",
+                    level: "中級",
+                    lyrics: [
+                        { korean: "{{꿈}}처럼 다가온 너", japanese: "夢のように近づいてきた君", blanks: ["꿈"] },
+                        { korean: "내 {{마음}}을 가져간 너", japanese: "私の心を持っていった君", blanks: ["마음"] },
+                        { korean: "{{영원}}히 함께하자", japanese: "永遠に一緒にいよう", blanks: ["영원"] }
+                    ],
+                    pronunciationTips: [
+                        { word: "꿈", tip: "「ックム」濃音「ㄲ」は強く発音", difficulty: "hard" },
+                        { word: "마음", tip: "「マウム」パッチム「ㅁ」は唇を閉じる", difficulty: "medium" }
+                    ]
+                },
+                {
+                    id: 3,
+                    title: "봄날 (春の日)",
+                    artist: "人気グループ",
+                    level: "中上級",
+                    lyrics: [
+                        { korean: "{{보고}} 싶다 이렇게", japanese: "会いたい、こんなに", blanks: ["보고"] },
+                        { korean: "말하니까 {{더}} 보고 싶다", japanese: "言うからもっと会いたい", blanks: ["더"] },
+                        { korean: "{{봄날}}이 올 때까지", japanese: "春の日が来るまで", blanks: ["봄날"] }
+                    ],
+                    pronunciationTips: [
+                        { word: "보고", tip: "「ポゴ」「ㅗ」は日本語の「オ」より口を丸く", difficulty: "medium" },
+                        { word: "봄날", tip: "「ポムナル」パッチム「ㅁ」の後の連音化に注意", difficulty: "hard" }
+                    ]
+                }
+            ];
+        }
+
+        // 歌グリッド表示
+        function renderSongsGrid() {
+            const grid = document.getElementById('songsGrid');
+            grid.innerHTML = songsData.map(song => `
+                <div class="song-card" onclick="selectSong(${song.id})">
+                    <div class="song-title">${song.title}</div>
+                    <div class="song-artist">${song.artist}</div>
+                    <span class="song-level">${song.level}</span>
+                </div>
+            `).join('');
+        }
+
+        // 歌選択
+        function selectSong(songId) {
+            currentSong = songsData.find(s => s.id === songId);
+            if (currentSong) {
+                document.getElementById('fillblankTab').disabled = false;
+                document.getElementById('pronunciationTab').disabled = false;
+                showMode('fillblank');
+                initFillBlankGame();
+            }
+        }
+
+        // 穴埋めゲーム初期化
+        function initFillBlankGame() {
+            document.getElementById('currentSongTitle').textContent = currentSong.title;
+            document.getElementById('currentSongArtist').textContent = currentSong.artist;
+
+            totalBlanks = currentSong.lyrics.reduce((sum, line) => sum + line.blanks.length, 0);
+            correctAnswers = 0;
+            updateProgress();
+
+            const lyricsContainer = document.getElementById('lyricsContainer');
+            lyricsContainer.innerHTML = currentSong.lyrics.map((line, lineIndex) => {
+                let korean = line.korean;
+                line.blanks.forEach((blank, blankIndex) => {
+                    const inputId = `blank-${lineIndex}-${blankIndex}`;
+                    korean = korean.replace(`{{${blank}}}`,
+                        `<input type="text" class="blank-input" id="${inputId}" data-answer="${blank}" placeholder="?">`
+                    );
+                });
+
+                return `
+                    <div class="lyrics-line">
+                        <div style="flex: 1;">
+                            ${korean}
+                            <button class="hint-btn" onclick="showHint(${lineIndex})">ヒント</button>
+                        </div>
+                        <div class="japanese-translation" id="trans-${lineIndex}">
+                            ${line.japanese}
+                        </div>
+                    </div>
+                `;
+            }).join('');
+
+            // 発音ガイド更新
+            updatePronunciationGuide();
+        }
+
+        // 翻訳表示切替
+        function toggleTranslations() {
+            const translations = document.querySelectorAll('.japanese-translation');
+            translations.forEach(trans => {
+                trans.classList.toggle('show');
+            });
+        }
+
+        // ヒント表示
+        function showHint(lineIndex) {
+            const line = currentSong.lyrics[lineIndex];
+            const blank = line.blanks[0];
+            const firstChar = blank.charAt(0);
+            alert(`ヒント: 「${firstChar}」で始まります`);
+        }
+
+        // 答え合わせ
+        function checkAnswers() {
+            const inputs = document.querySelectorAll('.blank-input');
+            let correct = 0;
+
+            inputs.forEach(input => {
+                const answer = input.dataset.answer;
+                const userAnswer = input.value.trim();
+
+                if (userAnswer === answer) {
+                    input.classList.remove('incorrect');
+                    input.classList.add('correct');
+                    correct++;
+                } else if (userAnswer !== '') {
+                    input.classList.remove('correct');
+                    input.classList.add('incorrect');
+                }
+            });
+
+            correctAnswers = correct;
+            updateProgress();
+            updateStats(correct, inputs.length);
+
+            if (correct === inputs.length) {
+                setTimeout(() => {
+                    alert('🎉 完璧です！すべて正解しました！');
+                    stats.songsCompleted++;
+                    saveStats();
+                }, 500);
+            }
+        }
+
+        // すべての答えを表示
+        function showAllAnswers() {
+            const inputs = document.querySelectorAll('.blank-input');
+            inputs.forEach(input => {
+                input.value = input.dataset.answer;
+                input.classList.add('correct');
+            });
+            correctAnswers = totalBlanks;
+            updateProgress();
+        }
+
+        // ゲームリセット
+        function resetGame() {
+            const inputs = document.querySelectorAll('.blank-input');
+            inputs.forEach(input => {
+                input.value = '';
+                input.classList.remove('correct', 'incorrect');
+            });
+            correctAnswers = 0;
+            updateProgress();
+        }
+
+        // 進捗更新
+        function updateProgress() {
+            const percentage = totalBlanks > 0 ? (correctAnswers / totalBlanks) * 100 : 0;
+            document.getElementById('progressFill').style.width = `${percentage}%`;
+            document.getElementById('progressText').textContent = `${correctAnswers} / ${totalBlanks} 正解`;
+        }
+
+        // 発音ガイド更新
+        function updatePronunciationGuide() {
+            const tipsContainer = document.getElementById('pronunciationTips');
+            tipsContainer.innerHTML = currentSong.pronunciationTips.map(tip => `
+                <div class="pronunciation-tip">
+                    <strong>${tip.word}</strong>: ${tip.tip}
+                    <span style="color: ${tip.difficulty === 'hard' ? '#dc2626' : '#f59e0b'};">
+                        (難易度: ${tip.difficulty === 'hard' ? '高' : '中'})
+                    </span>
+                </div>
+            `).join('');
+
+            const pronunciationLyrics = document.getElementById('pronunciationLyrics');
+            pronunciationLyrics.innerHTML = currentSong.lyrics.map(line => `
+                <div style="margin-bottom: 1.5rem;">
+                    <div style="font-size: 1.2rem; font-weight: 700; margin-bottom: 0.5rem;">
+                        ${line.korean.replace(/{{|}}/g, '')}
+                    </div>
+                    <div style="color: #6b7280; font-style: italic;">
+                        ${line.japanese}
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // 発音再生
+        function playPronunciation() {
+            if ('speechSynthesis' in window) {
+                const text = currentSong.lyrics.map(l => l.korean.replace(/{{|}}/g, '')).join(' ');
+                const utterance = new SpeechSynthesisUtterance(text);
+                utterance.lang = 'ko-KR';
+                utterance.rate = 0.8; // ゆっくり
+                window.speechSynthesis.speak(utterance);
+            } else {
+                alert('お使いのブラウザは音声再生に対応していません。');
+            }
+        }
+
+        // モード切替
+        function showMode(mode) {
+            document.querySelectorAll('.mode-section').forEach(section => {
+                section.classList.remove('active');
+            });
+            document.querySelectorAll('.nav-tab').forEach(tab => {
+                tab.classList.remove('active');
+            });
+
+            document.getElementById(`${mode}Mode`).classList.add('active');
+            event.target.classList.add('active');
+        }
+
+        // 統計更新
+        function updateStats(correct, total) {
+            stats.totalCorrect += correct;
+            stats.totalAttempts += total;
+            saveStats();
+            updateStatsDisplay();
+        }
+
+        // 統計表示更新
+        function updateStatsDisplay() {
+            const accuracy = stats.totalAttempts > 0
+                ? Math.round((stats.totalCorrect / stats.totalAttempts) * 100)
+                : 0;
+
+            document.getElementById('statsContainer').innerHTML = `
+                <div class="stat-card">
+                    <div class="stat-value">${stats.songsCompleted}</div>
+                    <div class="stat-label">完了した歌</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value">${accuracy}%</div>
+                    <div class="stat-label">正答率</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value">${stats.totalCorrect}</div>
+                    <div class="stat-label">総正解数</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value">${stats.totalAttempts}</div>
+                    <div class="stat-label">総問題数</div>
+                </div>
+            `;
+        }
+
+        // 統計保存
+        function saveStats() {
+            localStorage.setItem('korean-song-learning-stats', JSON.stringify(stats));
+        }
+
+        // 統計読み込み
+        function loadStats() {
+            const saved = localStorage.getItem('korean-song-learning-stats');
+            if (saved) {
+                stats = JSON.parse(saved);
+            }
+        }
+
+        // ページロード時初期化
+        window.addEventListener('DOMContentLoaded', init);
+    </script>
+</body>
+</html>

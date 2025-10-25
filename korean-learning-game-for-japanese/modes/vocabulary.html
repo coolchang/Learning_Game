@@ -1,0 +1,874 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>語彙学習 - 韓国語単語マスター</title>
+    <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
+    <style>
+        :root {
+            --primary: #ec4899;
+            --primary-dark: #db2777;
+            --font-sans: 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: var(--font-sans);
+            background: linear-gradient(135deg, #ec4899 0%, #db2777 100%);
+            min-height: 100vh;
+            padding: 1rem;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .header {
+            background: white;
+            padding: 1.5rem 2rem;
+            border-radius: 1rem;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+            margin-bottom: 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .header-title { display: flex; align-items: center; gap: 1rem; }
+        .header-title h1 { font-size: 1.75rem; color: var(--primary); }
+
+        .home-btn {
+            padding: 0.5rem 1.5rem;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            color: white;
+            border: none;
+            border-radius: 0.5rem;
+            cursor: pointer;
+            font-weight: 600;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .content-area {
+            background: white;
+            padding: 2rem;
+            border-radius: 1rem;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+            min-height: 500px;
+        }
+
+        /* レベル選択 */
+        .levels-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .level-card {
+            background: linear-gradient(135deg, #fce7f3 0%, #fbcfe8 100%);
+            padding: 1.5rem;
+            border-radius: 0.75rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            border: 3px solid transparent;
+            text-align: center;
+        }
+
+        .level-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--primary);
+            box-shadow: 0 10px 20px rgba(236, 72, 153, 0.3);
+        }
+
+        .level-card.active {
+            border-color: var(--primary);
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            color: white;
+        }
+
+        .level-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .level-desc {
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+
+        /* フラッシュカード */
+        .flashcard-container {
+            max-width: 600px;
+            margin: 2rem auto;
+            perspective: 1000px;
+        }
+
+        .flashcard {
+            width: 100%;
+            min-height: 400px;
+            position: relative;
+            transform-style: preserve-3d;
+            transition: transform 0.6s;
+            cursor: pointer;
+        }
+
+        .flashcard.flipped {
+            transform: rotateY(180deg);
+        }
+
+        .card-face {
+            position: absolute;
+            width: 100%;
+            min-height: 400px;
+            backface-visibility: hidden;
+            border-radius: 1rem;
+            padding: 3rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+
+        .card-front {
+            background: linear-gradient(135deg, #fce7f3 0%, #fbcfe8 100%);
+        }
+
+        .card-back {
+            background: linear-gradient(135deg, #dbeafe 0%, #bfdbfe 100%);
+            transform: rotateY(180deg);
+        }
+
+        .korean-word {
+            font-size: 4rem;
+            font-weight: 700;
+            color: #831843;
+            margin-bottom: 1rem;
+        }
+
+        .reading {
+            font-size: 1.5rem;
+            color: #9f1239;
+            margin-bottom: 0.5rem;
+        }
+
+        .word-type {
+            font-size: 1rem;
+            color: #be185d;
+            padding: 0.25rem 1rem;
+            background: white;
+            border-radius: 0.5rem;
+            display: inline-block;
+        }
+
+        .audio-btn {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+
+        .audio-btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 16px rgba(0,0,0,0.2);
+        }
+
+        .audio-btn:active {
+            transform: scale(0.95);
+        }
+
+        .meaning {
+            font-size: 2rem;
+            font-weight: 600;
+            color: #1e40af;
+            margin-bottom: 1.5rem;
+        }
+
+        .example {
+            font-size: 1.1rem;
+            color: #1e3a8a;
+            margin-bottom: 0.5rem;
+            line-height: 1.6;
+        }
+
+        .example-translation {
+            font-size: 1rem;
+            color: #3730a3;
+            font-style: italic;
+        }
+
+        /* コントロール */
+        .controls {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            margin-top: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 0.75rem 2rem;
+            border: none;
+            border-radius: 0.5rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 1rem;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            color: white;
+        }
+
+        .btn-secondary {
+            background: #6b7280;
+            color: white;
+        }
+
+        .btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+
+        /* 進捗 */
+        .progress-container {
+            margin-bottom: 2rem;
+        }
+
+        .progress-bar {
+            background: #e5e7eb;
+            height: 12px;
+            border-radius: 6px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--primary) 0%, var(--primary-dark) 100%);
+            transition: width 0.5s ease;
+        }
+
+        .progress-text {
+            text-align: center;
+            margin-top: 0.5rem;
+            color: #6b7280;
+            font-weight: 600;
+        }
+
+        /* クイズモード */
+        .quiz-container {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .quiz-question {
+            background: linear-gradient(135deg, #fce7f3 0%, #fbcfe8 100%);
+            padding: 2rem;
+            border-radius: 1rem;
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+
+        .quiz-word {
+            font-size: 3rem;
+            font-weight: 700;
+            color: #831843;
+            margin-bottom: 1rem;
+        }
+
+        .quiz-options {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
+        }
+
+        .quiz-option {
+            padding: 1.5rem;
+            background: white;
+            border: 3px solid #e5e7eb;
+            border-radius: 0.75rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 1.1rem;
+            font-weight: 600;
+        }
+
+        .quiz-option:hover {
+            border-color: var(--primary);
+            transform: scale(1.05);
+        }
+
+        .quiz-option.correct {
+            background: #dcfce7;
+            border-color: #10b981;
+        }
+
+        .quiz-option.incorrect {
+            background: #fee2e2;
+            border-color: #ef4444;
+        }
+
+        @media (max-width: 768px) {
+            .header { flex-direction: column; gap: 1rem; }
+            .korean-word { font-size: 2.5rem; }
+            .meaning { font-size: 1.5rem; }
+            .quiz-options { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="header-title">
+                <span style="font-size: 2rem;">📚</span>
+                <h1>語彙学習モード</h1>
+            </div>
+            <a href="../index.html" class="home-btn">ホームに戻る</a>
+        </div>
+
+        <div class="content-area">
+            <!-- レベル選択 -->
+            <div id="levelSelect">
+                <h2 style="margin-bottom: 1.5rem; text-align: center; color: #111827;">
+                    学習レベルを選択してください
+                </h2>
+                <div class="levels-grid" id="levelsGrid"></div>
+            </div>
+
+            <!-- 学習モード選択 -->
+            <div id="modeSelect" style="display: none;">
+                <div id="selectedLevelInfo" style="text-align: center; margin-bottom: 1rem; padding: 1rem; background: linear-gradient(135deg, #fce7f3 0%, #fbcfe8 100%); border-radius: 0.75rem;">
+                    <div style="font-size: 0.9rem; color: #9f1239; font-weight: 600; margin-bottom: 0.25rem;">選択中のレベル</div>
+                    <div id="currentLevelDisplay" style="font-size: 1.5rem; font-weight: 700; color: #831843;"></div>
+                    <div id="currentWordCount" style="font-size: 0.95rem; color: #9f1239; margin-top: 0.25rem;"></div>
+                </div>
+                <h2 style="margin-bottom: 1.5rem; text-align: center; color: #111827;">
+                    学習方法を選択してください
+                </h2>
+                <div class="controls">
+                    <button class="btn btn-primary" onclick="startFlashcard()">フラッシュカード</button>
+                    <button class="btn btn-primary" onclick="startQuiz()">クイズ形式</button>
+                    <button class="btn btn-secondary" onclick="backToLevelSelect()">レベル選択に戻る</button>
+                </div>
+            </div>
+
+            <!-- フラッシュカードモード -->
+            <div id="flashcardMode" style="display: none;">
+                <div class="progress-container">
+                    <div class="progress-bar">
+                        <div class="progress-fill" id="progressFill" style="width: 0%"></div>
+                    </div>
+                    <div class="progress-text" id="progressText">0 / 0</div>
+                </div>
+
+                <div class="flashcard-container">
+                    <div class="flashcard" id="flashcard" onclick="flipCard()">
+                        <div class="card-face card-front" id="cardFront"></div>
+                        <div class="card-face card-back" id="cardBack"></div>
+                    </div>
+                </div>
+
+                <div class="controls">
+                    <button class="btn btn-secondary" onclick="previousCard()">⬅ 前へ</button>
+                    <button class="btn btn-primary" onclick="flipCard()">カードをめくる</button>
+                    <button class="btn btn-secondary" onclick="nextCard()">次へ ➡</button>
+                </div>
+                <div class="controls">
+                    <button class="btn btn-secondary" onclick="backToModeSelect()">モード選択に戻る</button>
+                </div>
+                <div style="text-align: center; margin-top: 1rem; padding: 1rem; background: #f3f4f6; border-radius: 0.5rem; color: #6b7280; font-size: 0.9rem;">
+                    ⌨️ <strong>キーボードショートカット:</strong>
+                    <span style="margin: 0 0.5rem;">スペース/Enter: めくる</span>
+                    <span style="margin: 0 0.5rem;">← / P: 前へ</span>
+                    <span style="margin: 0 0.5rem;">→ / N: 次へ</span>
+                    <span style="margin: 0 0.5rem;">R: 音声再生</span>
+                </div>
+            </div>
+
+            <!-- クイズモード -->
+            <div id="quizMode" style="display: none;">
+                <div class="progress-container">
+                    <div class="progress-bar">
+                        <div class="progress-fill" id="quizProgressFill" style="width: 0%"></div>
+                    </div>
+                    <div class="progress-text" id="quizProgressText">0 / 0</div>
+                </div>
+
+                <div class="quiz-container">
+                    <div class="quiz-question">
+                        <div class="quiz-word" id="quizWord"></div>
+                        <p style="color: #6b7280; margin-top: 1rem;">正しい意味を選んでください</p>
+                    </div>
+                    <div class="quiz-options" id="quizOptions"></div>
+                </div>
+
+                <div class="controls">
+                    <button class="btn btn-secondary" onclick="backToModeSelect()">モード選択に戻る</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let vocabularyData = [];
+        let currentLevel = null;
+        let currentWords = [];
+        let currentIndex = 0;
+        let quizScore = 0;
+        let speechSynthesis = window.speechSynthesis;
+        let koreaVoice = null;
+
+        async function init() {
+            console.log('初期化開始');
+
+            await loadVocabularyData();
+            console.log('データ読み込み完了');
+
+            renderLevelSelect();
+            initSpeech();
+
+            // 初期状態: レベル選択画面のみ表示
+            hideAllScreens();
+            document.getElementById('levelSelect').style.display = 'block';
+
+            console.log('初期化完了');
+        }
+
+        // 音声合成の初期化
+        function initSpeech() {
+            if ('speechSynthesis' in window) {
+                // 韓国語音声を探す
+                const loadVoices = () => {
+                    const voices = speechSynthesis.getVoices();
+                    koreaVoice = voices.find(voice => voice.lang.startsWith('ko')) || voices[0];
+                };
+
+                loadVoices();
+                if (speechSynthesis.onvoiceschanged !== undefined) {
+                    speechSynthesis.onvoiceschanged = loadVoices;
+                }
+            }
+        }
+
+        // 韓国語を読み上げる（最適化版）
+        function speakKorean(text) {
+            if (!speechSynthesis) return;
+
+            // 既存の音声を停止
+            speechSynthesis.cancel();
+
+            const utterance = new SpeechSynthesisUtterance(text);
+            utterance.lang = 'ko-KR';
+            utterance.rate = 0.9; // 自然な速度
+            utterance.pitch = 1.0;
+            utterance.volume = 1.0;
+
+            if (koreaVoice) {
+                utterance.voice = koreaVoice;
+            }
+
+            // ブラウザの制限を回避するため、すぐに再生を開始
+            // ChromeやSafariでは初回に遅延が発生することがあるが、
+            // 2回目以降は即座に再生される
+            requestAnimationFrame(() => {
+                speechSynthesis.speak(utterance);
+            });
+        }
+
+        async function loadVocabularyData() {
+            try {
+                const response = await fetch('../data/vocabulary/vocabulary-data.json');
+                vocabularyData = await response.json();
+            } catch (error) {
+                console.error('語彙データの読み込みエラー:', error);
+                vocabularyData = getDemoVocabulary();
+            }
+        }
+
+        function getDemoVocabulary() {
+            return {
+                beginner: [
+                    { korean: "안녕하세요", reading: "アンニョンハセヨ", meaning: "こんにちは", type: "挨拶", example: "안녕하세요, 만나서 반갑습니다", exampleTranslation: "こんにちは、お会いできて嬉しいです" },
+                    { korean: "감사합니다", reading: "カムサハムニダ", meaning: "ありがとうございます", type: "挨拶", example: "도와주셔서 감사합니다", exampleTranslation: "助けていただきありがとうございます" },
+                    { korean: "사랑", reading: "サラン", meaning: "愛", type: "名詞", example: "사랑이 필요해요", exampleTranslation: "愛が必要です" },
+                    { korean: "학생", reading: "ハクセン", meaning: "学生", type: "名詞", example: "저는 대학생입니다", exampleTranslation: "私は大学生です" },
+                    { korean: "친구", reading: "チング", meaning: "友達", type: "名詞", example: "친구를 만나요", exampleTranslation: "友達に会います" }
+                ],
+                intermediate: [
+                    { korean: "행복", reading: "ヘンボク", meaning: "幸せ", type: "名詞", example: "행복한 하루 보내세요", exampleTranslation: "幸せな一日をお過ごしください" },
+                    { korean: "노력", reading: "ノリョク", meaning: "努力", type: "名詞", example: "노력하면 성공할 수 있어요", exampleTranslation: "努力すれば成功できます" },
+                    { korean: "여행", reading: "ヨヘン", meaning: "旅行", type: "名詞", example: "한국 여행을 갔어요", exampleTranslation: "韓国旅行に行きました" },
+                    { korean: "회사", reading: "フェサ", meaning: "会社", type: "名詞", example: "회사에서 일해요", exampleTranslation: "会社で働いています" },
+                    { korean: "음식", reading: "ウムシク", meaning: "食べ物", type: "名詞", example: "한국 음식을 좋아해요", exampleTranslation: "韓国料理が好きです" }
+                ],
+                advanced: [
+                    { korean: "성취감", reading: "ソンチュィガム", meaning: "達成感", type: "名詞", example: "큰 성취감을 느꼈어요", exampleTranslation: "大きな達成感を感じました" },
+                    { korean: "인내심", reading: "インネシム", meaning: "忍耐力", type: "名詞", example: "인내심이 필요합니다", exampleTranslation: "忍耐力が必要です" },
+                    { korean: "발전", reading: "パルジョン", meaning: "発展", type: "名詞", example: "경제가 발전하고 있어요", exampleTranslation: "経済が発展しています" },
+                    { korean: "협력", reading: "ヒョプリョク", meaning: "協力", type: "名詞", example: "팀워크와 협력이 중요해요", exampleTranslation: "チームワークと協力が重要です" },
+                    { korean: "창의성", reading: "チャンウィソン", meaning: "創造性", type: "名詞", example: "창의성을 발휘하세요", exampleTranslation: "創造性を発揮してください" }
+                ]
+            };
+        }
+
+        function renderLevelSelect() {
+            const grid = document.getElementById('levelsGrid');
+
+            const levels = [
+                { key: 'beginner', title: '初級', desc: '基礎単語' },
+                { key: 'intermediate', title: '中級', desc: '日常単語' },
+                { key: 'advanced', title: '上級', desc: '高級単語' }
+            ];
+
+            grid.innerHTML = levels.map(level => {
+                const wordCount = vocabularyData[level.key]?.length || 0;
+                const isSelected = currentLevel === level.key;
+                return `
+                    <div class="level-card ${isSelected ? 'active' : ''}" onclick="selectLevel('${level.key}')">
+                        <div class="level-title">${level.title}</div>
+                        <div class="level-desc">${level.desc} ${wordCount}語</div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        // 状態を完全にリセット
+        function resetState() {
+            currentIndex = 0;
+            quizScore = 0;
+            speechSynthesis.cancel(); // 音声停止
+
+            // フラッシュカードをリセット
+            const flashcard = document.getElementById('flashcard');
+            if (flashcard) {
+                flashcard.classList.remove('flipped');
+            }
+        }
+
+        // すべての画面を非表示
+        function hideAllScreens() {
+            document.getElementById('levelSelect').style.display = 'none';
+            document.getElementById('modeSelect').style.display = 'none';
+            document.getElementById('flashcardMode').style.display = 'none';
+            document.getElementById('quizMode').style.display = 'none';
+        }
+
+        function selectLevel(level) {
+            console.log('レベル選択:', level);
+
+            // 状態を完全にリセット
+            resetState();
+
+            // 新しいレベルを設定
+            currentLevel = level;
+            currentWords = vocabularyData[level] || [];
+
+            // データが正しくロードされたか確認
+            if (currentWords.length === 0) {
+                console.error('単語データが空です。レベル:', level);
+                alert('単語データの読み込みに失敗しました。');
+                return;
+            }
+
+            console.log('読み込まれた単語数:', currentWords.length);
+            console.log('最初の単語:', currentWords[0]);
+
+            // 選択されたレベル情報を更新
+            const levelNames = {
+                'beginner': '初級',
+                'intermediate': '中級',
+                'advanced': '上級'
+            };
+
+            document.getElementById('currentLevelDisplay').textContent = levelNames[level] || level;
+            document.getElementById('currentWordCount').textContent = `${currentWords.length}個の単語`;
+
+            // 画面遷移
+            hideAllScreens();
+            document.getElementById('modeSelect').style.display = 'block';
+        }
+
+        function backToLevelSelect() {
+            console.log('レベル選択に戻る');
+
+            resetState();
+            currentLevel = null;
+            currentWords = [];
+
+            hideAllScreens();
+            document.getElementById('levelSelect').style.display = 'block';
+
+            // レベル選択画面を再レンダリング（選択状態をクリア）
+            renderLevelSelect();
+        }
+
+        function startFlashcard() {
+            // データが存在するか再確認
+            if (!currentLevel || currentWords.length === 0) {
+                console.error('データがありません。レベル:', currentLevel);
+                alert('先にレベルを選択してください。');
+                backToLevelSelect();
+                return;
+            }
+
+            console.log('フラッシュカード開始。単語数:', currentWords.length);
+
+            resetState();
+
+            hideAllScreens();
+            document.getElementById('flashcardMode').style.display = 'block';
+
+            // 最初のカードを表示
+            showCard();
+        }
+
+        function startQuiz() {
+            // データが存在するか再確認
+            if (!currentLevel || currentWords.length === 0) {
+                console.error('データがありません。レベル:', currentLevel);
+                alert('先にレベルを選択してください。');
+                backToLevelSelect();
+                return;
+            }
+
+            // クイズには最低4つの単語が必要
+            if (currentWords.length < 4) {
+                alert('クイズには最低4つの単語が必要です。');
+                return;
+            }
+
+            console.log('クイズ開始。単語数:', currentWords.length);
+
+            resetState();
+
+            hideAllScreens();
+            document.getElementById('quizMode').style.display = 'block';
+
+            showQuiz();
+        }
+
+        function backToModeSelect() {
+            // データが失われている場合はレベル選択に戻る
+            if (!currentLevel || currentWords.length === 0) {
+                console.warn('データが失われています。レベル選択に戻ります。');
+                backToLevelSelect();
+                return;
+            }
+
+            resetState();
+
+            hideAllScreens();
+            document.getElementById('modeSelect').style.display = 'block';
+        }
+
+        function showCard() {
+            // 安全性チェック
+            if (!currentWords || currentWords.length === 0) {
+                console.error('showCard: 単語データがありません');
+                return;
+            }
+
+            if (currentIndex < 0 || currentIndex >= currentWords.length) {
+                console.error('showCard: 無効なインデックス', currentIndex);
+                currentIndex = 0;
+            }
+
+            const word = currentWords[currentIndex];
+
+            if (!word) {
+                console.error('showCard: 単語が見つかりません。インデックス:', currentIndex);
+                return;
+            }
+
+            console.log('カード表示:', currentIndex + 1, '/', currentWords.length, '-', word.korean);
+
+            document.getElementById('cardFront').innerHTML = `
+                <button class="audio-btn" onclick="event.stopPropagation(); replayAudio('front')" title="音声を再生">🔊</button>
+                <div class="korean-word">${word.korean}</div>
+                <div class="reading">${word.reading}</div>
+                <div class="word-type">${word.type}</div>
+            `;
+
+            document.getElementById('cardBack').innerHTML = `
+                <button class="audio-btn" onclick="event.stopPropagation(); replayAudio('back')" title="例文を再生">🔊</button>
+                <div class="meaning">${word.meaning}</div>
+                <div class="example">${word.example}</div>
+                <div class="example-translation">${word.exampleTranslation}</div>
+            `;
+
+            updateProgress();
+            document.getElementById('flashcard').classList.remove('flipped');
+
+            // カードが表示されたら即座に音声再生
+            speakKorean(word.korean);
+        }
+
+        // 音声を再生
+        function replayAudio(side) {
+            if (currentWords.length === 0) return;
+            const word = currentWords[currentIndex];
+
+            if (side === 'front') {
+                speakKorean(word.korean);
+            } else {
+                speakKorean(word.example);
+            }
+        }
+
+        function flipCard() {
+            const flashcard = document.getElementById('flashcard');
+            const isFlipped = flashcard.classList.toggle('flipped');
+
+            // カードが裏返されたら例文を即座に読み上げ
+            if (isFlipped && currentWords.length > 0) {
+                const word = currentWords[currentIndex];
+                // CSS transitionが始まった後に再生
+                requestAnimationFrame(() => {
+                    speakKorean(word.example);
+                });
+            }
+        }
+
+        function nextCard() {
+            currentIndex = (currentIndex + 1) % currentWords.length;
+            showCard();
+        }
+
+        function previousCard() {
+            currentIndex = (currentIndex - 1 + currentWords.length) % currentWords.length;
+            showCard();
+        }
+
+        function updateProgress() {
+            const progress = ((currentIndex + 1) / currentWords.length) * 100;
+            document.getElementById('progressFill').style.width = `${progress}%`;
+            document.getElementById('progressText').textContent = `${currentIndex + 1} / ${currentWords.length}`;
+        }
+
+        function showQuiz() {
+            // 安全性チェック
+            if (!currentWords || currentWords.length === 0) {
+                console.error('showQuiz: 単語データがありません');
+                backToLevelSelect();
+                return;
+            }
+
+            if (currentIndex < 0 || currentIndex >= currentWords.length) {
+                console.error('showQuiz: 無効なインデックス', currentIndex);
+                currentIndex = 0;
+            }
+
+            const word = currentWords[currentIndex];
+
+            if (!word) {
+                console.error('showQuiz: 単語が見つかりません');
+                return;
+            }
+
+            console.log('クイズ表示:', currentIndex + 1, '/', currentWords.length, '-', word.korean);
+
+            document.getElementById('quizWord').textContent = word.korean;
+
+            const correctAnswer = word.meaning;
+            const wrongAnswers = currentWords
+                .filter(w => w.meaning !== correctAnswer)
+                .sort(() => Math.random() - 0.5)
+                .slice(0, 3)
+                .map(w => w.meaning);
+
+            const allOptions = [correctAnswer, ...wrongAnswers].sort(() => Math.random() - 0.5);
+
+            const optionsContainer = document.getElementById('quizOptions');
+            optionsContainer.innerHTML = allOptions.map(option => `
+                <div class="quiz-option" onclick="selectAnswer('${option}', '${correctAnswer}')">
+                    ${option}
+                </div>
+            `).join('');
+
+            const progress = ((currentIndex + 1) / currentWords.length) * 100;
+            document.getElementById('quizProgressFill').style.width = `${progress}%`;
+            document.getElementById('quizProgressText').textContent = `${currentIndex + 1} / ${currentWords.length}`;
+        }
+
+        function selectAnswer(selected, correct) {
+            const options = document.querySelectorAll('.quiz-option');
+            options.forEach(option => {
+                option.style.pointerEvents = 'none';
+                if (option.textContent.trim() === correct) {
+                    option.classList.add('correct');
+                } else if (option.textContent.trim() === selected) {
+                    option.classList.add('incorrect');
+                }
+            });
+
+            if (selected === correct) {
+                quizScore++;
+            }
+
+            setTimeout(() => {
+                currentIndex++;
+                if (currentIndex < currentWords.length) {
+                    showQuiz();
+                } else {
+                    alert(`クイズ完了！スコア: ${quizScore} / ${currentWords.length}`);
+                    backToModeSelect();
+                }
+            }, 1500);
+        }
+
+        // キーボードショートカット
+        document.addEventListener('keydown', (e) => {
+            // フラッシュカードモードが表示されている場合のみ
+            const flashcardMode = document.getElementById('flashcardMode');
+            if (flashcardMode.style.display === 'none') return;
+
+            switch(e.key) {
+                case ' ':  // スペースキー
+                case 'Enter':  // エンターキー
+                    e.preventDefault();
+                    flipCard();
+                    break;
+                case 'ArrowRight':  // 右矢印
+                case 'n':  // Nキー（Next）
+                    e.preventDefault();
+                    nextCard();
+                    break;
+                case 'ArrowLeft':  // 左矢印
+                case 'p':  // Pキー（Previous）
+                    e.preventDefault();
+                    previousCard();
+                    break;
+                case 'r':  // Rキー（Replay）
+                    e.preventDefault();
+                    if (currentWords.length > 0) {
+                        const word = currentWords[currentIndex];
+                        const isFlipped = document.getElementById('flashcard').classList.contains('flipped');
+                        speakKorean(isFlipped ? word.example : word.korean);
+                    }
+                    break;
+            }
+        });
+
+        window.addEventListener('DOMContentLoaded', init);
+    </script>
+</body>
+</html>

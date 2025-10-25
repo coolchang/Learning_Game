@@ -1,0 +1,726 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>일본어 단어 마스터 | N5 100단어</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700&family=Noto+Sans+KR:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Noto Sans KR', sans-serif;
+            background: #f8f9fa;
+            color: #212529;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .header {
+            text-align: center;
+            padding: 40px 0;
+            border-bottom: 1px solid #dee2e6;
+            margin-bottom: 40px;
+        }
+
+        .header h1 {
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 8px;
+            color: #212529;
+        }
+
+        .header p {
+            color: #6c757d;
+            font-size: 14px;
+        }
+
+        .stage-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+            gap: 16px;
+            margin-bottom: 40px;
+        }
+
+        .stage-card {
+            background: white;
+            border: 2px solid #dee2e6;
+            border-radius: 8px;
+            padding: 20px;
+            cursor: pointer;
+            transition: all 0.2s;
+            text-align: center;
+        }
+
+        .stage-card:hover {
+            border-color: #0d6efd;
+            transform: translateY(-2px);
+        }
+
+        .stage-card.completed {
+            background: #e7f5ff;
+            border-color: #0d6efd;
+        }
+
+        .stage-number {
+            font-size: 14px;
+            color: #6c757d;
+            margin-bottom: 8px;
+        }
+
+        .stage-title {
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 4px;
+        }
+
+        .stage-progress {
+            font-size: 12px;
+            color: #6c757d;
+        }
+
+        .game-screen {
+            display: none;
+        }
+
+        .game-screen.active {
+            display: block;
+        }
+
+        .game-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 40px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #dee2e6;
+        }
+
+        .back-btn {
+            background: none;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+            padding: 0;
+        }
+
+        .game-info {
+            text-align: center;
+            flex: 1;
+        }
+
+        .stage-theme {
+            font-size: 14px;
+            color: #6c757d;
+        }
+
+        .word-counter {
+            font-size: 18px;
+            font-weight: 700;
+        }
+
+        .card-wrapper {
+            perspective: 1000px;
+            margin-bottom: 30px;
+        }
+
+        .card {
+            position: relative;
+            width: 100%;
+            min-height: 450px;
+            transform-style: preserve-3d;
+            transition: transform 0.6s;
+            cursor: pointer;
+        }
+
+        .card.flipped {
+            transform: rotateY(180deg);
+        }
+
+        .card-face {
+            position: absolute;
+            width: 100%;
+            min-height: 450px;
+            backface-visibility: hidden;
+            background: white;
+            border: 2px solid #dee2e6;
+            border-radius: 12px;
+            padding: 60px 40px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+
+        .card-back {
+            transform: rotateY(180deg);
+        }
+
+        .japanese-large {
+            font-family: 'Noto Sans JP', sans-serif;
+            font-size: 72px;
+            font-weight: 700;
+            margin-bottom: 24px;
+            color: #212529;
+        }
+
+        .reading {
+            font-family: 'Noto Sans JP', sans-serif;
+            font-size: 28px;
+            color: #6c757d;
+            margin-bottom: 12px;
+        }
+
+        .romaji {
+            font-size: 20px;
+            color: #adb5bd;
+        }
+
+        .hanja-box {
+            background: #f8f9fa;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 24px 0;
+            display: inline-block;
+        }
+
+        .hanja-char {
+            font-size: 40px;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .hanja-meaning {
+            font-size: 16px;
+            color: #6c757d;
+        }
+
+        .korean-large {
+            font-size: 48px;
+            font-weight: 700;
+            margin-bottom: 24px;
+            color: #212529;
+        }
+
+        .part-of-speech {
+            display: inline-block;
+            background: #e7f5ff;
+            color: #0d6efd;
+            padding: 6px 16px;
+            border-radius: 16px;
+            font-size: 14px;
+            margin-bottom: 20px;
+        }
+
+        .example {
+            background: #f8f9fa;
+            border-radius: 8px;
+            padding: 20px;
+            margin-top: 24px;
+            max-width: 500px;
+        }
+
+        .example-jp {
+            font-family: 'Noto Sans JP', sans-serif;
+            font-size: 18px;
+            margin-bottom: 8px;
+        }
+
+        .example-kr {
+            font-size: 16px;
+            color: #6c757d;
+        }
+
+        .buttons {
+            display: flex;
+            gap: 16px;
+            justify-content: center;
+            margin-bottom: 24px;
+        }
+
+        button {
+            padding: 20px 40px;
+            border: 2px solid #dee2e6;
+            border-radius: 12px;
+            background: white;
+            font-size: 18px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            min-width: 160px;
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+
+        .btn-know {
+            background: #0d6efd;
+            border-color: #0d6efd;
+            color: white;
+        }
+
+        .btn-know:hover {
+            background: #0b5ed7;
+            border-color: #0b5ed7;
+        }
+
+        .btn-dont-know {
+            background: #6c757d;
+            border-color: #6c757d;
+            color: white;
+        }
+
+        .btn-dont-know:hover {
+            background: #5c636a;
+            border-color: #5c636a;
+        }
+
+        .btn-primary {
+            background: #0d6efd;
+            border-color: #0d6efd;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #0b5ed7;
+            border-color: #0b5ed7;
+        }
+
+        .hint {
+            text-align: center;
+            color: #adb5bd;
+            font-size: 14px;
+            margin-top: 20px;
+        }
+
+        .keyboard-hint {
+            background: #f8f9fa;
+            border-radius: 8px;
+            padding: 16px;
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        .keyboard-hint-title {
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: #6c757d;
+        }
+
+        .keyboard-shortcuts {
+            display: flex;
+            gap: 16px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .shortcut {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 13px;
+            color: #6c757d;
+        }
+
+        .key {
+            background: white;
+            border: 1px solid #dee2e6;
+            border-radius: 4px;
+            padding: 4px 8px;
+            font-family: monospace;
+            font-weight: 600;
+        }
+
+        .completion {
+            display: none;
+            text-align: center;
+            padding: 60px 20px;
+        }
+
+        .completion.show {
+            display: block;
+        }
+
+        .completion h2 {
+            font-size: 32px;
+            margin-bottom: 16px;
+        }
+
+        .completion-emoji {
+            font-size: 64px;
+            margin-bottom: 20px;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 16px;
+            max-width: 400px;
+            margin: 30px auto;
+        }
+
+        .stat-box {
+            background: #f8f9fa;
+            border-radius: 8px;
+            padding: 20px;
+        }
+
+        .stat-label {
+            font-size: 14px;
+            color: #6c757d;
+            margin-bottom: 4px;
+        }
+
+        .stat-value {
+            font-size: 28px;
+            font-weight: 700;
+        }
+
+        .audio-indicator {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: #0d6efd;
+            color: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 14px;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .audio-indicator.playing {
+            opacity: 1;
+        }
+    </style>
+</head>
+<body>
+    <div class="audio-indicator" id="audioIndicator">🔊 재생중...</div>
+
+    <div class="container">
+        <!-- 스테이지 선택 화면 -->
+        <div id="stageSelect" class="stage-select">
+            <div class="header">
+                <h1>일본어 단어 마스터</h1>
+                <p>N5 필수 100단어 · 14개 스테이지</p>
+            </div>
+            <div class="stage-grid" id="stageGrid"></div>
+        </div>
+
+        <!-- 게임 화면 -->
+        <div id="gameScreen" class="game-screen">
+            <div class="game-header">
+                <button class="back-btn" onclick="backToStages()">←</button>
+                <div class="game-info">
+                    <div class="stage-theme" id="stageTheme"></div>
+                    <div class="word-counter" id="wordCounter"></div>
+                </div>
+                <div style="width: 24px;"></div>
+            </div>
+
+            <div id="cardArea">
+                <div class="card-wrapper">
+                    <div class="card" id="flashcard" onclick="flipCard()">
+                        <div class="card-face">
+                            <div class="japanese-large" id="japaneseWord"></div>
+                            <div class="reading" id="reading"></div>
+                            <div class="romaji" id="romaji"></div>
+                            <div id="hanjaFront"></div>
+                        </div>
+                        <div class="card-face card-back">
+                            <div class="korean-large" id="meaning"></div>
+                            <div class="part-of-speech" id="partOfSpeech"></div>
+                            <div id="hanjaBack"></div>
+                            <div class="example">
+                                <div class="example-jp" id="exampleJp"></div>
+                                <div class="example-kr" id="exampleKr"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="hint">💡 카드를 클릭하면 뒤집힙니다</div>
+
+                <div class="buttons">
+                    <button class="btn-know" onclick="markKnow()">✓ 알아요 (→)</button>
+                    <button class="btn-dont-know" onclick="markDontKnow()">✗ 모르겠어요 (←)</button>
+                </div>
+
+                <div class="keyboard-hint">
+                    <div class="keyboard-hint-title">⌨️ 키보드 단축키</div>
+                    <div class="keyboard-shortcuts">
+                        <div class="shortcut">
+                            <span class="key">Space</span>
+                            <span>카드 뒤집기</span>
+                        </div>
+                        <div class="shortcut">
+                            <span class="key">→</span>
+                            <span>알아요</span>
+                        </div>
+                        <div class="shortcut">
+                            <span class="key">←</span>
+                            <span>모르겠어요</span>
+                        </div>
+                        <div class="shortcut">
+                            <span class="key">S</span>
+                            <span>발음 다시 듣기</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="completion" id="completion">
+                <div class="completion-emoji">🎉</div>
+                <h2>스테이지 완료!</h2>
+                <p>수고하셨습니다</p>
+
+                <div class="stats-grid">
+                    <div class="stat-box">
+                        <div class="stat-label">학습 단어</div>
+                        <div class="stat-value" id="totalWords">7</div>
+                    </div>
+                    <div class="stat-box">
+                        <div class="stat-label">알고 있음</div>
+                        <div class="stat-value" id="knownWords">0</div>
+                    </div>
+                </div>
+
+                <button class="btn-primary" onclick="backToStages()" style="margin-top: 20px;">
+                    스테이지 선택으로
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script src="vocabulary-100.json" type="application/json"></script>
+    <script>
+        let vocabularyData = null;
+        let currentStage = null;
+        let currentWordIndex = 0;
+        let knownCount = 0;
+        let isFlipped = false;
+        let autoPlayEnabled = true;
+
+        // 데이터 로드
+        async function loadVocabulary() {
+            const response = await fetch('vocabulary-100.json');
+            vocabularyData = await response.json();
+            renderStages();
+        }
+
+        // 스테이지 목록 렌더링
+        function renderStages() {
+            const grid = document.getElementById('stageGrid');
+            grid.innerHTML = '';
+
+            vocabularyData.stages.forEach((stage) => {
+                const progress = getStageProgress(stage.id);
+                const isCompleted = progress.completed;
+
+                const card = document.createElement('div');
+                card.className = `stage-card ${isCompleted ? 'completed' : ''}`;
+                card.onclick = () => startStage(stage.id);
+
+                card.innerHTML = `
+                    <div class="stage-number">Stage ${stage.id}</div>
+                    <div class="stage-title">${stage.title}</div>
+                    <div class="stage-progress">
+                        ${progress.known}/${stage.words.length} 단어
+                    </div>
+                `;
+
+                grid.appendChild(card);
+            });
+        }
+
+        // 스테이지 진행도 가져오기
+        function getStageProgress(stageId) {
+            const key = `stage_${stageId}`;
+            const saved = localStorage.getItem(key);
+            if (saved) {
+                return JSON.parse(saved);
+            }
+            return { known: 0, completed: false };
+        }
+
+        // 스테이지 진행도 저장
+        function saveStageProgress(stageId, known, completed) {
+            const key = `stage_${stageId}`;
+            localStorage.setItem(key, JSON.stringify({ known, completed }));
+        }
+
+        // 스테이지 시작
+        function startStage(stageId) {
+            currentStage = vocabularyData.stages.find(s => s.id === stageId);
+            currentWordIndex = 0;
+            knownCount = 0;
+
+            document.getElementById('stageSelect').style.display = 'none';
+            document.getElementById('gameScreen').classList.add('active');
+            document.getElementById('stageTheme').textContent = currentStage.title;
+
+            document.getElementById('cardArea').style.display = 'block';
+            document.getElementById('completion').classList.remove('show');
+
+            showWord();
+        }
+
+        // 단어 표시
+        function showWord() {
+            const word = currentStage.words[currentWordIndex];
+            const card = document.getElementById('flashcard');
+
+            card.classList.remove('flipped');
+            isFlipped = false;
+
+            // 진행도 업데이트
+            document.getElementById('wordCounter').textContent =
+                `${currentWordIndex + 1} / ${currentStage.words.length}`;
+
+            // 앞면
+            document.getElementById('japaneseWord').textContent = word.word;
+            document.getElementById('reading').textContent = word.reading;
+            document.getElementById('romaji').textContent = word.romaji;
+
+            // 한자 (앞면)
+            const hanjaFrontEl = document.getElementById('hanjaFront');
+            if (word.hanja) {
+                hanjaFrontEl.innerHTML = `
+                    <div class="hanja-box">
+                        <div class="hanja-char">${word.hanja.char}</div>
+                        <div class="hanja-meaning">${word.hanja.meaning}</div>
+                    </div>
+                `;
+            } else {
+                hanjaFrontEl.innerHTML = '';
+            }
+
+            // 뒷면
+            document.getElementById('meaning').textContent = word.meaning;
+            document.getElementById('partOfSpeech').textContent = word.partOfSpeech;
+            document.getElementById('exampleJp').textContent = word.example.jp;
+            document.getElementById('exampleKr').textContent = word.example.kr;
+
+            // 한자 (뒷면)
+            const hanjaBackEl = document.getElementById('hanjaBack');
+            if (word.hanja) {
+                hanjaBackEl.innerHTML = `
+                    <div class="hanja-box">
+                        <div class="hanja-char">${word.hanja.char}</div>
+                        <div class="hanja-meaning">${word.hanja.korean} (${word.hanja.meaning})</div>
+                    </div>
+                `;
+            } else {
+                hanjaBackEl.innerHTML = '';
+            }
+
+            // 자동 음성 재생
+            if (autoPlayEnabled) {
+                setTimeout(() => playAudio(), 300);
+            }
+        }
+
+        // 카드 뒤집기
+        function flipCard() {
+            document.getElementById('flashcard').classList.toggle('flipped');
+            isFlipped = !isFlipped;
+        }
+
+        // 음성 재생
+        function playAudio() {
+            const word = currentStage.words[currentWordIndex];
+            const utterance = new SpeechSynthesisUtterance(word.word);
+            utterance.lang = 'ja-JP';
+            utterance.rate = 0.8;
+
+            // 재생 표시
+            const indicator = document.getElementById('audioIndicator');
+            indicator.classList.add('playing');
+
+            utterance.onend = () => {
+                indicator.classList.remove('playing');
+            };
+
+            speechSynthesis.speak(utterance);
+        }
+
+        // 알아요
+        function markKnow() {
+            knownCount++;
+            nextWord();
+        }
+
+        // 모르겠어요
+        function markDontKnow() {
+            nextWord();
+        }
+
+        // 다음 단어
+        function nextWord() {
+            currentWordIndex++;
+
+            if (currentWordIndex >= currentStage.words.length) {
+                showCompletion();
+            } else {
+                showWord();
+            }
+        }
+
+        // 완료 화면
+        function showCompletion() {
+            document.getElementById('cardArea').style.display = 'none';
+            document.getElementById('completion').classList.add('show');
+
+            document.getElementById('totalWords').textContent = currentStage.words.length;
+            document.getElementById('knownWords').textContent = knownCount;
+
+            // 진행도 저장
+            const completed = knownCount === currentStage.words.length;
+            saveStageProgress(currentStage.id, knownCount, completed);
+        }
+
+        // 스테이지 선택으로 돌아가기
+        function backToStages() {
+            document.getElementById('stageSelect').style.display = 'block';
+            document.getElementById('gameScreen').classList.remove('active');
+            renderStages(); // 진행도 업데이트 반영
+        }
+
+        // 키보드 단축키
+        document.addEventListener('keydown', (e) => {
+            if (!document.getElementById('gameScreen').classList.contains('active')) return;
+            if (document.getElementById('completion').classList.contains('show')) return;
+
+            if (e.key === ' ') {
+                e.preventDefault();
+                flipCard();
+            } else if (e.key === 'ArrowRight') {
+                e.preventDefault();
+                markKnow();
+            } else if (e.key === 'ArrowLeft') {
+                e.preventDefault();
+                markDontKnow();
+            } else if (e.key === 's' || e.key === 'S') {
+                e.preventDefault();
+                playAudio();
+            }
+        });
+
+        // 초기화
+        loadVocabulary();
+    </script>
+</body>
+</html>

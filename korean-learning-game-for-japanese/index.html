@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>韓国語学習ゲーム - Korean Learning Game</title>
+    <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
+    <style>
+        :root {
+            /* ブランドカラー */
+            --primary: #667eea;
+            --primary-dark: #5568d3;
+            --secondary: #764ba2;
+            --accent: #f093fb;
+
+            /* セマンティックカラー */
+            --success: #10b981;
+            --warning: #f59e0b;
+            --error: #ef4444;
+            --info: #3b82f6;
+
+            /* モードカラー */
+            --mode-vocabulary: #ec4899;
+            --mode-expressions: #8b5cf6;
+            --mode-drama: #f59e0b;
+            --mode-songs: #06b6d4;
+            --mode-news: #10b981;
+
+            /* タイポグラフィ */
+            --font-sans: 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+            --text-xs: 0.75rem;
+            --text-sm: 0.875rem;
+            --text-base: 1rem;
+            --text-lg: 1.125rem;
+            --text-xl: 1.25rem;
+            --text-2xl: 1.5rem;
+            --text-3xl: 1.875rem;
+            --text-4xl: 2.25rem;
+
+            /* スペーシング */
+            --space-1: 0.25rem;
+            --space-2: 0.5rem;
+            --space-3: 0.75rem;
+            --space-4: 1rem;
+            --space-6: 1.5rem;
+            --space-8: 2rem;
+            --space-12: 3rem;
+
+            /* シャドウ */
+            --shadow-sm: 0 1px 2px rgba(0,0,0,0.05);
+            --shadow-md: 0 4px 6px rgba(0,0,0,0.1);
+            --shadow-lg: 0 10px 15px rgba(0,0,0,0.1);
+            --shadow-xl: 0 20px 25px rgba(0,0,0,0.15);
+
+            /* ボーダー */
+            --radius-sm: 0.375rem;
+            --radius-md: 0.5rem;
+            --radius-lg: 0.75rem;
+            --radius-xl: 1rem;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--font-sans);
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: var(--space-4);
+            color: #1f2937;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* ヘッダー */
+        .header {
+            text-align: center;
+            margin-bottom: var(--space-12);
+            padding: var(--space-8) 0;
+        }
+
+        .logo {
+            background: linear-gradient(135deg, #ffffff 0%, #f0f9ff 100%);
+            display: inline-block;
+            padding: var(--space-6) var(--space-8);
+            border-radius: var(--radius-xl);
+            box-shadow: var(--shadow-xl);
+            margin-bottom: var(--space-6);
+        }
+
+        .logo h1 {
+            font-size: var(--text-4xl);
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: var(--space-2);
+        }
+
+        .logo p {
+            font-size: var(--text-lg);
+            color: #6b7280;
+            font-weight: 500;
+        }
+
+        .subtitle {
+            color: white;
+            font-size: var(--text-xl);
+            font-weight: 600;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        }
+
+        /* モード選択グリッド */
+        .modes-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: var(--space-6);
+            margin-bottom: var(--space-8);
+        }
+
+        .mode-card {
+            background: white;
+            border-radius: var(--radius-xl);
+            padding: var(--space-8);
+            box-shadow: var(--shadow-lg);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .mode-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 6px;
+            background: var(--mode-color);
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.3s ease;
+        }
+
+        .mode-card:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-xl);
+        }
+
+        .mode-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .mode-card.vocabulary { --mode-color: var(--mode-vocabulary); }
+        .mode-card.expressions { --mode-color: var(--mode-expressions); }
+        .mode-card.drama { --mode-color: var(--mode-drama); }
+        .mode-card.songs { --mode-color: var(--mode-songs); }
+        .mode-card.news { --mode-color: var(--mode-news); }
+
+        .mode-icon {
+            font-size: 3rem;
+            margin-bottom: var(--space-4);
+            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1));
+        }
+
+        .mode-title {
+            font-size: var(--text-2xl);
+            font-weight: 700;
+            margin-bottom: var(--space-2);
+            color: #111827;
+        }
+
+        .mode-subtitle {
+            font-size: var(--text-base);
+            color: #6b7280;
+            margin-bottom: var(--space-4);
+            font-weight: 500;
+        }
+
+        .mode-description {
+            font-size: var(--text-sm);
+            color: #6b7280;
+            line-height: 1.6;
+            margin-bottom: var(--space-4);
+        }
+
+        .mode-features {
+            list-style: none;
+            margin-bottom: var(--space-4);
+        }
+
+        .mode-features li {
+            font-size: var(--text-sm);
+            color: #4b5563;
+            padding: var(--space-2) 0;
+            padding-left: var(--space-6);
+            position: relative;
+        }
+
+        .mode-features li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: var(--mode-color);
+            font-weight: bold;
+        }
+
+        .mode-badge {
+            display: inline-block;
+            padding: var(--space-1) var(--space-3);
+            background: var(--mode-color);
+            color: white;
+            font-size: var(--text-xs);
+            font-weight: 600;
+            border-radius: var(--radius-md);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .special-badge {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        /* フッター */
+        .footer {
+            text-align: center;
+            margin-top: var(--space-12);
+            padding: var(--space-6);
+            background: rgba(255,255,255,0.1);
+            border-radius: var(--radius-xl);
+            backdrop-filter: blur(10px);
+        }
+
+        .footer-text {
+            color: white;
+            font-size: var(--text-sm);
+            margin-bottom: var(--space-2);
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: var(--space-6);
+            flex-wrap: wrap;
+        }
+
+        .footer-link {
+            color: white;
+            text-decoration: none;
+            font-size: var(--text-sm);
+            font-weight: 500;
+            transition: opacity 0.2s;
+        }
+
+        .footer-link:hover {
+            opacity: 0.8;
+            text-decoration: underline;
+        }
+
+        /* レスポンシブ */
+        @media (max-width: 768px) {
+            .logo h1 {
+                font-size: var(--text-3xl);
+            }
+
+            .modes-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .mode-card {
+                padding: var(--space-6);
+            }
+        }
+
+        /* ローディング状態 */
+        .loading {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(255,255,255,.3);
+            border-radius: 50%;
+            border-top-color: white;
+            animation: spin 1s ease-in-out infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- ヘッダー -->
+        <div class="header">
+            <div class="logo">
+                <h1>🇰🇷 한국어 학습</h1>
+                <p>Korean Learning Game for Japanese</p>
+            </div>
+            <p class="subtitle">5つの学習モードで韓国語をマスター！</p>
+        </div>
+
+        <!-- モード選択グリッド -->
+        <div class="modes-grid">
+            <!-- 1. 語彙学習モード -->
+            <div class="mode-card vocabulary" onclick="navigateToMode('vocabulary')">
+                <div class="mode-icon">📚</div>
+                <h2 class="mode-title">語彙学習</h2>
+                <p class="mode-subtitle">単語・ボキャブラリー</p>
+                <p class="mode-description">
+                    基礎から上級まで、体系的に韓国語の語彙を学習できます。フラッシュカード形式で効率的に記憶。
+                </p>
+                <ul class="mode-features">
+                    <li>レベル別学習（初級〜上級）</li>
+                    <li>例文付き</li>
+                    <li>音声読み上げ機能</li>
+                    <li>進捗管理システム</li>
+                </ul>
+                <span class="mode-badge">基礎固め</span>
+            </div>
+
+            <!-- 2. 表現学習モード -->
+            <div class="mode-card expressions" onclick="navigateToMode('expressions')">
+                <div class="mode-icon">💬</div>
+                <h2 class="mode-title">表現学習</h2>
+                <p class="mode-subtitle">日常会話フレーズ</p>
+                <p class="mode-description">
+                    すぐに使える韓国語の表現を学習。シチュエーション別に分類され、実践的な会話力を養成。
+                </p>
+                <ul class="mode-features">
+                    <li>シチュエーション別分類</li>
+                    <li>日本語訳付き</li>
+                    <li>使用場面の説明</li>
+                    <li>会話例サンプル</li>
+                </ul>
+                <span class="mode-badge">実践的</span>
+            </div>
+
+            <!-- 3. ドラマ台詞モード -->
+            <div class="mode-card drama" onclick="navigateToMode('drama')">
+                <div class="mode-icon">🎬</div>
+                <h2 class="mode-title">ドラマ台詞</h2>
+                <p class="mode-subtitle">K-ドラマ名台詞</p>
+                <p class="mode-description">
+                    人気ドラマの印象的なセリフで学習。自然な韓国語表現と感情表現を習得できます。
+                </p>
+                <ul class="mode-features">
+                    <li>有名ドラマの名シーン</li>
+                    <li>感情表現が豊富</li>
+                    <li>文化的背景解説</li>
+                    <li>ネイティブ表現</li>
+                </ul>
+                <span class="mode-badge">楽しく学習</span>
+            </div>
+
+            <!-- 4. 歌学習モード（特化） -->
+            <div class="mode-card songs" onclick="navigateToMode('songs')">
+                <div class="mode-icon">🎵</div>
+                <h2 class="mode-title">歌で学習</h2>
+                <p class="mode-subtitle">K-POP韓国語マスター</p>
+                <p class="mode-description">
+                    K-POPの歌詞で楽しく学習。穴埋め問題、発音練習、区間リピートなど特化機能満載。
+                </p>
+                <ul class="mode-features">
+                    <li>歌詞穴埋めゲーム</li>
+                    <li>発音ガイド（日本人向け）</li>
+                    <li>区間リピート機能</li>
+                    <li>文化的背景解説</li>
+                    <li>日本語訳付き</li>
+                </ul>
+                <span class="mode-badge special-badge">特化モード</span>
+            </div>
+
+            <!-- 5. ニュース・時事モード -->
+            <div class="mode-card news" onclick="navigateToMode('news')">
+                <div class="mode-icon">📰</div>
+                <h2 class="mode-title">時事・ニュース</h2>
+                <p class="mode-subtitle">現代韓国語</p>
+                <p class="mode-description">
+                    最新のニュースや時事トピックで学習。現代韓国語と韓国文化を同時に理解できます。
+                </p>
+                <ul class="mode-features">
+                    <li>最新トピック</li>
+                    <li>ニュース語彙</li>
+                    <li>社会・文化理解</li>
+                    <li>読解力向上</li>
+                </ul>
+                <span class="mode-badge">上級向け</span>
+            </div>
+        </div>
+
+        <!-- フッター -->
+        <div class="footer">
+            <p class="footer-text">あなたの韓国語学習をサポートします</p>
+            <div class="footer-links">
+                <a href="#" class="footer-link">使い方ガイド</a>
+                <a href="#" class="footer-link">学習のヒント</a>
+                <a href="#" class="footer-link">よくある質問</a>
+                <a href="https://github.com" class="footer-link">GitHub</a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function navigateToMode(mode) {
+            // モードに応じたページに遷移
+            window.location.href = `modes/${mode}.html`;
+        }
+
+        // 進捗状態を読み込み
+        function loadProgress() {
+            const progress = localStorage.getItem('korean-learning-progress');
+            if (progress) {
+                const data = JSON.parse(progress);
+                console.log('学習進捗:', data);
+                // 進捗に応じてバッジを表示するなど
+            }
+        }
+
+        // ページロード時に進捗を読み込み
+        window.addEventListener('DOMContentLoaded', loadProgress);
+
+        // アクセシビリティ: キーボードナビゲーション
+        document.querySelectorAll('.mode-card').forEach((card, index) => {
+            card.setAttribute('tabindex', '0');
+            card.setAttribute('role', 'button');
+            card.addEventListener('keypress', (e) => {
+                if (e.key === 'Enter' || e.key === ' ') {
+                    card.click();
+                }
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,14 @@
+{
+  "songTitle": "학습 예제 노래",
+  "artist": "교육용 샘플",
+  "difficulty": "초급",
+  "lyrics": [
+    { "text": "안녕하세요 ", "blank": { "word": "친구", "hint": "함께 노는 사람", "pos": "명사" } },
+    { "text": "들" },
+    { "text": "오늘도 ", "blank": { "word": "좋은", "hint": "기분이 나쁘지 않은", "pos": "형용사" } },
+    { "text": " 날" },
+    { "text": "함께 ", "blank": { "word": "공부", "hint": "배우기 위해 하는 활동", "pos": "명사" } },
+    { "text": "해요" },
+    { "text": "한국어는 ", "blank": { "word": "재미있어요", "hint": "즐겁다", "pos": "형용사" } }
+  ]
+}

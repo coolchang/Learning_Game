@@ -1,0 +1,267 @@
+{
+  "id": "conv-restaurant-001",
+  "title": "레스토랑에서 주문하기",
+  "description": "레스토랑에서 메뉴를 보고 음식을 주문하는 상황 연습",
+  "category": "일상",
+  "jlptLevel": "N5",
+  "difficulty": 2,
+  "estimatedTime": 5,
+  "tags": ["음식", "주문", "레스토랑", "일상"],
+
+  "characters": [
+    {
+      "id": "waiter",
+      "name": "店員",
+      "role": "웨이터"
+    },
+    {
+      "id": "customer",
+      "name": "客",
+      "role": "손님"
+    }
+  ],
+
+  "dialogues": [
+    {
+      "id": "d1",
+      "speaker": "waiter",
+      "japanese": "いらっしゃいませ。何名様ですか？",
+      "reading": "いらっしゃいませ。なんめいさまですか？",
+      "korean": "어서오세요. 몇 분이세요?",
+      "romaji": "Irasshaimase. Nan mei sama desu ka?"
+    },
+    {
+      "id": "d2",
+      "speaker": "customer",
+      "type": "choice",
+      "choices": [
+        {
+          "id": "c1",
+          "japanese": "一人です。",
+          "reading": "ひとりです。",
+          "korean": "한 명입니다.",
+          "romaji": "Hitori desu.",
+          "nextDialogueId": "d3",
+          "feedback": "완벽해요! 一人(ひとり)는 '한 명'이라는 뜻입니다.",
+          "points": 10
+        },
+        {
+          "id": "c2",
+          "japanese": "二人です。",
+          "reading": "ふたりです。",
+          "korean": "두 명입니다.",
+          "romaji": "Futari desu.",
+          "nextDialogueId": "d3",
+          "feedback": "좋아요! 二人(ふたり)는 '두 명'이라는 뜻입니다.",
+          "points": 10
+        },
+        {
+          "id": "c3",
+          "japanese": "三人です。",
+          "reading": "さんにんです。",
+          "korean": "세 명입니다.",
+          "romaji": "San nin desu.",
+          "nextDialogueId": "d3",
+          "feedback": "정답입니다! 三人(さんにん)는 '세 명'이라는 뜻입니다.",
+          "points": 10
+        }
+      ]
+    },
+    {
+      "id": "d3",
+      "speaker": "waiter",
+      "japanese": "こちらへどうぞ。メニューです。",
+      "reading": "こちらへどうぞ。メニューです。",
+      "korean": "이쪽으로 오세요. 메뉴입니다.",
+      "romaji": "Kochira e douzo. Menyu desu."
+    },
+    {
+      "id": "d4",
+      "speaker": "customer",
+      "japanese": "ありがとうございます。",
+      "reading": "ありがとうございます。",
+      "korean": "감사합니다.",
+      "romaji": "Arigatou gozaimasu."
+    },
+    {
+      "id": "d5",
+      "speaker": "waiter",
+      "japanese": "ご注文はお決まりですか？",
+      "reading": "ごちゅうもんはおきまりですか？",
+      "korean": "주문은 정하셨습니까?",
+      "romaji": "Go chuumon wa okimari desu ka?"
+    },
+    {
+      "id": "d6",
+      "speaker": "customer",
+      "type": "choice",
+      "choices": [
+        {
+          "id": "c4",
+          "japanese": "ラーメンをください。",
+          "reading": "ラーメンをください。",
+          "korean": "라면 주세요.",
+          "romaji": "Raamen wo kudasai.",
+          "nextDialogueId": "d7",
+          "feedback": "좋습니다! 「〜をください」는 '~을 주세요'라는 표현입니다.",
+          "points": 15
+        },
+        {
+          "id": "c5",
+          "japanese": "カレーライスをお願いします。",
+          "reading": "カレーライスをおねがいします。",
+          "korean": "카레라이스 부탁합니다.",
+          "romaji": "Karee raisu wo onegai shimasu.",
+          "nextDialogueId": "d7",
+          "feedback": "훌륭해요! 「お願いします」는 정중한 부탁 표현입니다.",
+          "points": 15
+        },
+        {
+          "id": "c6",
+          "japanese": "すみません、もう少し考えます。",
+          "reading": "すみません、もうすこしかんがえます。",
+          "korean": "죄송합니다, 조금 더 생각하겠습니다.",
+          "romaji": "Sumimasen, mou sukoshi kangaemasu.",
+          "nextDialogueId": "d5",
+          "feedback": "정중한 표현이네요! 「考える」는 '생각하다'는 뜻입니다.",
+          "points": 12
+        }
+      ]
+    },
+    {
+      "id": "d7",
+      "speaker": "waiter",
+      "japanese": "かしこまりました。お飲み物は？",
+      "reading": "かしこまりました。おのみものは？",
+      "korean": "알겠습니다. 음료는요?",
+      "romaji": "Kashikomarimashita. O nomimono wa?"
+    },
+    {
+      "id": "d8",
+      "speaker": "customer",
+      "type": "choice",
+      "choices": [
+        {
+          "id": "c7",
+          "japanese": "水をください。",
+          "reading": "みずをください。",
+          "korean": "물 주세요.",
+          "romaji": "Mizu wo kudasai.",
+          "nextDialogueId": "d9",
+          "feedback": "좋아요! 물은 무료인 경우가 많습니다.",
+          "points": 10
+        },
+        {
+          "id": "c8",
+          "japanese": "コーラをお願いします。",
+          "reading": "コーラをおねがいします。",
+          "korean": "콜라 부탁합니다.",
+          "romaji": "Koora wo onegai shimasu.",
+          "nextDialogueId": "d9",
+          "feedback": "완벽합니다!",
+          "points": 10
+        },
+        {
+          "id": "c9",
+          "japanese": "お茶をください。",
+          "reading": "おちゃをください。",
+          "korean": "차 주세요.",
+          "romaji": "Ocha wo kudasai.",
+          "nextDialogueId": "d9",
+          "feedback": "좋은 선택입니다! お茶는 보통 무료입니다.",
+          "points": 10
+        }
+      ]
+    },
+    {
+      "id": "d9",
+      "speaker": "waiter",
+      "japanese": "かしこまりました。少々お待ちください。",
+      "reading": "かしこまりました。しょうしょうおまちください。",
+      "korean": "알겠습니다. 잠시 기다려 주세요.",
+      "romaji": "Kashikomarimashita. Shoushou omachi kudasai."
+    },
+    {
+      "id": "d10",
+      "speaker": "customer",
+      "japanese": "はい、お願いします。",
+      "reading": "はい、おねがいします。",
+      "korean": "네, 부탁합니다.",
+      "romaji": "Hai, onegai shimasu."
+    }
+  ],
+
+  "keyPhrases": [
+    {
+      "phrase": "いらっしゃいませ",
+      "meaning": "어서오세요",
+      "usage": "손님을 맞이할 때 사용하는 정중한 표현. 레스토랑, 상점 등에서 흔히 들을 수 있습니다.",
+      "notes": "대답할 필요 없이 가볍게 고개만 끄덕이면 됩니다."
+    },
+    {
+      "phrase": "何名様ですか",
+      "meaning": "몇 분이세요?",
+      "usage": "레스토랑에서 인원수를 물을 때 사용. 何名(なんめい) = 몇 명",
+      "notes": "一人(ひとり), 二人(ふたり), 三人(さんにん)처럼 대답합니다."
+    },
+    {
+      "phrase": "〜をください",
+      "meaning": "~을 주세요",
+      "usage": "물건이나 음식을 요청할 때 사용하는 기본 표현",
+      "notes": "ください는 くださる(주시다)의 명령형입니다."
+    },
+    {
+      "phrase": "〜をお願いします",
+      "meaning": "~을 부탁합니다",
+      "usage": "ください보다 더 정중한 요청 표현",
+      "notes": "비즈니스나 격식있는 상황에서 자주 사용됩니다."
+    },
+    {
+      "phrase": "かしこまりました",
+      "meaning": "알겠습니다 (정중)",
+      "usage": "점원이 손님의 주문을 받을 때 사용하는 매우 정중한 표현",
+      "notes": "일상에서는 わかりました를 더 많이 사용합니다."
+    },
+    {
+      "phrase": "少々お待ちください",
+      "meaning": "잠시 기다려 주세요",
+      "usage": "손님에게 기다려달라고 요청할 때 사용",
+      "notes": "少々(しょうしょう) = 조금, 잠시"
+    }
+  ],
+
+  "culturalNotes": [
+    "일본 레스토랑에서는 입장 시 인원수를 물어봅니다.",
+    "물(水)과 녹차(お茶)는 대부분 무료로 제공됩니다.",
+    "주문할 때 すみません(실례합니다)라고 점원을 부릅니다.",
+    "계산은 테이블이 아닌 입구 계산대에서 하는 경우가 많습니다."
+  ],
+
+  "grammarPoints": [
+    {
+      "point": "〜です",
+      "explanation": "~입니다 (정중한 문말 표현)",
+      "examples": ["一人です。", "学生です。"]
+    },
+    {
+      "point": "〜をください",
+      "explanation": "~을 주세요",
+      "examples": ["水をください。", "メニューをください。"]
+    },
+    {
+      "point": "〜をお願いします",
+      "explanation": "~을 부탁합니다 (정중)",
+      "examples": ["カレーをお願いします。", "コーヒーをお願いします。"]
+    }
+  ],
+
+  "vocabulary": [
+    {"word": "店員", "reading": "てんいん", "meaning": "점원"},
+    {"word": "客", "reading": "きゃく", "meaning": "손님"},
+    {"word": "メニュー", "reading": "めにゅー", "meaning": "메뉴"},
+    {"word": "注文", "reading": "ちゅうもん", "meaning": "주문"},
+    {"word": "飲み物", "reading": "のみもの", "meaning": "음료"},
+    {"word": "水", "reading": "みず", "meaning": "물"},
+    {"word": "お茶", "reading": "おちゃ", "meaning": "차"}
+  ]
+}

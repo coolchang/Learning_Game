@@ -1,0 +1,19 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(python3:*)",
+      "Bash(tree:*)",
+      "Bash(rm:*)",
+      "Bash(mkdir:*)",
+      "Bash(python scripts/srs_algorithm.py:*)",
+      "Bash(chmod:*)",
+      "Bash(python /home/kim-h/.claude/plugins/marketplaces/anthropic-agent-skills/skill-creator/scripts/package_skill.py:*)",
+      "Bash(python:*)",
+      "Bash(awk:*)",
+      "Read(//home/kim-h/.claude/**)",
+      "Skill(learning-game-builder)"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}

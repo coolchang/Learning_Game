@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ドラマ台詞学習 - K-ドラマで韓国語</title>
+    <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
+    <style>
+        :root {
+            --primary: #f59e0b;
+            --primary-dark: #d97706;
+            --font-sans: 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: var(--font-sans);
+            background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+            min-height: 100vh;
+            padding: 1rem;
+        }
+
+        .container { max-width: 1000px; margin: 0 auto; }
+
+        .header {
+            background: white;
+            padding: 1.5rem 2rem;
+            border-radius: 1rem;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+            margin-bottom: 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .header-title { display: flex; align-items: center; gap: 1rem; }
+        .header-title h1 { font-size: 1.75rem; color: var(--primary); }
+
+        .home-btn {
+            padding: 0.5rem 1.5rem;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            color: white;
+            border: none;
+            border-radius: 0.5rem;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .content-area {
+            background: white;
+            padding: 2rem;
+            border-radius: 1rem;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+        }
+
+        .drama-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .drama-card {
+            background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
+            padding: 1.5rem;
+            border-radius: 0.75rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            border: 3px solid transparent;
+        }
+
+        .drama-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--primary);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+        }
+
+        .drama-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #92400e;
+            margin-bottom: 0.5rem;
+        }
+
+        .drama-year {
+            color: #78350f;
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+        }
+
+        .scene-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .scene-card {
+            background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
+            padding: 2rem;
+            border-radius: 0.75rem;
+            margin-bottom: 2rem;
+            border-left: 5px solid var(--primary);
+        }
+
+        .scene-header {
+            background: white;
+            padding: 1rem;
+            border-radius: 0.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .scene-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: #92400e;
+            margin-bottom: 0.5rem;
+        }
+
+        .scene-context {
+            color: #78350f;
+            font-size: 0.95rem;
+        }
+
+        .dialogue-line {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 0.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .character {
+            font-weight: 700;
+            color: var(--primary-dark);
+            margin-bottom: 0.75rem;
+            font-size: 1.1rem;
+        }
+
+        .korean-line {
+            font-size: 1.4rem;
+            color: #1f2937;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .reading-line {
+            color: #6b7280;
+            font-size: 1rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .translation {
+            color: #4b5563;
+            font-style: italic;
+            padding: 0.75rem;
+            background: #f9fafb;
+            border-radius: 0.375rem;
+        }
+
+        .cultural-note {
+            background: #dbeafe;
+            border-left: 4px solid #3b82f6;
+            padding: 1rem;
+            border-radius: 0.375rem;
+            margin-top: 1rem;
+        }
+
+        .note-title {
+            font-weight: 700;
+            color: #1e40af;
+            margin-bottom: 0.5rem;
+        }
+
+        .note-content {
+            color: #1e3a8a;
+            font-size: 0.95rem;
+        }
+
+        @media (max-width: 768px) {
+            .header { flex-direction: column; gap: 1rem; }
+            .korean-line { font-size: 1.1rem; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="header-title">
+                <span style="font-size: 2rem;">🎬</span>
+                <h1>ドラマ台詞モード</h1>
+            </div>
+            <a href="../index.html" class="home-btn">ホームに戻る</a>
+        </div>
+
+        <div class="content-area">
+            <div id="dramaList">
+                <h2 style="margin-bottom: 1.5rem; text-align: center; color: #111827;">
+                    人気ドラマから学ぶ
+                </h2>
+                <div class="drama-grid" id="dramaGrid"></div>
+            </div>
+
+            <div id="sceneView" style="display: none;">
+                <button onclick="backToDramaList()" style="margin-bottom: 1rem; padding: 0.5rem 1rem; background: #6b7280; color: white; border: none; border-radius: 0.5rem; cursor: pointer;">
+                    ⬅ ドラマ一覧に戻る
+                </button>
+                <div class="scene-container" id="sceneContainer"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const dramaData = {
+            drama1: {
+                title: "愛の不時着",
+                year: "2019",
+                scenes: [
+                    {
+                        title: "第1話 - 運命の出会い",
+                        context: "北朝鮮の将校と韓国の財閥令嬢の初対面シーン",
+                        dialogues: [
+                            {
+                                character: "ジョンヒョク",
+                                korean: "여기가 어디라고 생각하세요?",
+                                reading: "ヨギガ オディラゴ センガカセヨ?",
+                                translation: "ここがどこだと思いますか?",
+                                culturalNote: "敬語の使用により初対面の緊張感を表現"
+                            },
+                            {
+                                character: "セリ",
+                                korean: "도와주셔서 감사합니다",
+                                reading: "トワジュショソ カムサハムニダ",
+                                translation: "助けてくださってありがとうございます",
+                                culturalNote: "困難な状況でも礼儀を重んじる韓国文化"
+                            }
+                        ]
+                    }
+                ]
+            },
+            drama2: {
+                title: "梨泰院クラス",
+                year: "2020",
+                scenes: [
+                    {
+                        title: "第1話 - 決意の言葉",
+                        context: "主人公が新しい人生を始める決意をするシーン",
+                        dialogues: [
+                            {
+                                character: "セロイ",
+                                korean: "내 삶은 내가 산다",
+                                reading: "ネ サルムン ネガ サンダ",
+                                translation: "俺の人生は俺が生きる",
+                                culturalNote: "自己決定と意志の強さを示す表現"
+                            },
+                            {
+                                character: "セロイ",
+                                korean: "나는 포기하지 않아",
+                                reading: "ナヌン ポギハジ アナ",
+                                translation: "僕は諦めない",
+                                culturalNote: "韓国ドラマでよく使われる決意表現"
+                            }
+                        ]
+                    }
+                ]
+            },
+            drama3: {
+                title: "トッケビ",
+                year: "2016",
+                scenes: [
+                    {
+                        title: "第5話 - 心の告白",
+                        context: "感情を素直に表現する印象的なシーン",
+                        dialogues: [
+                            {
+                                character: "ウンタク",
+                                korean: "내 첫사랑이 되어줄래요?",
+                                reading: "ネ チョッサランイ デオジュレヨ?",
+                                translation: "私の初恋になってくれますか?",
+                                culturalNote: "ストレートな愛情表現"
+                            },
+                            {
+                                character: "トッケビ",
+                                korean: "너를 기다린 시간들이 헛되지 않았어",
+                                reading: "ノルル キダリン シガンドゥリ ホッデジ アナッソ",
+                                translation: "君を待った時間は無駄じゃなかった",
+                                culturalNote: "ロマンティックな表現の典型例"
+                            }
+                        ]
+                    }
+                ]
+            }
+        };
+
+        function init() {
+            renderDramaList();
+        }
+
+        function renderDramaList() {
+            const grid = document.getElementById('dramaGrid');
+            grid.innerHTML = Object.entries(dramaData).map(([key, drama]) => `
+                <div class="drama-card" onclick="showDrama('${key}')">
+                    <div class="drama-title">${drama.title}</div>
+                    <div class="drama-year">${drama.year}年</div>
+                    <div style="color: #78350f; font-size: 0.9rem;">
+                        ${drama.scenes.length}シーン収録
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function showDrama(dramaKey) {
+            const drama = dramaData[dramaKey];
+            document.getElementById('dramaList').style.display = 'none';
+            document.getElementById('sceneView').style.display = 'block';
+
+            const container = document.getElementById('sceneContainer');
+            container.innerHTML = drama.scenes.map(scene => `
+                <div class="scene-card">
+                    <div class="scene-header">
+                        <div class="scene-title">${scene.title}</div>
+                        <div class="scene-context">${scene.context}</div>
+                    </div>
+
+                    ${scene.dialogues.map(dialogue => `
+                        <div class="dialogue-line">
+                            <div class="character">${dialogue.character}</div>
+                            <div class="korean-line">${dialogue.korean}</div>
+                            <div class="reading-line">${dialogue.reading}</div>
+                            <div class="translation">📝 ${dialogue.translation}</div>
+
+                            ${dialogue.culturalNote ? `
+                                <div class="cultural-note">
+                                    <div class="note-title">文化ノート</div>
+                                    <div class="note-content">${dialogue.culturalNote}</div>
+                                </div>
+                            ` : ''}
+                        </div>
+                    `).join('')}
+                </div>
+            `).join('');
+        }
+
+        function backToDramaList() {
+            document.getElementById('sceneView').style.display = 'none';
+            document.getElementById('dramaList').style.display = 'block';
+        }
+
+        window.addEventListener('DOMContentLoaded', init);
+    </script>
+</body>
+</html>

@@ -1,0 +1,578 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Business English Quiz</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .choice-btn {
+            transition: all 0.3s ease;
+        }
+        .choice-btn:hover:not(:disabled) {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .choice-btn:disabled {
+            cursor: not-allowed;
+        }
+        .correct {
+            background-color: #10b981 !important;
+            color: white !important;
+            border-color: #059669 !important;
+        }
+        .incorrect {
+            background-color: #ef4444 !important;
+            color: white !important;
+            border-color: #dc2626 !important;
+        }
+        .explanation-box {
+            animation: slideDown 0.3s ease-out;
+        }
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        .progress-bar {
+            transition: width 0.5s ease;
+        }
+        .speaker-btn {
+            transition: all 0.2s ease;
+        }
+        .speaker-btn:hover {
+            transform: scale(1.1);
+        }
+        .speaker-btn:active {
+            transform: scale(0.95);
+        }
+        .speaking {
+            animation: pulse 1s ease-in-out infinite;
+        }
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+    </style>
+</head>
+<body class="bg-gray-50 min-h-screen py-8 px-4">
+    <div class="max-w-3xl mx-auto">
+        <!-- Header -->
+        <div class="bg-white rounded-lg shadow-md p-6 mb-6">
+            <div class="flex justify-between items-start mb-4">
+                <div class="flex-1">
+                    <h1 class="text-3xl font-bold text-gray-800 mb-2" id="quiz-title">Business English Quiz</h1>
+                    <p class="text-gray-600" id="quiz-description">Test your business English knowledge</p>
+                </div>
+                <!-- Voice Settings -->
+                <div class="ml-4">
+                    <button id="voice-settings-btn" class="p-2 hover:bg-gray-100 rounded-lg" title="Voice Settings">
+                        ⚙️
+                    </button>
+                </div>
+            </div>
+
+            <!-- Voice Settings Panel (hidden by default) -->
+            <div id="voice-settings" class="hidden mb-4 p-4 bg-gray-50 rounded-lg">
+                <h3 class="font-semibold text-gray-700 mb-3">🔊 Pronunciation Settings</h3>
+                <div class="grid grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-sm text-gray-600 mb-1">Accent</label>
+                        <select id="voice-accent" class="w-full p-2 border rounded">
+                            <option value="en-US">🇺🇸 American</option>
+                            <option value="en-GB">🇬🇧 British</option>
+                            <option value="en-AU">🇦🇺 Australian</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-sm text-gray-600 mb-1">Speed</label>
+                        <select id="voice-rate" class="w-full p-2 border rounded">
+                            <option value="0.75">0.75x (Slow)</option>
+                            <option value="1" selected>1x (Normal)</option>
+                            <option value="1.25">1.25x (Fast)</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="mt-3">
+                    <button id="test-voice-btn" class="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 text-sm">
+                        🔊 Test Voice
+                    </button>
+                </div>
+            </div>
+
+            <!-- Progress Bar -->
+            <div class="mt-4">
+                <div class="flex justify-between text-sm text-gray-600 mb-1">
+                    <span>Progress</span>
+                    <span id="progress-text">0/10</span>
+                </div>
+                <div class="w-full bg-gray-200 rounded-full h-2">
+                    <div class="progress-bar bg-blue-600 h-2 rounded-full" id="progress-bar" style="width: 0%"></div>
+                </div>
+            </div>
+
+            <!-- Score -->
+            <div class="mt-4 flex justify-between items-center">
+                <div class="text-lg font-semibold text-gray-700">
+                    Score: <span id="score" class="text-blue-600">0</span>/<span id="total-questions">10</span>
+                </div>
+                <div class="text-sm text-gray-500" id="difficulty-badge"></div>
+            </div>
+        </div>
+
+        <!-- Quiz Container -->
+        <div id="quiz-container" class="bg-white rounded-lg shadow-md p-6 mb-6">
+            <!-- Question -->
+            <div class="mb-6">
+                <div class="flex justify-between items-center mb-2">
+                    <div class="text-sm text-gray-500">
+                        Question <span id="question-number">1</span> of <span id="question-total">10</span>
+                    </div>
+                    <button id="speak-question-btn" class="speaker-btn p-2 hover:bg-gray-100 rounded-lg" title="Listen to question">
+                        🔊
+                    </button>
+                </div>
+                <h2 class="text-xl font-semibold text-gray-800 mb-4" id="question-text">
+                    Loading question...
+                </h2>
+                <div class="text-sm text-gray-600 italic mb-4" id="question-context"></div>
+            </div>
+
+            <!-- Choices -->
+            <div class="space-y-3" id="choices-container">
+                <!-- Choices will be inserted here -->
+            </div>
+
+            <!-- Explanation -->
+            <div id="explanation" class="hidden explanation-box mt-6 p-4 bg-blue-50 border-l-4 border-blue-500 rounded">
+                <h3 class="font-semibold text-blue-900 mb-2">Explanation</h3>
+                <p class="text-blue-800" id="explanation-text"></p>
+                <div id="alternatives" class="mt-3"></div>
+            </div>
+
+            <!-- Navigation -->
+            <div class="mt-6 flex justify-between">
+                <button id="prev-btn" class="px-4 py-2 bg-gray-200 text-gray-700 rounded-lg hover:bg-gray-300 disabled:opacity-50 disabled:cursor-not-allowed" disabled>
+                    Previous
+                </button>
+                <button id="next-btn" class="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed" disabled>
+                    Next Question
+                </button>
+            </div>
+        </div>
+
+        <!-- Results Screen (hidden initially) -->
+        <div id="results-container" class="hidden bg-white rounded-lg shadow-md p-8 text-center">
+            <div class="mb-6">
+                <div class="text-6xl mb-4" id="results-emoji">🎉</div>
+                <h2 class="text-3xl font-bold text-gray-800 mb-2">Quiz Complete!</h2>
+                <p class="text-xl text-gray-600">
+                    Your Score: <span id="final-score" class="font-bold text-blue-600">0</span>/<span id="final-total">10</span>
+                </p>
+                <p class="text-lg text-gray-600 mt-2">
+                    <span id="percentage" class="font-semibold">0%</span> Correct
+                </p>
+            </div>
+
+            <div class="mb-6 p-4 bg-gray-50 rounded-lg">
+                <h3 class="font-semibold text-gray-800 mb-2" id="performance-title">Great job!</h3>
+                <p class="text-gray-600" id="performance-message"></p>
+            </div>
+
+            <button id="retry-btn" class="px-8 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 text-lg font-semibold">
+                Try Again
+            </button>
+        </div>
+    </div>
+
+    <script>
+        // Quiz Data Structure (to be populated by game_generator.py)
+        const quizData = {
+        "title": "Business Email Quiz",
+        "description": "Test your knowledge of professional email communication",
+        "difficulty": "Intermediate",
+        "questions": [
+                {
+                        "question": "What's the best way to make a polite request in a professional email?",
+                        "context": "Requesting information from a colleague",
+                        "choices": [
+                                "Give me the details.",
+                                "I would appreciate it if you could...",
+                                "I need this now!",
+                                "You should send me..."
+                        ],
+                        "correct": 1,
+                        "explanation": "I would appreciate it if you could... is the most appropriate choice. Polite formal request",
+                        "alternatives": "Example: I would appreciate it if you could review the contract."
+                },
+                {
+                        "question": "What's the best way to make a polite request in a professional email?",
+                        "context": "Requesting information from a colleague",
+                        "choices": [
+                                "You should send me...",
+                                "I need this now!",
+                                "Could you please...?",
+                                "Give me the details."
+                        ],
+                        "correct": 2,
+                        "explanation": "Could you please...? is the most appropriate choice. Polite request",
+                        "alternatives": "Example: Could you please send me the updated document?"
+                },
+                {
+                        "question": "Which phrase is most appropriate for opening a formal business email?",
+                        "context": "First-time email to a business contact",
+                        "choices": [
+                                "I hope this email finds you well.",
+                                "Yo,",
+                                "What's up,",
+                                "Hey there!"
+                        ],
+                        "correct": 0,
+                        "explanation": "I hope this email finds you well. is the most appropriate choice. Polite opening",
+                        "alternatives": "Example: I hope this email finds you well. I wanted to follow up..."
+                },
+                {
+                        "question": "Which phrase is most appropriate for opening a formal business email?",
+                        "context": "First-time email to a business contact",
+                        "choices": [
+                                "Yo,",
+                                "Hi,",
+                                "Dear Sir/Madam,",
+                                "Hey there!"
+                        ],
+                        "correct": 2,
+                        "explanation": "Dear Sir/Madam, is the most appropriate choice. Formal email to unknown recipient",
+                        "alternatives": "Example: Dear Sir/Madam, I am writing to inquire about..."
+                }
+        ]
+};
+
+        // Voice Settings
+        let voiceSettings = {
+            accent: 'en-US',
+            rate: 1.0,
+            pitch: 1.0
+        };
+
+        let synth = window.speechSynthesis;
+        let currentUtterance = null;
+
+        // State
+        let currentQuestion = 0;
+        let score = 0;
+        let answered = false;
+
+        // DOM Elements
+        const elements = {
+            quizTitle: document.getElementById('quiz-title'),
+            quizDescription: document.getElementById('quiz-description'),
+            difficultyBadge: document.getElementById('difficulty-badge'),
+            questionNumber: document.getElementById('question-number'),
+            questionTotal: document.getElementById('question-total'),
+            questionText: document.getElementById('question-text'),
+            questionContext: document.getElementById('question-context'),
+            choicesContainer: document.getElementById('choices-container'),
+            explanation: document.getElementById('explanation'),
+            explanationText: document.getElementById('explanation-text'),
+            alternatives: document.getElementById('alternatives'),
+            nextBtn: document.getElementById('next-btn'),
+            prevBtn: document.getElementById('prev-btn'),
+            score: document.getElementById('score'),
+            totalQuestions: document.getElementById('total-questions'),
+            progressBar: document.getElementById('progress-bar'),
+            progressText: document.getElementById('progress-text'),
+            quizContainer: document.getElementById('quiz-container'),
+            resultsContainer: document.getElementById('results-container'),
+            finalScore: document.getElementById('final-score'),
+            finalTotal: document.getElementById('final-total'),
+            percentage: document.getElementById('percentage'),
+            performanceTitle: document.getElementById('performance-title'),
+            performanceMessage: document.getElementById('performance-message'),
+            resultsEmoji: document.getElementById('results-emoji'),
+            retryBtn: document.getElementById('retry-btn'),
+            voiceSettingsBtn: document.getElementById('voice-settings-btn'),
+            voiceSettings: document.getElementById('voice-settings'),
+            voiceAccent: document.getElementById('voice-accent'),
+            voiceRate: document.getElementById('voice-rate'),
+            testVoiceBtn: document.getElementById('test-voice-btn'),
+            speakQuestionBtn: document.getElementById('speak-question-btn')
+        };
+
+        // Voice Functions
+        function speak(text, callback) {
+            // Stop any ongoing speech
+            if (synth.speaking) {
+                synth.cancel();
+            }
+
+            currentUtterance = new SpeechSynthesisUtterance(text);
+            currentUtterance.lang = voiceSettings.accent;
+            currentUtterance.rate = voiceSettings.rate;
+            currentUtterance.pitch = voiceSettings.pitch;
+
+            // Try to select a voice matching the accent
+            const voices = synth.getVoices();
+            const voice = voices.find(v => v.lang.startsWith(voiceSettings.accent));
+            if (voice) {
+                currentUtterance.voice = voice;
+            }
+
+            if (callback) {
+                currentUtterance.onend = callback;
+            }
+
+            synth.speak(currentUtterance);
+        }
+
+        function stopSpeaking() {
+            if (synth.speaking) {
+                synth.cancel();
+            }
+        }
+
+        // Voice Settings Panel Toggle
+        elements.voiceSettingsBtn.onclick = () => {
+            elements.voiceSettings.classList.toggle('hidden');
+        };
+
+        // Voice Settings Change
+        elements.voiceAccent.onchange = (e) => {
+            voiceSettings.accent = e.target.value;
+        };
+
+        elements.voiceRate.onchange = (e) => {
+            voiceSettings.rate = parseFloat(e.target.value);
+        };
+
+        // Test Voice Button
+        elements.testVoiceBtn.onclick = () => {
+            const btn = elements.testVoiceBtn;
+            btn.classList.add('speaking');
+            speak("Could you please provide me with the details?", () => {
+                btn.classList.remove('speaking');
+            });
+        };
+
+        // Speak Question Button
+        elements.speakQuestionBtn.onclick = () => {
+            const question = quizData.questions[currentQuestion];
+            const text = question.question + '. ' + (question.context || '');
+
+            const btn = elements.speakQuestionBtn;
+            if (synth.speaking) {
+                stopSpeaking();
+                btn.classList.remove('speaking');
+            } else {
+                btn.classList.add('speaking');
+                speak(text, () => {
+                    btn.classList.remove('speaking');
+                });
+            }
+        };
+
+        // Initialize Quiz
+        function initQuiz() {
+            elements.quizTitle.textContent = quizData.title;
+            elements.quizDescription.textContent = quizData.description;
+            elements.difficultyBadge.textContent = `Level: ${quizData.difficulty}`;
+            elements.totalQuestions.textContent = quizData.questions.length;
+            elements.questionTotal.textContent = quizData.questions.length;
+            elements.finalTotal.textContent = quizData.questions.length;
+
+            // Load voices (may take a moment on some browsers)
+            if (synth.getVoices().length === 0) {
+                synth.onvoiceschanged = () => {
+                    // Voices loaded
+                };
+            }
+
+            loadQuestion();
+        }
+
+        // Load Question
+        function loadQuestion() {
+            answered = false;
+            elements.explanation.classList.add('hidden');
+            elements.nextBtn.disabled = true;
+            stopSpeaking();
+            elements.speakQuestionBtn.classList.remove('speaking');
+
+            const question = quizData.questions[currentQuestion];
+
+            elements.questionNumber.textContent = currentQuestion + 1;
+            elements.questionText.textContent = question.question;
+            elements.questionContext.textContent = question.context ? `Context: ${question.context}` : '';
+
+            // Update progress
+            const progress = ((currentQuestion) / quizData.questions.length) * 100;
+            elements.progressBar.style.width = `${progress}%`;
+            elements.progressText.textContent = `${currentQuestion}/${quizData.questions.length}`;
+
+            // Load choices
+            elements.choicesContainer.innerHTML = '';
+            question.choices.forEach((choice, index) => {
+                const choiceDiv = document.createElement('div');
+                choiceDiv.className = 'flex items-center gap-2';
+
+                const button = document.createElement('button');
+                button.className = 'choice-btn flex-1 text-left p-4 border-2 border-gray-300 rounded-lg hover:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500';
+                button.innerHTML = `
+                    <span class="font-semibold text-gray-700">${String.fromCharCode(65 + index)}.</span>
+                    <span class="ml-2 text-gray-800">${choice}</span>
+                `;
+                button.onclick = () => selectAnswer(index, button);
+
+                const speakerBtn = document.createElement('button');
+                speakerBtn.className = 'speaker-btn p-3 hover:bg-gray-100 rounded-lg text-xl';
+                speakerBtn.innerHTML = '🔊';
+                speakerBtn.title = 'Listen to this option';
+                speakerBtn.onclick = (e) => {
+                    e.stopPropagation();
+                    if (synth.speaking) {
+                        stopSpeaking();
+                        speakerBtn.classList.remove('speaking');
+                    } else {
+                        speakerBtn.classList.add('speaking');
+                        speak(choice, () => {
+                            speakerBtn.classList.remove('speaking');
+                        });
+                    }
+                };
+
+                choiceDiv.appendChild(button);
+                choiceDiv.appendChild(speakerBtn);
+                elements.choicesContainer.appendChild(choiceDiv);
+            });
+
+            // Update navigation buttons
+            elements.prevBtn.disabled = currentQuestion === 0;
+        }
+
+        // Select Answer
+        function selectAnswer(selectedIndex, button) {
+            if (answered) return;
+
+            answered = true;
+            stopSpeaking();
+
+            const question = quizData.questions[currentQuestion];
+            const allButtons = elements.choicesContainer.querySelectorAll('.choice-btn');
+
+            // Disable all buttons
+            allButtons.forEach(btn => btn.disabled = true);
+
+            // Disable speaker buttons during answer review
+            const speakerButtons = elements.choicesContainer.querySelectorAll('.speaker-btn');
+            speakerButtons.forEach(btn => btn.disabled = true);
+
+            // Check if correct
+            if (selectedIndex === question.correct) {
+                button.classList.add('correct');
+                score++;
+                elements.score.textContent = score;
+            } else {
+                button.classList.add('incorrect');
+                allButtons[question.correct].classList.add('correct');
+            }
+
+            // Show explanation
+            elements.explanationText.textContent = question.explanation;
+            if (question.alternatives) {
+                elements.alternatives.innerHTML = `
+                    <p class="text-sm text-blue-700">
+                        <strong>Alternative expressions:</strong> ${question.alternatives}
+                    </p>
+                `;
+            } else {
+                elements.alternatives.innerHTML = '';
+            }
+            elements.explanation.classList.remove('hidden');
+
+            // Enable next button
+            elements.nextBtn.disabled = false;
+        }
+
+        // Next Question
+        elements.nextBtn.onclick = () => {
+            currentQuestion++;
+
+            if (currentQuestion < quizData.questions.length) {
+                loadQuestion();
+            } else {
+                showResults();
+            }
+        };
+
+        // Previous Question
+        elements.prevBtn.onclick = () => {
+            if (currentQuestion > 0) {
+                currentQuestion--;
+                loadQuestion();
+            }
+        };
+
+        // Show Results
+        function showResults() {
+            elements.quizContainer.classList.add('hidden');
+            elements.resultsContainer.classList.remove('hidden');
+            stopSpeaking();
+
+            const percentage = Math.round((score / quizData.questions.length) * 100);
+
+            elements.finalScore.textContent = score;
+            elements.percentage.textContent = `${percentage}%`;
+
+            // Performance feedback
+            let emoji, title, message;
+            if (percentage >= 90) {
+                emoji = '🎉';
+                title = 'Excellent!';
+                message = 'You have an outstanding grasp of business English! Keep up the great work.';
+            } else if (percentage >= 70) {
+                emoji = '👍';
+                title = 'Well Done!';
+                message = 'You have a good understanding of business English. A bit more practice will make you perfect!';
+            } else if (percentage >= 50) {
+                emoji = '📚';
+                title = 'Good Effort!';
+                message = 'You\'re on the right track. Review the explanations and try again to improve your score.';
+            } else {
+                emoji = '💪';
+                title = 'Keep Practicing!';
+                message = 'Business English can be tricky. Review the explanations carefully and don\'t give up!';
+            }
+
+            elements.resultsEmoji.textContent = emoji;
+            elements.performanceTitle.textContent = title;
+            elements.performanceMessage.textContent = message;
+
+            // Update progress bar to 100%
+            elements.progressBar.style.width = '100%';
+            elements.progressText.textContent = `${quizData.questions.length}/${quizData.questions.length}`;
+        }
+
+        // Retry Quiz
+        elements.retryBtn.onclick = () => {
+            currentQuestion = 0;
+            score = 0;
+            elements.score.textContent = score;
+            elements.resultsContainer.classList.add('hidden');
+            elements.quizContainer.classList.remove('hidden');
+            loadQuestion();
+        };
+
+        // Cleanup on page unload
+        window.onbeforeunload = () => {
+            stopSpeaking();
+        };
+
+        // Start Quiz
+        initQuiz();
+    </script>
+</body>
+</html>

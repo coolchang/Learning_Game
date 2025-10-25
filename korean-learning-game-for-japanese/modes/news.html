@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>時事ニュース学習 - 現代韓国語マスター</title>
+    <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
+    <style>
+        :root {
+            --primary: #10b981;
+            --primary-dark: #059669;
+            --font-sans: 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: var(--font-sans);
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            min-height: 100vh;
+            padding: 1rem;
+        }
+
+        .container { max-width: 1000px; margin: 0 auto; }
+
+        .header {
+            background: white;
+            padding: 1.5rem 2rem;
+            border-radius: 1rem;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+            margin-bottom: 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .header-title { display: flex; align-items: center; gap: 1rem; }
+        .header-title h1 { font-size: 1.75rem; color: var(--primary); }
+
+        .home-btn {
+            padding: 0.5rem 1.5rem;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            color: white;
+            border: none;
+            border-radius: 0.5rem;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .content-area {
+            background: white;
+            padding: 2rem;
+            border-radius: 1rem;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+        }
+
+        .categories {
+            display: flex;
+            gap: 0.75rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .category-tag {
+            padding: 0.5rem 1rem;
+            background: #d1fae5;
+            border: 2px solid transparent;
+            border-radius: 0.5rem;
+            cursor: pointer;
+            font-weight: 600;
+            color: #065f46;
+            transition: all 0.3s;
+        }
+
+        .category-tag:hover, .category-tag.active {
+            border-color: var(--primary);
+            background: var(--primary);
+            color: white;
+        }
+
+        .news-article {
+            background: #f0fdf4;
+            padding: 2rem;
+            border-radius: 0.75rem;
+            margin-bottom: 2rem;
+            border-left: 5px solid var(--primary);
+        }
+
+        .article-meta {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1rem;
+            color: #059669;
+            font-size: 0.9rem;
+        }
+
+        .article-title {
+            font-size: 1.75rem;
+            font-weight: 700;
+            color: #064e3b;
+            margin-bottom: 1rem;
+        }
+
+        .article-content {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 0.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .korean-text {
+            font-size: 1.2rem;
+            line-height: 1.8;
+            color: #1f2937;
+            margin-bottom: 1rem;
+        }
+
+        .japanese-text {
+            font-size: 1.1rem;
+            line-height: 1.7;
+            color: #4b5563;
+            padding: 1rem;
+            background: #f9fafb;
+            border-radius: 0.375rem;
+            font-style: italic;
+        }
+
+        .vocabulary-box {
+            background: #dbeafe;
+            padding: 1.5rem;
+            border-radius: 0.5rem;
+            margin-top: 1rem;
+        }
+
+        .vocab-title {
+            font-weight: 700;
+            color: #1e40af;
+            margin-bottom: 1rem;
+            font-size: 1.1rem;
+        }
+
+        .vocab-item {
+            background: white;
+            padding: 0.75rem;
+            border-radius: 0.375rem;
+            margin-bottom: 0.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .vocab-word {
+            font-weight: 700;
+            color: #1e3a8a;
+        }
+
+        .vocab-meaning {
+            color: #3730a3;
+        }
+
+        @media (max-width: 768px) {
+            .header { flex-direction: column; gap: 1rem; }
+            .article-title { font-size: 1.3rem; }
+            .vocab-item { flex-direction: column; align-items: flex-start; gap: 0.25rem; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="header-title">
+                <span style="font-size: 2rem;">📰</span>
+                <h1>時事ニュースモード</h1>
+            </div>
+            <a href="../index.html" class="home-btn">ホームに戻る</a>
+        </div>
+
+        <div class="content-area">
+            <h2 style="margin-bottom: 1.5rem; text-align: center; color: #111827;">
+                最新ニュースで韓国語を学習
+            </h2>
+
+            <div class="categories" id="categories"></div>
+            <div id="newsContainer"></div>
+        </div>
+    </div>
+
+    <script>
+        const newsData = {
+            culture: {
+                name: "文化",
+                articles: [
+                    {
+                        title: "K-POP、世界的な人気続く",
+                        date: "2024年10月",
+                        category: "文化",
+                        korean: "한국 대중음악이 전 세계적으로 큰 인기를 얻고 있습니다. K-POP 그룹들은 빌보드 차트에서 좋은 성적을 거두고 있으며, 세계 투어를 통해 많은 팬들과 만나고 있습니다.",
+                        japanese: "韓国の大衆音楽が全世界的に大きな人気を得ています。K-POPグループはビルボードチャートで良い成績を収めており、世界ツアーを通じて多くのファンと会っています。",
+                        vocabulary: [
+                            { word: "대중음악", meaning: "大衆音楽" },
+                            { word: "인기", meaning: "人気" },
+                            { word: "성적", meaning: "成績" },
+                            { word: "투어", meaning: "ツアー" }
+                        ]
+                    }
+                ]
+            },
+            economy: {
+                name: "経済",
+                articles: [
+                    {
+                        title: "韓国IT企業、AI技術に投資拡大",
+                        date: "2024年10月",
+                        category: "経済",
+                        korean: "한국의 주요 IT 기업들이 인공지능 기술 개발에 대규모 투자를 하고 있습니다. 이러한 투자는 미래 기술 경쟁력을 강화하기 위한 전략의 일환입니다.",
+                        japanese: "韓国の主要IT企業が人工知能技術開発に大規模投資をしています。このような投資は未来技術競争力を強化するための戦略の一環です。",
+                        vocabulary: [
+                            { word: "기업", meaning: "企業" },
+                            { word: "인공지능", meaning: "人工知能" },
+                            { word: "투자", meaning: "投資" },
+                            { word: "경쟁력", meaning: "競争力" }
+                        ]
+                    }
+                ]
+            },
+            society: {
+                name: "社会",
+                articles: [
+                    {
+                        title: "若者の環境保護活動が活発",
+                        date: "2024年10月",
+                        category: "社会",
+                        korean: "최근 젊은 세대를 중심으로 환경 보호 활동이 활발하게 진행되고 있습니다. 많은 대학생들이 자원봉사에 참여하며 지속 가능한 미래를 위해 노력하고 있습니다.",
+                        japanese: "最近、若い世代を中心に環境保護活動が活発に進められています。多くの大学生がボランティアに参加し、持続可能な未来のために努力しています。",
+                        vocabulary: [
+                            { word: "세대", meaning: "世代" },
+                            { word: "환경 보호", meaning: "環境保護" },
+                            { word: "자원봉사", meaning: "ボランティア" },
+                            { word: "지속 가능", meaning: "持続可能" }
+                        ]
+                    }
+                ]
+            },
+            technology: {
+                name: "科学技術",
+                articles: [
+                    {
+                        title: "韓国、宇宙開発に成功",
+                        date: "2024年10月",
+                        category: "科学技術",
+                        korean: "한국이 자체 개발한 로켓 발사에 성공하며 우주 개발 역사에 새로운 장을 열었습니다. 이번 성공으로 한국은 세계 7번째 우주 강국이 되었습니다.",
+                        japanese: "韓国が独自開発したロケット打ち上げに成功し、宇宙開発史に新たな章を開きました。今回の成功により韓国は世界7番目の宇宙強国となりました。",
+                        vocabulary: [
+                            { word: "개발", meaning: "開発" },
+                            { word: "로켓", meaning: "ロケット" },
+                            { word: "발사", meaning: "打ち上げ" },
+                            { word: "강국", meaning: "強国" }
+                        ]
+                    }
+                ]
+            }
+        };
+
+        function init() {
+            renderCategories();
+            showCategory('culture');
+        }
+
+        function renderCategories() {
+            const container = document.getElementById('categories');
+            container.innerHTML = Object.entries(newsData).map(([key, value]) => `
+                <div class="category-tag" onclick="showCategory('${key}')">${value.name}</div>
+            `).join('');
+        }
+
+        function showCategory(category) {
+            document.querySelectorAll('.category-tag').forEach(tag => {
+                tag.classList.remove('active');
+            });
+            event?.target?.classList.add('active');
+
+            const data = newsData[category];
+            const container = document.getElementById('newsContainer');
+
+            container.innerHTML = data.articles.map(article => `
+                <div class="news-article">
+                    <div class="article-meta">
+                        <span>📅 ${article.date}</span>
+                        <span>📁 ${article.category}</span>
+                    </div>
+
+                    <div class="article-title">${article.title}</div>
+
+                    <div class="article-content">
+                        <div class="korean-text">${article.korean}</div>
+                        <div class="japanese-text">${article.japanese}</div>
+                    </div>
+
+                    <div class="vocabulary-box">
+                        <div class="vocab-title">📚 重要語彙</div>
+                        ${article.vocabulary.map(vocab => `
+                            <div class="vocab-item">
+                                <span class="vocab-word">${vocab.word}</span>
+                                <span class="vocab-meaning">${vocab.meaning}</span>
+                            </div>
+                        `).join('')}
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        window.addEventListener('DOMContentLoaded', init);
+    </script>
+</body>
+</html>

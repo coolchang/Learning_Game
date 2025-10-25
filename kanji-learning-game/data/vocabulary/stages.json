@@ -1,0 +1,94 @@
+{
+  "version": "1.0",
+  "totalStages": 57,
+  "totalWords": 2050,
+  "levels": {
+    "N5": {
+      "level": "N5",
+      "totalWords": 150,
+      "totalStages": 5,
+      "wordsPerStage": 30,
+      "stages": [
+        {"id": "n5-s1", "stageNumber": 1, "name": "Stage 1: 기본 숫자와 시간", "description": "숫자 1-10, 기본 시간 표현", "wordRange": [0, 29], "wordCount": 30, "theme": "numbers_time"},
+        {"id": "n5-s2", "stageNumber": 2, "name": "Stage 2: 날짜와 요일", "description": "월, 일, 요일 표현", "wordRange": [30, 59], "wordCount": 30, "theme": "dates"},
+        {"id": "n5-s3", "stageNumber": 3, "name": "Stage 3: 일상 동사", "description": "먹다, 가다, 오다 등 기본 동사", "wordRange": [60, 89], "wordCount": 30, "theme": "verbs"},
+        {"id": "n5-s4", "stageNumber": 4, "name": "Stage 4: 형용사와 상태", "description": "크다, 작다, 좋다 등 기본 형용사", "wordRange": [90, 119], "wordCount": 30, "theme": "adjectives"},
+        {"id": "n5-s5", "stageNumber": 5, "name": "Stage 5: 명사와 장소", "description": "학교, 집, 물건 등 기본 명사", "wordRange": [120, 149], "wordCount": 30, "theme": "nouns"}
+      ]
+    },
+    "N4": {
+      "level": "N4",
+      "totalWords": 300,
+      "totalStages": 10,
+      "wordsPerStage": 30,
+      "stages": [
+        {"id": "n4-s1", "stageNumber": 1, "name": "Stage 1: 일상 생활", "description": "생활, 준비, 예정 등", "wordRange": [0, 29], "wordCount": 30, "theme": "daily_life"},
+        {"id": "n4-s2", "stageNumber": 2, "name": "Stage 2: 동작과 변화", "description": "시작하다, 끝나다, 변하다 등", "wordRange": [30, 59], "wordCount": 30, "theme": "actions"},
+        {"id": "n4-s3", "stageNumber": 3, "name": "Stage 3: 감정 표현", "description": "기쁘다, 즐겁다, 슬프다 등", "wordRange": [60, 89], "wordCount": 30, "theme": "emotions"},
+        {"id": "n4-s4", "stageNumber": 4, "name": "Stage 4: 의사소통", "description": "설명, 질문, 대답 등", "wordRange": [90, 119], "wordCount": 30, "theme": "communication"},
+        {"id": "n4-s5", "stageNumber": 5, "name": "Stage 5: 업무와 학습", "description": "일, 회의, 연구 등", "wordRange": [120, 149], "wordCount": 30, "theme": "work_study"},
+        {"id": "n4-s6", "stageNumber": 6, "name": "Stage 6: 자연과 환경", "description": "하늘, 바다, 산 등", "wordRange": [150, 179], "wordCount": 30, "theme": "nature"},
+        {"id": "n4-s7", "stageNumber": 7, "name": "Stage 7: 신체와 건강", "description": "몸, 머리, 병 등", "wordRange": [180, 209], "wordCount": 30, "theme": "health"},
+        {"id": "n4-s8", "stageNumber": 8, "name": "Stage 8: 음식과 맛", "description": "요리, 맛, 달다 등", "wordRange": [210, 239], "wordCount": 30, "theme": "food"},
+        {"id": "n4-s9", "stageNumber": 9, "name": "Stage 9: 교통과 이동", "description": "전철, 버스, 운전 등", "wordRange": [240, 269], "wordCount": 30, "theme": "transportation"},
+        {"id": "n4-s10", "stageNumber": 10, "name": "Stage 10: 시간과 부사", "description": "장래, 과거, 갑자기 등", "wordRange": [270, 299], "wordCount": 30, "theme": "time_adverbs"}
+      ]
+    },
+    "N3": {
+      "level": "N3",
+      "totalWords": 500,
+      "totalStages": 10,
+      "wordsPerStage": 50,
+      "stages": [
+        {"id": "n3-s1", "stageNumber": 1, "name": "Stage 1: 추상 개념 I", "description": "존재, 상황, 조건 등", "wordRange": [0, 49], "wordCount": 50, "theme": "abstract_1"},
+        {"id": "n3-s2", "stageNumber": 2, "name": "Stage 2: 추상 개념 II", "description": "결과, 목적, 방법 등", "wordRange": [50, 99], "wordCount": 50, "theme": "abstract_2"},
+        {"id": "n3-s3", "stageNumber": 3, "name": "Stage 3: 변화와 발전", "description": "변화, 발전, 성장 등", "wordRange": [100, 149], "wordCount": 50, "theme": "change"},
+        {"id": "n3-s4", "stageNumber": 4, "name": "Stage 4: 사회와 문화", "description": "사회, 문화, 전통 등", "wordRange": [150, 199], "wordCount": 50, "theme": "society"},
+        {"id": "n3-s5", "stageNumber": 5, "name": "Stage 5: 심리와 태도", "description": "심리, 태도, 성격 등", "wordRange": [200, 249], "wordCount": 50, "theme": "psychology"},
+        {"id": "n3-s6", "stageNumber": 6, "name": "Stage 6: 행동과 동작", "description": "행동, 동작, 움직임 등", "wordRange": [250, 299], "wordCount": 50, "theme": "behavior"},
+        {"id": "n3-s7", "stageNumber": 7, "name": "Stage 7: 판단과 결정", "description": "판단, 결정, 선택 등", "wordRange": [300, 349], "wordCount": 50, "theme": "decision"},
+        {"id": "n3-s8", "stageNumber": 8, "name": "Stage 8: 관계와 영향", "description": "관계, 영향, 효과 등", "wordRange": [350, 399], "wordCount": 50, "theme": "relationship"},
+        {"id": "n3-s9", "stageNumber": 9, "name": "Stage 9: 표현과 설명", "description": "표현, 설명, 묘사 등", "wordRange": [400, 449], "wordCount": 50, "theme": "expression"},
+        {"id": "n3-s10", "stageNumber": 10, "name": "Stage 10: 정도와 상태", "description": "정도, 상태, 정황 등", "wordRange": [450, 499], "wordCount": 50, "theme": "degree"}
+      ]
+    },
+    "N2": {
+      "level": "N2",
+      "totalWords": 600,
+      "totalStages": 12,
+      "wordsPerStage": 50,
+      "stages": [
+        {"id": "n2-s1", "stageNumber": 1, "name": "Stage 1: 감정과 태도", "description": "경의, 성의, 선의 등", "wordRange": [0, 49], "wordCount": 50, "theme": "emotions_attitudes"},
+        {"id": "n2-s2", "stageNumber": 2, "name": "Stage 2: 정신 개념", "description": "관념, 개념, 이념 등", "wordRange": [50, 99], "wordCount": 50, "theme": "mental_concepts"},
+        {"id": "n2-s3", "stageNumber": 3, "name": "Stage 3: 가치관과 시각", "description": "가치관, 세계관, 인생관 등", "wordRange": [100, 149], "wordCount": 50, "theme": "perspectives"},
+        {"id": "n2-s4", "stageNumber": 4, "name": "Stage 4: 성격과 품성", "description": "겸손, 겸허, 신중 등", "wordRange": [150, 199], "wordCount": 50, "theme": "character"},
+        {"id": "n2-s5", "stageNumber": 5, "name": "Stage 5: 강도와 정밀", "description": "엄격, 엄밀, 치밀 등", "wordRange": [200, 249], "wordCount": 50, "theme": "intensity"},
+        {"id": "n2-s6", "stageNumber": 6, "name": "Stage 6: 힘과 영향", "description": "위력, 매력, 권력 등", "wordRange": [250, 299], "wordCount": 50, "theme": "power"},
+        {"id": "n2-s7", "stageNumber": 7, "name": "Stage 7: 긴급과 시급", "description": "긴급, 긴장, 급속 등", "wordRange": [300, 349], "wordCount": 50, "theme": "urgency"},
+        {"id": "n2-s8", "stageNumber": 8, "name": "Stage 8: 체계와 구조", "description": "체제, 기구, 구조 등", "wordRange": [350, 399], "wordCount": 50, "theme": "systems"},
+        {"id": "n2-s9", "stageNumber": 9, "name": "Stage 9: 직업과 산업", "description": "취직, 퇴직, 산업 등", "wordRange": [400, 449], "wordCount": 50, "theme": "occupation"},
+        {"id": "n2-s10", "stageNumber": 10, "name": "Stage 10: 학술 표현", "description": "검증, 실증, 고찰 등", "wordRange": [450, 499], "wordCount": 50, "theme": "academic"},
+        {"id": "n2-s11", "stageNumber": 11, "name": "Stage 11: 복잡한 감정", "description": "동요, 갈등, 번민 등", "wordRange": [500, 549], "wordCount": 50, "theme": "complex_emotions"},
+        {"id": "n2-s12", "stageNumber": 12, "name": "Stage 12: 고급 표현", "description": "고급 어휘와 표현", "wordRange": [550, 599], "wordCount": 50, "theme": "advanced"}
+      ]
+    },
+    "N1": {
+      "level": "N1",
+      "totalWords": 500,
+      "totalStages": 10,
+      "wordsPerStage": 50,
+      "stages": [
+        {"id": "n1-s1", "stageNumber": 1, "name": "Stage 1: 철학적 개념 I", "description": "개념, 본질, 근본 등", "wordRange": [0, 49], "wordCount": 50, "theme": "philosophical_1"},
+        {"id": "n1-s2", "stageNumber": 2, "name": "Stage 2: 철학적 개념 II", "description": "절대, 상대, 추상 등", "wordRange": [50, 99], "wordCount": 50, "theme": "philosophical_2"},
+        {"id": "n1-s3", "stageNumber": 3, "name": "Stage 3: 정밀한 표현", "description": "미묘, 정밀, 치밀 등", "wordRange": [100, 149], "wordCount": 50, "theme": "precision"},
+        {"id": "n1-s4", "stageNumber": 4, "name": "Stage 4: 학술 용어", "description": "학술적 표현과 용어", "wordRange": [150, 199], "wordCount": 50, "theme": "academic"},
+        {"id": "n1-s5", "stageNumber": 5, "name": "Stage 5: 문학적 표현", "description": "문학적 어휘와 표현", "wordRange": [200, 249], "wordCount": 50, "theme": "literary"},
+        {"id": "n1-s6", "stageNumber": 6, "name": "Stage 6: 고급 추상 개념", "description": "고급 추상 개념", "wordRange": [250, 299], "wordCount": 50, "theme": "abstract_advanced"},
+        {"id": "n1-s7", "stageNumber": 7, "name": "Stage 7: 미묘한 뉘앙스", "description": "미묘한 의미 차이", "wordRange": [300, 349], "wordCount": 50, "theme": "nuance"},
+        {"id": "n1-s8", "stageNumber": 8, "name": "Stage 8: 심리와 정신", "description": "번뇌, 집착, 집념 등", "wordRange": [350, 399], "wordCount": 50, "theme": "psychology"},
+        {"id": "n1-s9", "stageNumber": 9, "name": "Stage 9: 사회 계층", "description": "계층, 계급, 신분 등", "wordRange": [400, 449], "wordCount": 50, "theme": "society"},
+        {"id": "n1-s10", "stageNumber": 10, "name": "Stage 10: 전문 어휘", "description": "전문적 고급 표현", "wordRange": [450, 499], "wordCount": 50, "theme": "specialized"}
+      ]
+    }
+  }
+}
