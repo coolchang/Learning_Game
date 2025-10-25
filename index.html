@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>학습 게임 프로젝트 모음 | Learning Game Collection</title>
+    <meta name="description" content="언어 학습을 위한 다양한 게임 모음 - JLPT 한자, 비즈니스 영어, 일본어, 한국어">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css">
+    <style>
+        :root {
+            --primary: #667eea;
+            --secondary: #764ba2;
+            --success: #10b981;
+            --gray-50: #f9fafb;
+            --gray-100: #f3f4f6;
+            --gray-600: #4b5563;
+            --gray-900: #111827;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 2rem;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        header {
+            text-align: center;
+            color: white;
+            margin-bottom: 3rem;
+        }
+
+        h1 {
+            font-size: clamp(2rem, 5vw, 3.5rem);
+            font-weight: 700;
+            margin-bottom: 1rem;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.2);
+        }
+
+        .subtitle {
+            font-size: clamp(1rem, 2.5vw, 1.5rem);
+            opacity: 0.9;
+        }
+
+        .games-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .game-card {
+            background: white;
+            border-radius: 1rem;
+            padding: 2rem;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            transition: all 0.3s ease;
+            cursor: pointer;
+            text-decoration: none;
+            color: inherit;
+            display: block;
+        }
+
+        .game-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+        }
+
+        .game-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .game-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--gray-900);
+            margin-bottom: 0.5rem;
+        }
+
+        .game-description {
+            color: var(--gray-600);
+            margin-bottom: 1rem;
+            font-size: 0.95rem;
+        }
+
+        .game-stats {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            margin-top: 1rem;
+        }
+
+        .stat-badge {
+            background: var(--gray-100);
+            padding: 0.25rem 0.75rem;
+            border-radius: 1rem;
+            font-size: 0.85rem;
+            color: var(--gray-600);
+            font-weight: 600;
+        }
+
+        .featured {
+            border: 3px solid var(--success);
+            position: relative;
+        }
+
+        .featured::before {
+            content: "⭐ 추천";
+            position: absolute;
+            top: -1rem;
+            right: 1rem;
+            background: var(--success);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 1rem;
+            font-size: 0.85rem;
+            font-weight: 700;
+        }
+
+        .footer {
+            text-align: center;
+            color: white;
+            margin-top: 3rem;
+            opacity: 0.9;
+        }
+
+        .footer a {
+            color: white;
+            text-decoration: underline;
+        }
+
+        @media (max-width: 768px) {
+            body {
+                padding: 1rem;
+            }
+
+            .games-grid {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🎮 학습 게임 프로젝트 모음</h1>
+            <p class="subtitle">재미있게 배우는 언어 학습 플랫폼</p>
+        </header>
+
+        <div class="games-grid">
+            <!-- JLPT 한자 학습 게임 -->
+            <a href="kanji-learning-game/kanji-game-standalone.html" class="game-card featured">
+                <div class="game-icon">🎌</div>
+                <h2 class="game-title">JLPT 한자 학습 게임</h2>
+                <p class="game-description">
+                    일본어 능력시험(JLPT) N5부터 N1까지 체계적으로 학습하는 한자 게임입니다.
+                </p>
+                <div class="game-stats">
+                    <span class="stat-badge">2,050개 단어</span>
+                    <span class="stat-badge">47개 스테이지</span>
+                    <span class="stat-badge">5개 레벨</span>
+                </div>
+            </a>
+
+            <!-- 비즈니스 영어 학습 게임 -->
+            <a href="business-english-game/" class="game-card">
+                <div class="game-icon">💼</div>
+                <h2 class="game-title">비즈니스 영어 학습</h2>
+                <p class="game-description">
+                    실무에서 바로 사용할 수 있는 비즈니스 영어 표현을 학습합니다.
+                </p>
+                <div class="game-stats">
+                    <span class="stat-badge">실무 표현</span>
+                    <span class="stat-badge">산업별 어휘</span>
+                </div>
+            </a>
+
+            <!-- 일본어 플래시카드 -->
+            <a href="japanese-flashcard-game/index.html" class="game-card">
+                <div class="game-icon">🃏</div>
+                <h2 class="game-title">일본어 플래시카드</h2>
+                <p class="game-description">
+                    기본 일본어 어휘를 플래시카드 방식으로 학습합니다.
+                </p>
+                <div class="game-stats">
+                    <span class="stat-badge">플래시카드</span>
+                    <span class="stat-badge">반복 학습</span>
+                </div>
+            </a>
+
+            <!-- 한국어 학습 게임 (일본인용) -->
+            <a href="korean-learning-game-for-japanese/index.html" class="game-card">
+                <div class="game-icon">🇰🇷</div>
+                <h2 class="game-title">한국어 학습 게임</h2>
+                <p class="game-description">
+                    일본인을 위한 한국어 학습 게임입니다. 노래, 드라마, 뉴스로 배웁니다.
+                </p>
+                <div class="game-stats">
+                    <span class="stat-badge">노래 학습</span>
+                    <span class="stat-badge">드라마</span>
+                    <span class="stat-badge">실용 표현</span>
+                </div>
+            </a>
+        </div>
+
+        <footer class="footer">
+            <p>
+                🤖 Generated with <a href="https://claude.ai/claude-code" target="_blank">Claude Code</a>
+            </p>
+            <p style="margin-top: 0.5rem;">
+                <a href="https://github.com/coolchang/Learning_Game" target="_blank">
+                    GitHub Repository
+                </a>
+            </p>
+        </footer>
+    </div>
+</body>
+</html>
